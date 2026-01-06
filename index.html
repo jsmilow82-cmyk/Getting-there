@@ -165,6 +165,36 @@
       <div id="${uid}_dlg" class="dialogueArea hidden" aria-live="polite"></div>
       <div class="note">Tip: click a revealed line to jump to that moment.</div>
     </div>
+<!-- EX1 (Listening comprehension) -->
+<div class="card">
+  <h2 style="margin:0 0 8px; font-size:18px;">1) Listening comprehension</h2>
+  <p class="prompt"><strong>What was the mistake that Maria made?</strong></p>
+
+  <div class="options">
+    <label>
+      <input type="radio" name="${uid}_mistake" value="a">
+      She went to the wrong taxi.
+    </label>
+    <label>
+      <input type="radio" name="${uid}_mistake" value="b">
+      She thought she was going to a natural green place, not a city.
+    </label>
+    <label>
+      <input type="radio" name="${uid}_mistake" value="c">
+      She thought she was going to Manhattan instead of Brooklyn.
+    </label>
+    <label>
+      <input type="radio" name="${uid}_mistake" value="d">
+      She couldn’t understand the name of the place the driver was saying.
+    </label>
+  </div>
+
+  <button id="${uid}_mistake_check" type="button" style="margin-top:14px;">
+    Check answer
+  </button>
+
+  <div id="${uid}_mistake_fb" class="feedback" aria-live="polite"></div>
+</div>
 
     <!-- EX3 (best word) -->
     <div class="card">
@@ -348,6 +378,40 @@
     lastShown = nodes.length - 1;
     currentIdx = -1;
   });
+/* ---------------- Exercise 1: Listening comprehension ---------------- */
+const mistakeFb = document.getElementById(`${uid}_mistake_fb`);
+
+document
+  .getElementById(`${uid}_mistake_check`)
+  .addEventListener("click", () => {
+
+    const sel = document.querySelector(
+      `input[name="${uid}_mistake"]:checked`
+    );
+
+    mistakeFb.style.display = "block";
+
+    if (!sel) {
+      mistakeFb.className = "feedback bad";
+      mistakeFb.textContent = "Choose one option first 🙂";
+      return;
+    }
+
+    if (sel.value === "c") {
+      mistakeFb.className = "feedback good";
+      mistakeFb.textContent =
+        "✅ Correct! She thought she was going to Manhattan instead of Brooklyn.";
+    } else {
+      mistakeFb.className = "feedback bad";
+      mistakeFb.innerHTML = `
+        ❌ Not quite.
+        <div class="note">
+          Maria assumed the address was in Manhattan, but the driver explains
+          that Greenpoint is in Brooklyn.
+        </div>
+      `;
+    }
+});
 
   /* ---------------- Exercise: Best word (lively) ---------------- */
   const bestFb = document.getElementById(`${uid}_best_fb`);
