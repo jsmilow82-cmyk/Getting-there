@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Lesson 2 — The Mix-Up (Listening + Exercises)</title>
+<title>Lesson 3 — Let’s Grab a Coffee</title>
 <style>
   body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;margin:0;background:#fff;}
   .app{max-width:980px;margin:0 auto;padding:18px;}
@@ -21,8 +21,10 @@
   .options{display:grid;gap:8px;margin-top:8px;}
   label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;}
   .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  @media (max-width:720px){ .grid2{grid-template-columns:1fr;} }
 
-  input[type="text"]{width:260px;padding:8px 10px;border:1px solid #bbb;border-radius:10px;font-size:15px;}
+  input[type="text"]{width:280px;max-width:100%;padding:8px 10px;border:1px solid #bbb;border-radius:10px;font-size:15px;}
   select{padding:8px 10px;border:1px solid #bbb;border-radius:10px;font-size:15px;}
 
   .feedback{margin-top:12px;padding:12px;border-radius:12px;border:1px solid #ddd;display:none;}
@@ -38,7 +40,7 @@
   .line.current{opacity:1;padding-left:10px;border-left:3px solid #ddd;}
   .speaker{font-weight:800;margin-right:6px;}
   .maria .speaker{color:#1f4e79;}
-  .dave .speaker{color:#6a1b9a;}
+  .rosie .speaker{color:#0b6b4f;}
 
   /* Prevent weird thin lines inside transcript */
   .dialogueArea,.dialogueArea *{border-top:none!important;border-bottom:none!important;box-shadow:none!important;background-image:none!important;}
@@ -50,45 +52,37 @@
 
 <script>
 (() => {
-  const uid = "l2_" + Math.random().toString(16).slice(2);
+  const uid = "l3_" + Math.random().toString(16).slice(2);
 
-  // Put lesson-02.mp3 in the SAME folder as this index.html
+  // Put lesson-03.mp3 in the SAME folder as this index.html
   const mp3 = "lesson-03.mp3";
-const TIME_SCALE = 0.90;   // < 1 makes transcript happen earlier (audio is ahead)
-const TIME_OFFSET = 0.00;  // seconds; use -0.5 if it’s still a bit late everywhere
-const T = (t) => (t * TIME_SCALE) + TIME_OFFSET;
 
-  // ✅ Removed the “tries to open the door” line
-  // ✅ Shifted all later timestamps earlier to keep alignment (edit as needed)
+  // Speaker names are NOT spoken. Parenthetical actions are excluded (as requested).
+  // Starter timings only; adjust if needed.
   const dialogueLines = [
-    { t: 0.0,  speaker: "Maria", cls:"maria", text: "1-2-3-4?! How stupid!" },
-    { t: 4.5,  speaker: "Maria", cls:"maria", text: "(in Russian) Come on you stupid door; open!" },
-    { t: 8.5,  speaker: "Dave",  cls:"dave",  text: "Hey!" },
-    { t: 10.5, speaker: "Maria", cls:"maria", text: "Oh my god! Don’t hurt me!" },
-    { t: 14.5, speaker: "Dave",  cls:"dave",  text: "What? I’m not going to hurt you, I just want to know why you’re trying to break into my apartment." },
-    { t: 23.0, speaker: "Maria", cls:"maria", text: "Your apartment?! Oh, there must be some mix up. Um, I’m looking for my Air B&B. It’s 1026 Manhattan Avenue. Am I at the right place?" },
-    { t: 36.0, speaker: "Dave",  cls:"dave",  text: "You sure are. But you must be looking for 1026 A, this is 1026 B. You’re just next door." },
-    { t: 46.0, speaker: "Maria", cls:"maria", text: "Oh thanks. Sorry, this must be your door then, haha. What a funny thing to happen: you thought I was trying to break in and rob your place and I thought you were going to mug me." },
-    { t: 62.0, speaker: "Dave",  cls:"dave",  text: "Haha, yeah. Nope I’m just your new neighbor. Anyway, do I look like someone who goes around mugging people?" },
-    { t: 71.0, speaker: "Maria", cls:"maria", text: "Well, I don’t know. I’ve never been mugged before so… Do I look like someone who breaks into people’s houses?" },
-    { t: 80.0, speaker: "Dave",  cls:"dave",  text: "No! I mean, no, of course not. Actually you look really…um, yeah." },
-    { t: 88.0, speaker: "Maria", cls:"maria", text: "Anyway, speaking of crime; Is this neighborhood safe?" },
-    { t: 94.0, speaker: "Dave",  cls:"dave",  text: "Yeah. I know some buildings look a little run-down, but it’s actually a really safe neighborhood." },
-    { t: 101.0, speaker: "Maria", cls:"maria", text: "Great to know." },
-    { t: 103.0, speaker: "Dave",  cls:"dave",  text: "Oh, actually, there was a burglary in that luxury boutique over there on the corner. They say the thieves stole over $300,000 worth of designer clothes." },
-    { t: 115.0, speaker: "Maria", cls:"maria", text: "Wow, that’s crazy!" },
-    { t: 118.0, speaker: "Dave",  cls:"dave",  text: "Yeah, that’s a typical Greenpoint crime I guess." },
-    { t: 122.0, speaker: "Maria", cls:"maria", text: "Haha. I’m Maria by the way." },
-    { t: 126.0, speaker: "Dave",  cls:"dave",  text: "Hi, I’m Dave, nice to meet you. Well, now that you got into your place, do you need help with anything else?" },
-    { t: 134.0, speaker: "Maria", cls:"maria", text: "Thanks, nothing right now, but I know you’re just next door in apartment B if I ever need anything." },
-    { t: 142.0, speaker: "Dave",  cls:"dave",  text: "Yup, I’ll be here. Well, goodnight." }
+    { t: 0.0,  speaker: "Rosie", cls:"rosie", text: "Masha! It’s amazing to see you!" },
+    { t: 3.8,  speaker: "Maria", cls:"maria", text: "I can’t believe it’s really you! It’s been what? Four years?" },
+    { t: 9.2,  speaker: "Rosie", cls:"rosie", text: "Oh my god, four years! New years in Barcelona, right? That was insane!" },
+    { t: 16.0, speaker: "Maria", cls:"maria", text: "Yeah, and you didn’t respond to my text for like two days after that. I had no idea what happened to you." },
+    { t: 25.5, speaker: "Rosie", cls:"rosie", text: "Ha! Yeah, I think I never actually told you the whole story. Come on, let’s go grab a coffee and catch up." },
+    { t: 34.5, speaker: "Maria", cls:"maria", text: "Coffee, yes! You’ve got to show me the good spots around here." },
+    { t: 40.2, speaker: "Rosie", cls:"rosie", text: "To be honest, I usually just grab some to go from the bodega right here on the corner. It’s cheap and strong." },
+    { t: 50.5, speaker: "Maria", cls:"maria", text: "Bodega? Is that something Spanish?" },
+    { t: 53.5, speaker: "Rosie", cls:"rosie", text: "Yeah, the word is Spanish, but the idea of a tiny corner store that serves hot food, coffee and other random stuff is originally a New York thing." },
+    { t: 67.0, speaker: "Maria", cls:"maria", text: "Oh cool! I’ll keep that in mind for when I’m in a rush, but I really wanted to check out some of the cafes. I’ve heard there are some good ones around here." },
+    { t: 82.0, speaker: "Rosie", cls:"rosie", text: "For sure. So, there’s a really nice place around the corner called Branelle. It’s super cute; totally your vibe." },
+    { t: 93.0, speaker: "Maria", cls:"maria", text: "Nice! Any other places we can check out?" },
+    { t: 96.0, speaker: "Rosie", cls:"rosie", text: "A couple blocks down there’s Breadcraft. It’s a bakery with great coffee and croissants. I know how you love almond croissants." },
+    { t: 108.0, speaker: "Maria", cls:"maria", text: "Say no more! I’ve been dying for a croissant. How far did you say it is, two blocks? Let’s go!" },
+    { t: 119.5, speaker: "Rosie", cls:"rosie", text: "OK, but wait up. It’s in the other direction!" }
   ];
 
   const el = document.getElementById("app");
   el.innerHTML = `
-    <h1>Lesson 2 — The Mix-Up</h1>
+    <h1>Let’s Grab a Coffee</h1>
     <p class="sub">Audio first, optional transcript, then exercises.</p>
 
+    <!-- AUDIO + TRANSCRIPT -->
     <div class="card">
       <h2 style="margin:0 0 8px;font-size:18px;">Audio</h2>
       <audio id="${uid}_audio" controls preload="metadata">
@@ -106,50 +100,38 @@ const T = (t) => (t * TIME_SCALE) + TIME_OFFSET;
       <div class="note">Tip: click a revealed line to jump to that moment.</div>
     </div>
 
+    <!-- EX1: MATCHING -->
     <div class="card">
       <h2 style="margin:0 0 8px;font-size:18px;">1) Comprehension</h2>
-      <p class="prompt"><strong>Why did Maria and Dave start talking about crime?</strong></p>
-      <div class="options">
-        <label><input type="radio" name="${uid}_crime" value="a"> Maria was trying to break into Dave’s apartment.</label>
-        <label><input type="radio" name="${uid}_crime" value="b"> Maria wanted to know if the neighborhood was safe.</label>
-        <label><input type="radio" name="${uid}_crime" value="c"> Someone had just stolen expensive clothes from a shop.</label>
-        <label><input type="radio" name="${uid}_crime" value="d"> Maria thought the apartment she’s renting got robbed.</label>
-      </div>
-      <button id="${uid}_crime_check" type="button" style="margin-top:14px;">Check answer</button>
-      <div id="${uid}_crime_fb" class="feedback" aria-live="polite"></div>
-    </div>
-
-    <div class="card">
-      <h2 style="margin:0 0 8px;font-size:18px;">2) Match the crime</h2>
-      <p class="prompt"><strong>Match the crime with its description.</strong></p>
+      <p class="prompt"><strong>Match the establishment with its description.</strong></p>
 
       <div class="row" style="margin-top:10px;">
-        <strong style="min-width:90px;">Burglary</strong>
+        <strong style="min-width:95px;">Branelle</strong>
         <select id="${uid}_m1">
           <option value="">Choose…</option>
-          <option value="a">stealing from a home or business that involves breaking in</option>
-          <option value="b">entering someone’s property illegally</option>
-          <option value="c">stealing from someone in public, using threats or violence</option>
+          <option value="a">a place with great bakery products</option>
+          <option value="b">a place to get take-away food and coffee quickly</option>
+          <option value="c">a cool place to spend time</option>
         </select>
       </div>
 
       <div class="row" style="margin-top:10px;">
-        <strong style="min-width:90px;">Break in</strong>
+        <strong style="min-width:95px;">Bodega</strong>
         <select id="${uid}_m2">
           <option value="">Choose…</option>
-          <option value="a">stealing from a home or business that involves breaking in</option>
-          <option value="b">entering someone’s property illegally</option>
-          <option value="c">stealing from someone in public, using threats or violence</option>
+          <option value="a">a place with great bakery products</option>
+          <option value="b">a place to get take-away food and coffee quickly</option>
+          <option value="c">a cool place to spend time</option>
         </select>
       </div>
 
       <div class="row" style="margin-top:10px;">
-        <strong style="min-width:90px;">Mugging</strong>
+        <strong style="min-width:95px;">Breadcraft</strong>
         <select id="${uid}_m3">
           <option value="">Choose…</option>
-          <option value="a">stealing from a home or business that involves breaking in</option>
-          <option value="b">entering someone’s property illegally</option>
-          <option value="c">stealing from someone in public, using threats or violence</option>
+          <option value="a">a place with great bakery products</option>
+          <option value="b">a place to get take-away food and coffee quickly</option>
+          <option value="c">a cool place to spend time</option>
         </select>
       </div>
 
@@ -157,87 +139,125 @@ const T = (t) => (t * TIME_SCALE) + TIME_OFFSET;
       <div id="${uid}_match_fb" class="feedback" aria-live="polite"></div>
     </div>
 
+    <!-- EX2: ON / AROUND THE CORNER -->
     <div class="card">
-      <h2 style="margin:0 0 8px;font-size:18px;">3) break in / break into</h2>
-      <p class="prompt"><strong>Choose the correct explanation.</strong></p>
+      <h2 style="margin:0 0 8px;font-size:18px;">2) On the corner / Around the corner</h2>
 
-      <div class="options">
-        <label><input type="radio" name="${uid}_phrasal" value="a">
-          <strong>break into</strong> + building (object). <strong>break in</strong> = no object.
-        </label>
-        <label><input type="radio" name="${uid}_phrasal" value="b">
-          <strong>break in</strong> + building (object). <strong>break into</strong> = no object.
-        </label>
-        <label><input type="radio" name="${uid}_phrasal" value="c">
-          They mean the same thing and are always interchangeable.
-        </label>
+      <p class="prompt"><strong>Choose the correct option to complete the sentences.</strong></p>
+
+      <div class="grid2" style="margin-top:10px;">
+        <div>
+          <div class="note" style="margin:0 0 6px;">
+            Describes a place located at one of the corners created by an intersection of two streets.
+          </div>
+          <label style="margin:0;">
+            <select id="${uid}_corner1">
+              <option value="">Choose…</option>
+              <option value="on">On the corner</option>
+              <option value="around">Around the corner</option>
+            </select>
+          </label>
+        </div>
+
+        <div>
+          <div class="note" style="margin:0 0 6px;">
+            Describes a place located nearby, but on a different street.
+          </div>
+          <label style="margin:0;">
+            <select id="${uid}_corner2">
+              <option value="">Choose…</option>
+              <option value="around">Around the corner</option>
+              <option value="on">On the corner</option>
+            </select>
+          </label>
+        </div>
       </div>
 
-      <div class="note">
-        Examples: “break into my apartment” (object) vs “trying to break in” (no object).
-      </div>
-
-      <button id="${uid}_phrasal_check" type="button" style="margin-top:14px;">Check answer</button>
-      <div id="${uid}_phrasal_fb" class="feedback" aria-live="polite"></div>
+      <button id="${uid}_corner_check" type="button" style="margin-top:14px;">Check answers</button>
+      <div id="${uid}_corner_fb" class="feedback" aria-live="polite"></div>
     </div>
 
+    <!-- EX3: GRAB -->
     <div class="card">
-      <h2 style="margin:0 0 8px;font-size:18px;">4) Safe / Safety</h2>
-      <p class="prompt"><strong>Choose the correct option.</strong></p>
+      <h2 style="margin:0 0 8px;font-size:18px;">3) Verb: grab</h2>
+      <p class="prompt"><strong>Which verb is used to talk about quickly getting food or drink in these sentences?</strong></p>
+
+      <div class="note">“I usually just <em>grab</em> a sandwich…” / “Let’s go <em>grab</em> a coffee…”</div>
+
+      <div class="options" style="margin-top:10px;">
+        <label><input type="radio" name="${uid}_grab" value="grab"> grab</label>
+        <label><input type="radio" name="${uid}_grab" value="take"> take</label>
+        <label><input type="radio" name="${uid}_grab" value="make"> make</label>
+        <label><input type="radio" name="${uid}_grab" value="serve"> serve</label>
+      </div>
+
+      <button id="${uid}_grab_check" type="button" style="margin-top:14px;">Check answer</button>
+      <div id="${uid}_grab_fb" class="feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- EX4: CHECK OUT -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">4) Phrasal verb: check out</h2>
+      <p class="prompt"><strong>Complete the sentence with the correct phrasal verb from the story.</strong></p>
+
+      <div class="row" style="margin-top:10px;">
+        <span>Are there any other places we can</span>
+        <input id="${uid}_checkout" type="text" placeholder="..." autocomplete="off" />
+        <span>?</span>
+      </div>
+
+      <button id="${uid}_checkout_check" type="button" style="margin-top:14px;">Check answer</button>
+      <div id="${uid}_checkout_fb" class="feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- EX5: CATCH UP fill -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">5) Phrasal verb: catch up</h2>
+      <p class="prompt"><strong>Complete the sentence with the correct phrasal verb from the story.</strong></p>
+
+      <div class="row" style="margin-top:10px;">
+        <span>Let’s go grab a coffee and</span>
+        <input id="${uid}_catchup" type="text" placeholder="..." autocomplete="off" />
+        <span>.</span>
+      </div>
+
+      <button id="${uid}_catchup_check" type="button" style="margin-top:14px;">Check answer</button>
+      <div id="${uid}_catchup_fb" class="feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- EX6: CATCH UP meaning -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">6) Meaning: catch up</h2>
+      <p class="prompt"><strong>When you catch up, you…</strong></p>
 
       <div class="options">
-        <label><input type="radio" name="${uid}_pos" value="a"> Safe / Safety is an adjective.</label>
-        <label><input type="radio" name="${uid}_pos" value="b"> Safety / Safe is a noun.</label>
+        <label><input type="radio" name="${uid}_catchup_mean" value="a"> tell a friend what you’ve been doing since you last saw them.</label>
+        <label><input type="radio" name="${uid}_catchup_mean" value="b"> try something new with an old friend.</label>
+        <label><input type="radio" name="${uid}_catchup_mean" value="c"> try to find something that you’ve been looking for for a long time.</label>
       </div>
 
-      <button id="${uid}_pos_check" type="button" style="margin-top:14px;">Check answer</button>
-      <div id="${uid}_pos_fb" class="feedback" aria-live="polite"></div>
+      <button id="${uid}_catchup_mean_check" type="button" style="margin-top:14px;">Check answer</button>
+      <div id="${uid}_catchup_mean_fb" class="feedback" aria-live="polite"></div>
+    </div>
 
-      <div style="margin-top:14px;">
-        <p class="prompt"><strong>Fill in the gap with <em>safe</em> or <em>safety</em>.</strong></p>
-        <div class="row">
-          <span>I never really feel</span>
-          <input id="${uid}_g1" type="text" placeholder="safe / safety" autocomplete="off" />
-          <span>in this neighborhood, especially at night.</span>
-        </div>
-        <div class="row" style="margin-top:10px;">
-          <span>I can’t believe we had to sit through a two hour seminar on office</span>
-          <input id="${uid}_g2" type="text" placeholder="safe / safety" autocomplete="off" />
-          <span>today at work.</span>
-        </div>
+    <!-- EX7: DYING FOR -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">7) Phrase: I’ve been…</h2>
+      <p class="prompt"><strong>When you really want something you can say: “I’ve been…”</strong></p>
 
-        <button id="${uid}_g_check" type="button" style="margin-top:14px;">Check answers</button>
-        <div id="${uid}_g_fb" class="feedback" aria-live="polite"></div>
+      <div class="options">
+        <label><input type="radio" name="${uid}_dying" value="a"> killing for</label>
+        <label><input type="radio" name="${uid}_dying" value="b"> attack someone about</label>
+        <label><input type="radio" name="${uid}_dying" value="c"> take a shot at</label>
+        <label><input type="radio" name="${uid}_dying" value="d"> dying for</label>
       </div>
-      <div class="card">
-  <h2 style="margin:0 0 8px;font-size:18px;">5) Vocabulary: run-down</h2>
-  <p class="prompt"><strong>Which sentence best describes a run-down place?</strong></p>
 
-  <div class="options">
-    <label>
-      <input type="radio" name="rundown" value="a">
-      The apartment was a mess; there were dirty clothes and dishes everywhere.
-    </label>
-    <label>
-      <input type="radio" name="rundown" value="b">
-      The house was nearly completely destroyed by the fire.
-    </label>
-    <label>
-      <input type="radio" name="rundown" value="c">
-      The building has a few broken windows and needs to be repainted.
-    </label>
-  </div>
-
-  <button id="rundown-check" type="button" style="margin-top:14px;">
-    Check answer
-  </button>
-
-  <div id="rundown-feedback" class="feedback" aria-live="polite"></div>
-</div>
+      <button id="${uid}_dying_check" type="button" style="margin-top:14px;">Check answer</button>
+      <div id="${uid}_dying_fb" class="feedback" aria-live="polite"></div>
     </div>
   `;
 
-  /* -------- Transcript engine -------- */
+  /* ---------------- Transcript engine ---------------- */
   const audio = document.getElementById(`${uid}_audio`);
   const dlg = document.getElementById(`${uid}_dlg`);
   const showBtn = document.getElementById(`${uid}_show`);
@@ -250,8 +270,7 @@ const T = (t) => (t * TIME_SCALE) + TIME_OFFSET;
     const div = document.createElement("div");
     div.className = `line ${line.cls}`;
     div.innerHTML = `<span class="speaker">${line.speaker}:</span><span>${line.text}</span>`;
-    div.addEventListener("click", () => { audio.currentTime = T(line.t);
- audio.play(); });
+    div.addEventListener("click", () => { audio.currentTime = line.t; audio.play(); });
     dlg.appendChild(div);
     return div;
   });
@@ -269,15 +288,13 @@ const T = (t) => (t * TIME_SCALE) + TIME_OFFSET;
   }
   function revealUpTo(t){
     if (!enabled) return;
-    while (lastShown + 1 < dialogueLines.length && T(dialogueLines[lastShown + 1].t) <= t + 0.05
-){
+    while (lastShown + 1 < dialogueLines.length && dialogueLines[lastShown + 1].t <= t + 0.05){
       lastShown++;
       nodes[lastShown].classList.add("visible","past");
       nodes[lastShown].classList.remove("current");
     }
     let idx = -1;
-    for (let i=0;i<dialogueLines.length;i++){ if (T(dialogueLines[i].t) <= t + 0.05) idx = i;
- else break; }
+    for (let i=0;i<dialogueLines.length;i++){ if (dialogueLines[i].t <= t + 0.05) idx = i; else break; }
     if (idx >= 0 && idx <= lastShown) setCurrent(idx);
   }
 
@@ -309,140 +326,206 @@ const T = (t) => (t * TIME_SCALE) + TIME_OFFSET;
     lastShown = nodes.length - 1; currentIdx = -1;
   });
 
-  /* -------- Helpers -------- */
-  const norm = s => (s||"").trim().toLowerCase().replace(/\s+/g," ").replace(/[.?!,;:()"']/g,"");
+  /* ---------------- Two-try feedback system ---------------- */
+  const attempts = {};
+  const norm = s => (s||"").trim().toLowerCase().replace(/\s+/g," ").replace(/[.?!,;:()"’']/g,"");
 
-  /* -------- EX1: Comprehension (answer = b) -------- */
-  const crimeFb = document.getElementById(`${uid}_crime_fb`);
-  document.getElementById(`${uid}_crime_check`).addEventListener("click", () => {
-    const sel = document.querySelector(`input[name="${uid}_crime"]:checked`);
-    crimeFb.style.display = "block";
-    if (!sel){ crimeFb.className = "feedback bad"; crimeFb.textContent = "Choose one option first 🙂"; return; }
-    if (sel.value === "b"){
-      crimeFb.className = "feedback good";
-      crimeFb.textContent = "✅ Correct!";
-    } else {
-      crimeFb.className = "feedback bad";
-      crimeFb.innerHTML = `❌ Not quite.<div class="note">Correct answer: <strong>Maria wanted to know if the neighborhood was safe.</strong></div>`;
+  function showFB(fbEl, ok, html){
+    fbEl.style.display = "block";
+    fbEl.className = ok ? "feedback good" : "feedback bad";
+    fbEl.innerHTML = html;
+  }
+
+  // checkFn returns { correct: boolean, correctHtml: string, tryAgainHtml?: string, wrongFinalHtml: string }
+  function twoTryCheck(key, fbEl, checkFn){
+    if (!(key in attempts)) attempts[key] = 0;
+    const res = checkFn();
+    if (res.correct){
+      attempts[key] = 0; // reset after success
+      showFB(fbEl, true, res.correctHtml);
+      return;
     }
-  });
+    attempts[key] += 1;
+    if (attempts[key] === 1){
+      showFB(fbEl, false, res.tryAgainHtml || "❌ Try again.");
+    } else {
+      attempts[key] = 0; // reset after showing answer
+      showFB(fbEl, false, res.wrongFinalHtml);
+    }
+  }
 
-  /* -------- EX2: Matching -------- */
+  /* ---------------- EX1 Matching ---------------- */
   const matchFb = document.getElementById(`${uid}_match_fb`);
   document.getElementById(`${uid}_match_check`).addEventListener("click", () => {
-    const m1 = document.getElementById(`${uid}_m1`);
-    const m2 = document.getElementById(`${uid}_m2`);
-    const m3 = document.getElementById(`${uid}_m3`);
-    const ok = (m1.value==="a" && m2.value==="b" && m3.value==="c");
+    twoTryCheck(`${uid}_match`, matchFb, () => {
+      const m1 = document.getElementById(`${uid}_m1`).value;
+      const m2 = document.getElementById(`${uid}_m2`).value;
+      const m3 = document.getElementById(`${uid}_m3`).value;
 
-    matchFb.style.display = "block";
-    if (!m1.value || !m2.value || !m3.value){
-      matchFb.className = "feedback bad";
-      matchFb.textContent = "Choose an option for each one 🙂";
-      return;
-    }
-    if (ok){
-      matchFb.className = "feedback good";
-      matchFb.textContent = "✅ All correct!";
-    } else {
-      matchFb.className = "feedback bad";
-      matchFb.innerHTML = `❌ Not quite.<div class="note">
-        Correct matches:<br>
-        <strong>Burglary</strong> → stealing from a home or business that involves breaking in<br>
-        <strong>Break in</strong> → entering someone’s property illegally<br>
-        <strong>Mugging</strong> → stealing from someone in public, using threats or violence
-      </div>`;
-    }
+      if (!m1 || !m2 || !m3){
+        return {
+          correct:false,
+          tryAgainHtml:"Please choose an option for all three.",
+          wrongFinalHtml:`Correct matches:<br>
+            <strong>Branelle</strong> → a cool place to spend time<br>
+            <strong>Bodega</strong> → a place to get take-away food and coffee quickly<br>
+            <strong>Breadcraft</strong> → a place with great bakery products`
+        };
+      }
+
+      const ok = (m1==="c" && m2==="b" && m3==="a");
+      return ok ? {
+        correct:true,
+        correctHtml:"✅ Correct!"
+      } : {
+        correct:false,
+        tryAgainHtml:"❌ Try again.",
+        wrongFinalHtml:`Correct matches:<br>
+          <strong>Branelle</strong> → a cool place to spend time<br>
+          <strong>Bodega</strong> → a place to get take-away food and coffee quickly<br>
+          <strong>Breadcraft</strong> → a place with great bakery products`
+      };
+    });
   });
 
-  /* -------- EX3: Phrasal verbs -------- */
-  const phFb = document.getElementById(`${uid}_phrasal_fb`);
-  document.getElementById(`${uid}_phrasal_check`).addEventListener("click", () => {
-    const sel = document.querySelector(`input[name="${uid}_phrasal"]:checked`);
-    phFb.style.display = "block";
-    if (!sel){ phFb.className = "feedback bad"; phFb.textContent = "Choose one option first 🙂"; return; }
-    if (sel.value === "a"){
-      phFb.className = "feedback good";
-      phFb.textContent = "✅ Correct!";
-    } else {
-      phFb.className = "feedback bad";
-      phFb.innerHTML = `❌ Not quite.<div class="note">Correct: <strong>break into + building</strong> (object); <strong>break in</strong> (no object).</div>`;
-    }
+  /* ---------------- EX2 Corner ---------------- */
+  const cornerFb = document.getElementById(`${uid}_corner_fb`);
+  document.getElementById(`${uid}_corner_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_corner`, cornerFb, () => {
+      const c1 = document.getElementById(`${uid}_corner1`).value;
+      const c2 = document.getElementById(`${uid}_corner2`).value;
+
+      if (!c1 || !c2){
+        return {
+          correct:false,
+          tryAgainHtml:"Please choose both answers.",
+          wrongFinalHtml:`Correct answers:<br>
+            <strong>On the corner</strong> = at an intersection corner.<br>
+            <strong>Around the corner</strong> = nearby, on a different street.`
+        };
+      }
+
+      const ok = (c1==="on" && c2==="around");
+      return ok ? {
+        correct:true,
+        correctHtml:`✅ Correct!<div class="note"><strong>On the corner</strong> = at the intersection corner. <strong>Around the corner</strong> = nearby.</div>`
+      } : {
+        correct:false,
+        tryAgainHtml:"❌ Try again.",
+        wrongFinalHtml:`Correct answers:<br>
+          <strong>On the corner</strong> = at an intersection corner.<br>
+          <strong>Around the corner</strong> = nearby, on a different street.`
+      };
+    });
   });
 
-  /* -------- EX4: Safe/Safety POS -------- */
-  const posFb = document.getElementById(`${uid}_pos_fb`);
-  document.getElementById(`${uid}_pos_check`).addEventListener("click", () => {
-    const sel = document.querySelector(`input[name="${uid}_pos"]:checked`);
-    posFb.style.display = "block";
-    if (!sel){ posFb.className = "feedback bad"; posFb.textContent = "Choose one option first 🙂"; return; }
-    if (sel.value === "b"){
-      posFb.className = "feedback good";
-      posFb.textContent = "✅ Correct! Safety is a noun; safe is an adjective.";
-    } else {
-      posFb.className = "feedback bad";
-      posFb.innerHTML = `❌ Not quite.<div class="note">Correct: <strong>Safety</strong> is a noun; <strong>safe</strong> is an adjective.</div>`;
-    }
+  /* ---------------- EX3 Grab ---------------- */
+  const grabFb = document.getElementById(`${uid}_grab_fb`);
+  document.getElementById(`${uid}_grab_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_grab`, grabFb, () => {
+      const sel = document.querySelector(`input[name="${uid}_grab"]:checked`);
+      if (!sel){
+        return {
+          correct:false,
+          tryAgainHtml:"Choose one option.",
+          wrongFinalHtml:`Correct answer: <strong>grab</strong>.`
+        };
+      }
+      const ok = (sel.value === "grab");
+      return ok ? {
+        correct:true,
+        correctHtml:`✅ Correct!<div class="note"><em>Grab</em> often means “get quickly,” especially food/drink.</div>`
+      } : {
+        correct:false,
+        tryAgainHtml:"❌ Try again.",
+        wrongFinalHtml:`Correct answer: <strong>grab</strong>.`
+      };
+    });
   });
 
-  /* -------- EX4b: Fill gaps -------- */
-  const gFb = document.getElementById(`${uid}_g_fb`);
-  document.getElementById(`${uid}_g_check`).addEventListener("click", () => {
-    const g1 = document.getElementById(`${uid}_g1`);
-    const g2 = document.getElementById(`${uid}_g2`);
-    const a1 = norm(g1.value), a2 = norm(g2.value);
-
-    gFb.style.display = "block";
-
-    let ok1 = (a1 === "safe"), ok2 = (a2 === "safety");
-    g1.style.borderColor = ok1 ? "#7cc47c" : "#e07a7a";
-    g2.style.borderColor = ok2 ? "#7cc47c" : "#e07a7a";
-
-    if (!a1 || !a2){
-      gFb.className = "feedback bad";
-      gFb.textContent = "Fill in both gaps first 🙂";
-      return;
-    }
-
-    if (ok1 && ok2){
-      gFb.className = "feedback good";
-      gFb.textContent = "✅ Correct!";
-    } else {
-      gFb.className = "feedback bad";
-      gFb.innerHTML = `❌ Not quite.<div class="note">Answers: <strong>safe</strong> (1), <strong>safety</strong> (2).</div>`;
-    }
+  /* ---------------- EX4 Check out (fill) ---------------- */
+  const checkoutFb = document.getElementById(`${uid}_checkout_fb`);
+  document.getElementById(`${uid}_checkout_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_checkout`, checkoutFb, () => {
+      const ans = norm(document.getElementById(`${uid}_checkout`).value);
+      const ok = (ans === "check out");
+      return ok ? {
+        correct:true,
+        correctHtml:`✅ Correct!<div class="note">One meaning of <strong>check out</strong> is to go to a new place and see if you like it or not.</div>`
+      } : {
+        correct:false,
+        tryAgainHtml:"❌ Try again.",
+        wrongFinalHtml:`Correct answer: <strong>check out</strong>.<div class="note">One meaning of <strong>check out</strong> is to go to a new place and see if you like it or not.</div>`
+      };
+    });
   });
-  document.getElementById("rundown-check").addEventListener("click", () => {
-  const fb = document.getElementById("rundown-feedback");
-  const sel = document.querySelector('input[name="rundown"]:checked');
 
-  fb.style.display = "block";
+  /* ---------------- EX5 Catch up (fill) ---------------- */
+  const catchupFb = document.getElementById(`${uid}_catchup_fb`);
+  document.getElementById(`${uid}_catchup_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_catchup`, catchupFb, () => {
+      const ans = norm(document.getElementById(`${uid}_catchup`).value);
+      const ok = (ans === "catch up");
+      return ok ? {
+        correct:true,
+        correctHtml:`✅ Correct!`
+      } : {
+        correct:false,
+        tryAgainHtml:"❌ Try again.",
+        wrongFinalHtml:`Correct answer: <strong>catch up</strong>.`
+      };
+    });
+  });
 
-  if (!sel) {
-    fb.className = "feedback bad";
-    fb.textContent = "Choose one option first 🙂";
-    return;
-  }
+  /* ---------------- EX6 Catch up meaning (MCQ) ---------------- */
+  const catchupMeanFb = document.getElementById(`${uid}_catchup_mean_fb`);
+  document.getElementById(`${uid}_catchup_mean_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_catchup_mean`, catchupMeanFb, () => {
+      const sel = document.querySelector(`input[name="${uid}_catchup_mean"]:checked`);
+      if (!sel){
+        return {
+          correct:false,
+          tryAgainHtml:"Choose one option.",
+          wrongFinalHtml:`Correct answer: <strong>tell a friend what you’ve been doing since you last saw them.</strong>`
+        };
+      }
+      const ok = (sel.value === "a");
+      return ok ? {
+        correct:true,
+        correctHtml:`✅ Correct!<div class="note"><strong>Catch up</strong> = exchange updates after time apart.</div>`
+      } : {
+        correct:false,
+        tryAgainHtml:"❌ Try again.",
+        wrongFinalHtml:`Correct answer: <strong>tell a friend what you’ve been doing since you last saw them.</strong>`
+      };
+    });
+  });
 
-  if (sel.value === "c") {
-    fb.className = "feedback good";
-    fb.innerHTML = `
-      ✅ Correct!<br><br>
-      <strong>Explanation:</strong><br>
-      <em>Run-down</em> is used to talk about structures (houses, buildings, etc.) 
-      and means it is in bad condition, usually because it is old and not properly maintained.
-    `;
-  } else {
-    fb.className = "feedback bad";
-    fb.innerHTML = `
-      ❌ Not quite.<br><br>
-      <strong>Correct answer:</strong><br>
-      The building has a few broken windows and needs to be repainted.
-    `;
-  }
-});
+  /* ---------------- EX7 Dying for (MCQ) ---------------- */
+  const dyingFb = document.getElementById(`${uid}_dying_fb`);
+  document.getElementById(`${uid}_dying_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_dying`, dyingFb, () => {
+      const sel = document.querySelector(`input[name="${uid}_dying"]:checked`);
+      if (!sel){
+        return {
+          correct:false,
+          tryAgainHtml:"Choose one option.",
+          wrongFinalHtml:`Correct answer: <strong>dying for</strong>.<div class="note"><strong>Dying for</strong> is most often used with Present Perfect Continuous. A similar phrase is <strong>I’d kill for…</strong></div>`
+        };
+      }
+      const ok = (sel.value === "d");
+      return ok ? {
+        correct:true,
+        correctHtml:`✅ Correct!<div class="note"><strong>Dying for</strong> is most often used with Present Perfect Continuous. A similar phrase is <strong>I’d kill for…</strong></div>`
+      } : {
+        correct:false,
+        tryAgainHtml:"❌ Try again.",
+        wrongFinalHtml:`Correct answer: <strong>dying for</strong>.<div class="note"><strong>Dying for</strong> is most often used with Present Perfect Continuous. A similar phrase is <strong>I’d kill for…</strong></div>`
+      };
+    });
+  });
+
 })();
 </script>
 </body>
 </html>
-
