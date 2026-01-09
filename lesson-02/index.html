@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Lesson 2 — The Mix-Up (Listening + Exercises)</title>
+<title>Lesson 2 — Door Mix-Up (Listening + Exercises)</title>
 <style>
   body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;margin:0;background:#fff;}
   .app{max-width:980px;margin:0 auto;padding:18px;}
@@ -40,7 +40,7 @@
   .maria .speaker{color:#1f4e79;}
   .dave .speaker{color:#6a1b9a;}
 
-  /* Prevent “thin lines” styling inside transcript */
+  /* Prevent weird thin lines inside transcript */
   .dialogueArea,.dialogueArea *{border-top:none!important;border-bottom:none!important;box-shadow:none!important;background-image:none!important;}
   .dialogueArea hr{display:none!important;}
 </style>
@@ -52,40 +52,40 @@
 (() => {
   const uid = "l2_" + Math.random().toString(16).slice(2);
 
-  // ✅ Set your audio filename here (put it in the SAME folder as this index.html)
+  // Put lesson-02.mp3 in the SAME folder as this index.html
   const mp3 = "lesson-02.mp3";
 
-  // ✅ Transcript timings are placeholders. Adjust t: values whenever you want.
+  // ✅ Removed the “tries to open the door” line
+  // ✅ Shifted all later timestamps earlier to keep alignment (edit as needed)
   const dialogueLines = [
     { t: 0.0,  speaker: "Maria", cls:"maria", text: "1-2-3-4?! How stupid!" },
-    { t: 8.5,  speaker: "Maria", cls:"maria", text: "(in Russian) Come on you stupid door; open!" },
-    { t: 12.5, speaker: "Dave",  cls:"dave",  text: "Hey!" },
-    { t: 14.5, speaker: "Maria", cls:"maria", text: "Oh my god! Don’t hurt me!" },
-    { t: 18.5, speaker: "Dave",  cls:"dave",  text: "What? I’m not going to hurt you, I just want to know why you’re trying to break into my apartment." },
-    { t: 27.0, speaker: "Maria", cls:"maria", text: "Your apartment?! Oh, there must be some mix up. Um, I’m looking for my Air B&B. It’s 1026 Manhattan Avenue. Am I at the right place?" },
-    { t: 40.0, speaker: "Dave",  cls:"dave",  text: "You sure are. But you must be looking for 1026 A, this is 1026 B. You’re just next door." },
-    { t: 50.0, speaker: "Maria", cls:"maria", text: "Oh thanks. Sorry, this must be your door then, haha. What a funny thing to happen: you thought I was trying to break in and rob your place and I thought you were going to mug me." },
-    { t: 66.0, speaker: "Dave",  cls:"dave",  text: "Haha, yeah. Nope I’m just your new neighbor. Anyway, do I look like someone who goes around mugging people?" },
-    { t: 75.0, speaker: "Maria", cls:"maria", text: "Well, I don’t know. I’ve never been mugged before so… Do I look like someone who breaks into people’s houses?" },
-    { t: 84.0, speaker: "Dave",  cls:"dave",  text: "No! I mean, no, of course not. Actually you look really…um, yeah." },
-    { t: 92.0, speaker: "Maria", cls:"maria", text: "Anyway, speaking of crime; Is this neighborhood safe?" },
-    { t: 98.0, speaker: "Dave",  cls:"dave",  text: "Yeah. I know some buildings look a little run-down, but it’s actually a really safe neighborhood." },
-    { t: 106.0, speaker: "Maria", cls:"maria", text: "Great to know." },
-    { t: 109.0, speaker: "Dave",  cls:"dave",  text: "Oh, actually, there was a burglary in that luxury boutique over there on the corner. They say the thieves stole over $300,000 worth of designer clothes." },
-    { t: 122.0, speaker: "Maria", cls:"maria", text: "Wow, that’s crazy!" },
-    { t: 125.0, speaker: "Dave",  cls:"dave",  text: "Yeah, that’s a typical Greenpoint crime I guess." },
-    { t: 129.0, speaker: "Maria", cls:"maria", text: "Haha. I’m Maria by the way." },
-    { t: 133.0, speaker: "Dave",  cls:"dave",  text: "Hi, I’m Dave, nice to meet you. Well, now that you got into your place, do you need help with anything else?" },
-    { t: 143.0, speaker: "Maria", cls:"maria", text: "Thanks, nothing right now, but I know you’re just next door in apartment B if I ever need anything." },
-    { t: 152.0, speaker: "Dave",  cls:"dave",  text: "Yup, I’ll be here. Well, goodnight." }
+    { t: 4.5,  speaker: "Maria", cls:"maria", text: "(in Russian) Come on you stupid door; open!" },
+    { t: 8.5,  speaker: "Dave",  cls:"dave",  text: "Hey!" },
+    { t: 10.5, speaker: "Maria", cls:"maria", text: "Oh my god! Don’t hurt me!" },
+    { t: 14.5, speaker: "Dave",  cls:"dave",  text: "What? I’m not going to hurt you, I just want to know why you’re trying to break into my apartment." },
+    { t: 23.0, speaker: "Maria", cls:"maria", text: "Your apartment?! Oh, there must be some mix up. Um, I’m looking for my Air B&B. It’s 1026 Manhattan Avenue. Am I at the right place?" },
+    { t: 36.0, speaker: "Dave",  cls:"dave",  text: "You sure are. But you must be looking for 1026 A, this is 1026 B. You’re just next door." },
+    { t: 46.0, speaker: "Maria", cls:"maria", text: "Oh thanks. Sorry, this must be your door then, haha. What a funny thing to happen: you thought I was trying to break in and rob your place and I thought you were going to mug me." },
+    { t: 62.0, speaker: "Dave",  cls:"dave",  text: "Haha, yeah. Nope I’m just your new neighbor. Anyway, do I look like someone who goes around mugging people?" },
+    { t: 71.0, speaker: "Maria", cls:"maria", text: "Well, I don’t know. I’ve never been mugged before so… Do I look like someone who breaks into people’s houses?" },
+    { t: 80.0, speaker: "Dave",  cls:"dave",  text: "No! I mean, no, of course not. Actually you look really…um, yeah." },
+    { t: 88.0, speaker: "Maria", cls:"maria", text: "Anyway, speaking of crime; Is this neighborhood safe?" },
+    { t: 94.0, speaker: "Dave",  cls:"dave",  text: "Yeah. I know some buildings look a little run-down, but it’s actually a really safe neighborhood." },
+    { t: 102.0, speaker: "Maria", cls:"maria", text: "Great to know." },
+    { t: 105.0, speaker: "Dave",  cls:"dave",  text: "Oh, actually, there was a burglary in that luxury boutique over there on the corner. They say the thieves stole over $300,000 worth of designer clothes." },
+    { t: 118.0, speaker: "Maria", cls:"maria", text: "Wow, that’s crazy!" },
+    { t: 121.0, speaker: "Dave",  cls:"dave",  text: "Yeah, that’s a typical Greenpoint crime I guess." },
+    { t: 125.0, speaker: "Maria", cls:"maria", text: "Haha. I’m Maria by the way." },
+    { t: 129.0, speaker: "Dave",  cls:"dave",  text: "Hi, I’m Dave, nice to meet you. Well, now that you got into your place, do you need help with anything else?" },
+    { t: 139.0, speaker: "Maria", cls:"maria", text: "Thanks, nothing right now, but I know you’re just next door in apartment B if I ever need anything." },
+    { t: 148.0, speaker: "Dave",  cls:"dave",  text: "Yup, I’ll be here. Well, goodnight." }
   ];
 
   const el = document.getElementById("app");
   el.innerHTML = `
-    <h1>Lesson 2 — The Mix-Up</h1>
+    <h1>Lesson 2 — Door Mix-Up</h1>
     <p class="sub">Audio first, optional transcript, then exercises.</p>
 
-    <!-- AUDIO + DIALOGUE -->
     <div class="card">
       <h2 style="margin:0 0 8px;font-size:18px;">Audio</h2>
       <audio id="${uid}_audio" controls preload="metadata">
@@ -103,7 +103,6 @@
       <div class="note">Tip: click a revealed line to jump to that moment.</div>
     </div>
 
-    <!-- EX1 -->
     <div class="card">
       <h2 style="margin:0 0 8px;font-size:18px;">1) Comprehension</h2>
       <p class="prompt"><strong>Why did Maria and Dave start talking about crime?</strong></p>
@@ -117,7 +116,6 @@
       <div id="${uid}_crime_fb" class="feedback" aria-live="polite"></div>
     </div>
 
-    <!-- EX2 -->
     <div class="card">
       <h2 style="margin:0 0 8px;font-size:18px;">2) Match the crime</h2>
       <p class="prompt"><strong>Match the crime with its description.</strong></p>
@@ -156,7 +154,6 @@
       <div id="${uid}_match_fb" class="feedback" aria-live="polite"></div>
     </div>
 
-    <!-- EX3 -->
     <div class="card">
       <h2 style="margin:0 0 8px;font-size:18px;">3) break in / break into</h2>
       <p class="prompt"><strong>Choose the correct explanation.</strong></p>
@@ -181,7 +178,6 @@
       <div id="${uid}_phrasal_fb" class="feedback" aria-live="polite"></div>
     </div>
 
-    <!-- EX4 -->
     <div class="card">
       <h2 style="margin:0 0 8px;font-size:18px;">4) Safe / Safety</h2>
       <p class="prompt"><strong>Choose the correct option.</strong></p>
