@@ -209,6 +209,31 @@ const T = (t) => (t * TIME_SCALE) + TIME_OFFSET;
         <button id="${uid}_g_check" type="button" style="margin-top:14px;">Check answers</button>
         <div id="${uid}_g_fb" class="feedback" aria-live="polite"></div>
       </div>
+      <div class="card">
+  <h2 style="margin:0 0 8px;font-size:18px;">5) Vocabulary: run-down</h2>
+  <p class="prompt"><strong>Which sentence best describes a run-down place?</strong></p>
+
+  <div class="options">
+    <label>
+      <input type="radio" name="rundown" value="a">
+      The apartment was a mess; there were dirty clothes and dishes everywhere.
+    </label>
+    <label>
+      <input type="radio" name="rundown" value="b">
+      The house was nearly completely destroyed by the fire.
+    </label>
+    <label>
+      <input type="radio" name="rundown" value="c">
+      The building has a few broken windows and needs to be repainted.
+    </label>
+  </div>
+
+  <button id="rundown-check" type="button" style="margin-top:14px;">
+    Check answer
+  </button>
+
+  <div id="rundown-feedback" class="feedback" aria-live="polite"></div>
+</div>
     </div>
   `;
 
@@ -387,6 +412,35 @@ const T = (t) => (t * TIME_SCALE) + TIME_OFFSET;
       gFb.innerHTML = `❌ Not quite.<div class="note">Answers: <strong>safe</strong> (1), <strong>safety</strong> (2).</div>`;
     }
   });
+  document.getElementById("rundown-check").addEventListener("click", () => {
+  const fb = document.getElementById("rundown-feedback");
+  const sel = document.querySelector('input[name="rundown"]:checked');
+
+  fb.style.display = "block";
+
+  if (!sel) {
+    fb.className = "feedback bad";
+    fb.textContent = "Choose one option first 🙂";
+    return;
+  }
+
+  if (sel.value === "c") {
+    fb.className = "feedback good";
+    fb.innerHTML = `
+      ✅ Correct!<br><br>
+      <strong>Explanation:</strong><br>
+      <em>Run-down</em> is used to talk about structures (houses, buildings, etc.) 
+      and means it is in bad condition, usually because it is old and not properly maintained.
+    `;
+  } else {
+    fb.className = "feedback bad";
+    fb.innerHTML = `
+      ❌ Not quite.<br><br>
+      <strong>Correct answer:</strong><br>
+      The building has a few broken windows and needs to be repainted.
+    `;
+  }
+});
 })();
 </script>
 </body>
