@@ -1,1 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Speaking 1: Lessons 1–3 — Running into an Old Friend</title>
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;margin:0;background:#fff;}
+  .app{max-width:980px;margin:0 auto;padding:18px;}
+  .card{border:1px solid #e3e3e3;border-radius:16px;padding:18px;margin:14px 0;}
+  h1{margin:0 0 6px;font-size:26px;}
+  .sub{margin:0 0 10px;opacity:.75;}
+  .topbox{margin-top:10px;padding:14px;border:1px dashed #cfcfcf;border-radius:14px;background:#fafafa;}
+  .topbox p{margin:8px 0;}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  button,a.btn{
+    padding:10px 14px;font-size:14px;border-radius:10px;border:1px solid #bbb;
+    background:#fff;cursor:pointer;text-decoration:none;color:#111;display:inline-block;
+  }
+  button:hover,a.btn:hover{background:#f6f6f6;}
+  .pill{display:inline-block;padding:3px 10px;border-radius:999px;border:1px solid #ddd;font-size:12px;opacity:.8;margin-bottom:10px;}
+  ul{margin:10px 0 0 20px;}
+  .page{display:none;}
+  .page.active{display:block;}
+  .prompt{margin:8px 0 0;font-size:16px;}
+  .examples{margin-top:10px;}
+  .examples li{margin:6px 0;}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- This section appears on EVERY page -->
+  <div class="card">
+    <h1>Speaking 1: Lessons 1–3</h1>
+    <p class="sub">Running into an Old Friend</p>
+
+    <div class="topbox">
+      <p>You’ve just moved to a new neighborhood in your city. It’s your first day in the neighborhood and you are walking around to check it out.</p>
+      <p>You run into an old friend who has lived in the neighborhood for a long time.</p>
+      <p><strong>Your job:</strong> greet your friend, ask questions, and keep the conversation going.</p>
+    </div>
+
+    <div class="btnrow">
+      <button type="button" data-go="0">Page 1</button>
+      <button type="button" data-go="1">Page 2</button>
+      <button type="button" data-go="2">Page 3</button>
+      <button type="button" data-go="3">Page 4</button>
+    </div>
+  </div>
+
+  <!-- PAGE 1 -->
+  <div class="card page active" id="p0">
+    <div class="pill">Page 1 / 4</div>
+    <h2 style="margin:0 0 8px;font-size:18px;">Neighborhood vibe</h2>
+    <p class="prompt"><strong>Ask about the neighborhood in general.</strong></p>
+
+    <p style="margin:10px 0 0;"><strong>Try to use:</strong></p>
+    <ul>
+      <li>lively</li>
+      <li>scene (restaurant / bar / music / nightlife / cafe / food, etc.)</li>
+      <li>remote</li>
+      <li>run-down</li>
+      <li>check out</li>
+    </ul>
+
+    <p class="examples"><strong>Example prompts:</strong></p>
+    <ul>
+      <li>What’s the neighborhood like?</li>
+      <li>Is it lively or more quiet?</li>
+      <li>Is there a good restaurant or nightlife scene?</li>
+      <li>Are there any places I should check out?</li>
+    </ul>
+
+    <div class="btnrow">
+      <button type="button" data-prev>Back</button>
+      <button type="button" data-next>Next</button>
+    </div>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="card page" id="p1">
+    <div class="pill">Page 2 / 4</div>
+    <h2 style="margin:0 0 8px;font-size:18px;">Safety & crime</h2>
+    <p class="prompt"><strong>Ask about safety in the neighborhood.</strong></p>
+
+    <p style="margin:10px 0 0;"><strong>Try to use:</strong></p>
+    <ul>
+      <li>break in</li>
+      <li>break-in</li>
+      <li>break into</li>
+      <li>mug / mugging</li>
+      <li>safe</li>
+      <li>safety</li>
+      <li>burglary</li>
+    </ul>
+
+    <p class="examples"><strong>Example prompts:</strong></p>
+    <ul>
+      <li>Is the neighborhood safe?</li>
+      <li>Have there been any break-ins or burglaries?</li>
+      <li>Do people ever get mugged around here?</li>
+      <li>Do you feel safe walking here at night?</li>
+    </ul>
+
+    <div class="btnrow">
+      <button type="button" data-prev>Back</button>
+      <button type="button" data-next>Next</button>
+    </div>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div class="card page" id="p2">
+    <div class="pill">Page 3 / 4</div>
+    <h2 style="margin:0 0 8px;font-size:18px;">Places & plans</h2>
+    <p class="prompt"><strong>Ask about establishments and make plans to visit one together.</strong></p>
+
+    <p style="margin:10px 0 0;"><strong>Try to use:</strong></p>
+    <ul>
+      <li>on the corner</li>
+      <li>around the corner</li>
+      <li>bodega</li>
+      <li>grab a… (coffee / sandwich / drink, etc.)</li>
+      <li>I’ve been dying for…</li>
+    </ul>
+
+    <p class="examples"><strong>Example prompts:</strong></p>
+    <ul>
+      <li>Are there any good cafes or restaurants around here?</li>
+      <li>Is there a bodega on the corner?</li>
+      <li>Want to grab a coffee?</li>
+      <li>I’ve been dying for a good coffee / croissant / burger.</li>
+    </ul>
+
+    <div class="btnrow">
+      <button type="button" data-prev>Back</button>
+      <button type="button" data-next>Next</button>
+    </div>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div class="card page" id="p3">
+    <div class="pill">Page 4 / 4</div>
+    <h2 style="margin:0 0 8px;font-size:18px;">Full role play</h2>
+    <p class="prompt"><strong>Now do the full role play from start to finish.</strong></p>
+
+    <ul style="margin-top:10px;">
+      <li>Greet your friend</li>
+      <li>Ask about the neighborhood vibe</li>
+      <li>Ask about safety</li>
+      <li>Ask about places to go</li>
+      <li>Make plans together</li>
+    </ul>
+
+    <p class="note" style="margin-top:10px;"><strong>Challenge:</strong> Speak for 3–5 minutes without stopping.</p>
+
+    <div class="btnrow">
+      <button type="button" data-prev>Back</button>
+      <button type="button" data-next>Next</button>
+      <a class="btn" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  const pages = Array.from(document.querySelectorAll('.page'));
+  let idx = 0;
+
+  function show(i){
+    idx = Math.max(0, Math.min(pages.length - 1, i));
+    pages.forEach((p, n) => p.classList.toggle('active', n === idx));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Top navigation buttons
+  document.querySelectorAll('button[data-go]').forEach(btn => {
+    btn.addEventListener('click', () => show(parseInt(btn.getAttribute('data-go'), 10)));
+  });
+
+  // Prev/Next buttons inside pages
+  document.querySelectorAll('button[data-next]').forEach(btn => btn.addEventListener('click', () => show(idx + 1)));
+  document.querySelectorAll('button[data-prev]').forEach(btn => btn.addEventListener('click', () => show(idx - 1)));
+
+  // Optional: allow URL hash like #p2 to open the right page
+  function fromHash(){
+    const h = (location.hash || "").replace("#","");
+    const found = pages.findIndex(p => p.id === h);
+    if (found >= 0) show(found);
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+})();
+</script>
+</body>
+</html>
 
