@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --surface-soft: #f9fafc;
+      --text: #151922;
+      --muted: #6c7483;
+      --line: #e7ebf2;
+      --accent: #4f6ef7;
+      --accent-soft: #eef2ff;
+      --accent-dark: #3852cf;
+      --success: #1f9d68;
+      --shadow: 0 18px 40px rgba(20, 27, 45, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #f9fbff 0%, #f3f5fa 100%);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(249, 251, 255, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(79, 110, 247, 0.08);
+    }
+
+    .topbar-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .brand strong {
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .topnav a {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .topnav a:hover {
+      color: var(--accent-dark);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .button-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .button-secondary {
+      background: white;
+      border-color: var(--line);
+      color: var(--text);
+    }
+
+    .button-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+
+    .hero {
+      padding: 36px 0 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+      border-radius: 999px;
+      padding: 8px 12px;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    h1, h2, h3, h4 {
+      line-height: 1.12;
+      margin: 0 0 14px;
+      letter-spacing: -0.03em;
+    }
+
+    h1 { font-size: clamp(2.1rem, 5vw, 4rem); }
+    h2 { font-size: clamp(1.5rem, 2.5vw, 2.4rem); }
+    h3 { font-size: 1.25rem; }
+    h4 { font-size: 1rem; }
+
+    p { margin: 0; }
+
+    .lead {
+      color: #333b49;
+      max-width: 780px;
+      font-size: 1.05rem;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    .stat strong {
+      font-size: 1.2rem;
+    }
+
+    .progress-card {
+      padding: 28px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+      background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
+    }
+
+    .ring {
+      width: 140px;
+      height: 140px;
+      margin: 6px auto 0;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent) 0 126deg, #e9edfb 126deg 360deg);
+      display: grid;
+      place-items: center;
+    }
+
+    .ring-inner {
+      width: 98px;
+      height: 98px;
+      background: white;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+
+    .progress-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .section {
+      padding: 14px 0 6px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin: 0 0 18px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    .modules {
+      display: grid;
+      gap: 18px;
+    }
+
+    .module-card {
+      padding: 24px;
+    }
+
+    .module-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .module-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .module-meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .module-progress {
+      min-width: 180px;
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+    }
+
+    .bar {
+      width: 100%;
+      height: 9px;
+      background: #e9edf6;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 10px 0 8px;
+    }
+
+    .bar > span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), #7a93ff);
+    }
+
+    .lesson-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .lesson {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface-soft);
+    }
+
+    .lesson-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: white;
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: var(--accent-dark);
+    }
+
+    .lesson p {
+      color: var(--muted);
+      font-size: 0.93rem;
+      margin-top: 4px;
+    }
+
+    .lesson-status {
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 8px 10px;
+      white-space: nowrap;
+    }
+
+    .status-done {
+      background: #eaf8f1;
+      color: var(--success);
+    }
+
+    .status-current {
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+    }
+
+    .status-locked {
+      background: #f2f4f8;
+      color: #8a92a0;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .info-card {
+      padding: 24px;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .checklist li {
+      padding-left: 24px;
+      position: relative;
+      color: #334;
+    }
+
+    .checklist li::before {
+      content: "•";
+      position: absolute;
+      left: 8px;
+      top: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .footer-space { height: 50px; }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid-two {
+        grid-template-columns: 1fr;
+      }
+
+      .module-top {
+        flex-direction: column;
+      }
+
+      .module-progress {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container { width: min(var(--max), calc(100% - 24px)); }
+
+      .topbar-inner {
+        padding: 14px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .mini-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .lesson {
+        grid-template-columns: auto 1fr;
+      }
+
+      .lesson-status {
+        grid-column: 1 / -1;
+        width: fit-content;
+      }
+
+      .hero-card,
+      .progress-card,
+      .module-card,
+      .info-card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <strong>Daria's English Studio</strong>
+        <span>Student dashboard</span>
+      </div>
+
+      <nav class="topnav">
+        <a href="index.html">Homepage</a>
+        <a href="#modules">Modules</a>
+        <a href="#resources">Resources</a>
+        <a href="#plan">Study plan</a>
+        <a href="lesson1.html" class="button button-primary">Go to current lesson</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <article class="card hero-card">
+          <div class="eyebrow">Welcome back</div>
+          <h1>Your learning space</h1>
+          <p class="lead">A clean, focused place to move through the course with structure. Start where you left off, keep track of your progress, and make your English sharper one lesson at a time.</p>
+
+          <div class="hero-actions">
+            <a href="lesson1.html" class="button button-primary">Continue learning</a>
+            <a href="#modules" class="button button-secondary">Browse modules</a>
+          </div>
+
+          <div class="mini-stats">
+            <div class="stat">
+              <div class="stat-label">Current focus</div>
+              <strong>Vocabulary & nuance</strong>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Lessons completed</div>
+              <strong>3 / 12</strong>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Estimated rhythm</div>
+              <strong>2 lessons / week</strong>
+            </div>
+          </div>
+        </article>
+
+        <aside class="card progress-card">
+          <div>
+            <div class="eyebrow">Progress</div>
+            <h2>Course progress</h2>
+          </div>
+
+          <div class="ring">
+            <div class="ring-inner">35%</div>
+          </div>
+
+          <div class="progress-list">
+            <div class="progress-row"><span>Completed lessons</span><strong>3</strong></div>
+            <div class="progress-row"><span>Current module</span><strong>2 of 6</strong></div>
+            <div class="progress-row"><span>Next step</span><strong>Lesson 1</strong></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="modules">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Course modules</h2>
+            <p>Each module gives learners a clear progression: learn, practice, speak, and review. Replace the sample titles below with your real course content whenever you’re ready.</p>
+          </div>
+        </div>
+
+        <div class="modules">
+          <article class="card module-card">
+            <div class="module-top">
+              <div>
+                <div class="module-label">Module 1</div>
+                <h3>Breaking out of plateau English</h3>
+                <div class="module-meta">3 lessons • Foundations for smarter, more intentional progress</div>
+              </div>
+              <div class="module-progress">
+                <strong>Completed</strong>
+                <div class="bar"><span style="width:100%"></span></div>
+                <div class="module-meta">3 of 3 lessons done</div>
+              </div>
+            </div>
+
+            <div class="lesson-list">
+              <a class="lesson" href="lesson1.html">
+                <div class="lesson-number">1</div>
+                <div>
+                  <strong>Why advanced learners plateau</strong>
+                  <p>A lesson on what keeps strong learners sounding simpler than they think.</p>
+                </div>
+                <div class="lesson-status status-done">Done</div>
+              </a>
+
+              <div class="lesson">
+                <div class="lesson-number">2</div>
+                <div>
+                  <strong>What to focus on instead of “more vocabulary”</strong>
+                  <p>Clarify the difference between knowing more words and using English more precisely.</p>
+                </div>
+                <div class="lesson-status status-done">Done</div>
+              </div>
+
+              <div class="lesson">
+                <div class="lesson-number">3</div>
+                <div>
+                  <strong>Building a smarter study system</strong>
+                  <p>Create a study rhythm that supports retention and visible progress.</p>
+                </div>
+                <div class="lesson-status status-done">Done</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card module-card">
+            <div class="module-top">
+              <div>
+                <div class="module-label">Module 2</div>
+                <h3>Smarter vocabulary and collocations</h3>
+                <div class="module-meta">4 lessons • Precision, nuance, and more natural combinations</div>
+              </div>
+              <div class="module-progress">
+                <strong>In progress</strong>
+                <div class="bar"><span style="width:25%"></span></div>
+                <div class="module-meta">1 of 4 lessons completed</div>
+              </div>
+            </div>
+
+            <div class="lesson-list">
+              <a class="lesson" href="lesson1.html">
+                <div class="lesson-number">1</div>
+                <div>
+                  <strong>Using precise language with confidence</strong>
+                  <p>Your current lesson. A clean entry point into nuance and advanced phrasing.</p>
+                </div>
+                <div class="lesson-status status-current">Current</div>
+              </a>
+
+              <div class="lesson">
+                <div class="lesson-number">2</div>
+                <div>
+                  <strong>Collocations that make you sound natural</strong>
+                  <p>Practice word combinations that upgrade the quality of your English instantly.</p>
+                </div>
+                <div class="lesson-status status-locked">Locked</div>
+              </div>
+
+              <div class="lesson">
+                <div class="lesson-number">3</div>
+                <div>
+                  <strong>Shades of meaning and word choice</strong>
+                  <p>Learn how small lexical differences create stronger, more accurate expression.</p>
+                </div>
+                <div class="lesson-status status-locked">Locked</div>
+              </div>
+
+              <div class="lesson">
+                <div class="lesson-number">4</div>
+                <div>
+                  <strong>Revision workshop</strong>
+                  <p>Return to the vocabulary and make it active through guided review tasks.</p>
+                </div>
+                <div class="lesson-status status-locked">Locked</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card module-card">
+            <div class="module-top">
+              <div>
+                <div class="module-label">Module 3</div>
+                <h3>Speaking with confidence and precision</h3>
+                <div class="module-meta">3 lessons • Fluency, clarity, and more confident output</div>
+              </div>
+              <div class="module-progress">
+                <strong>Coming next</strong>
+                <div class="bar"><span style="width:0%"></span></div>
+                <div class="module-meta">Opens after Module 2</div>
+              </div>
+            </div>
+
+            <div class="lesson-list">
+              <div class="lesson">
+                <div class="lesson-number">1</div>
+                <div>
+                  <strong>Speaking in fuller, more flexible sentences</strong>
+                  <p>Expand your ideas naturally without sounding rehearsed or heavy.</p>
+                </div>
+                <div class="lesson-status status-locked">Locked</div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="grid-two">
+          <article class="card info-card" id="resources">
+            <div class="eyebrow">Resources</div>
+            <h3>Keep everything in one place</h3>
+            <ul class="checklist">
+              <li>Add a downloadable vocabulary list for each module.</li>
+              <li>Link revision sheets, audio files, or bonus exercises here.</li>
+              <li>Create a “Start here” guide for new students.</li>
+            </ul>
+          </article>
+
+          <article class="card info-card" id="plan">
+            <div class="eyebrow">Study plan</div>
+            <h3>A simple rhythm for better results</h3>
+            <ul class="checklist">
+              <li>Complete 2 lessons each week.</li>
+              <li>Review vocabulary 10–15 minutes after every lesson.</li>
+              <li>Return to one older lesson every weekend for retention.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-space"></div>
+  </main>
+</body>
+</html>
