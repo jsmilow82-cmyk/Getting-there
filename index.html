@@ -6,111 +6,105 @@
   <title>Advanced English Course</title>
   <style>
     :root {
-      --bg: #f7f4ef;
-      --paper: #fffdf9;
-      --text: #1f1f1f;
-      --muted: #6b6b6b;
-      --line: #e8dfd3;
-      --accent: #b86f52;
-      --accent-dark: #8f533c;
-      --soft: #efe4db;
-      --shadow: 0 18px 40px rgba(40, 26, 17, 0.08);
-      --radius-lg: 28px;
-      --radius-md: 18px;
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --surface-soft: #f9fafc;
+      --text: #151922;
+      --muted: #6c7483;
+      --line: #e7ebf2;
+      --accent: #4f6ef7;
+      --accent-soft: #eef2ff;
+      --accent-dark: #3852cf;
+      --shadow: 0 18px 40px rgba(20, 27, 45, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
       --max: 1180px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      background: linear-gradient(180deg, #fbf8f4 0%, #f4eee7 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
-      line-height: 1.6;
+      background: linear-gradient(180deg, #f9fbff 0%, #f3f5fa 100%);
+      line-height: 1.58;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
     .container {
       width: min(var(--max), calc(100% - 40px));
       margin: 0 auto;
     }
 
-    .site-header {
+    .topbar {
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(10px);
-      background: rgba(251, 248, 244, 0.86);
-      border-bottom: 1px solid rgba(184, 111, 82, 0.12);
+      background: rgba(249, 251, 255, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(79, 110, 247, 0.08);
     }
 
-    .nav {
+    .topbar-inner {
+      min-height: 78px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 0;
       gap: 20px;
     }
 
     .brand {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
-    .brand-title {
-      font-size: 1.05rem;
+    .brand strong {
+      font-size: 0.95rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .brand-subtitle {
+    .brand span {
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.92rem;
     }
 
-    .nav-links {
+    .topnav {
       display: flex;
-      gap: 24px;
       align-items: center;
-      font-size: 0.98rem;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
-    .nav-links a:hover {
-      color: var(--accent-dark);
+    .topnav a {
+      color: var(--muted);
+      font-size: 0.96rem;
     }
+
+    .topnav a:hover { color: var(--accent-dark); }
 
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 13px 22px;
+      min-height: 48px;
+      padding: 0 18px;
       border-radius: 999px;
-      font-size: 0.98rem;
+      border: 1px solid transparent;
+      font-weight: 600;
+      font-size: 0.95rem;
       transition: 0.2s ease;
       cursor: pointer;
-      border: 1px solid transparent;
     }
 
     .button-primary {
       background: var(--accent);
-      color: #fff;
+      color: white;
       box-shadow: var(--shadow);
     }
 
@@ -120,8 +114,9 @@
     }
 
     .button-secondary {
+      background: white;
       border-color: var(--line);
-      background: rgba(255, 255, 255, 0.75);
+      color: var(--text);
     }
 
     .button-secondary:hover {
@@ -130,185 +125,160 @@
     }
 
     .hero {
-      padding: 72px 0 40px;
+      padding: 38px 0 16px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 34px;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 22px;
       align-items: stretch;
     }
 
-    .hero-card,
-    .panel,
-    .testimonial,
-    .faq-item,
-    .module-card,
-    .footer-cta {
-      background: rgba(255, 253, 249, 0.86);
-      border: 1px solid rgba(184, 111, 82, 0.12);
-      border-radius: var(--radius-lg);
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
     }
 
+    .hero-card,
+    .section-card,
+    .feature-card,
+    .module-card,
+    .testimonial,
+    .faq-item,
+    .cta-card {
+      padding: 28px;
+    }
+
     .hero-card {
-      padding: 48px;
+      padding: 34px;
     }
 
     .eyebrow {
-      display: inline-block;
-      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent-dark);
-      background: var(--soft);
+      background: var(--accent-soft);
       border-radius: 999px;
       padding: 8px 12px;
       margin-bottom: 18px;
+      font-weight: 700;
     }
 
     h1, h2, h3 {
-      line-height: 1.15;
-      margin: 0 0 16px;
-      font-weight: 600;
-    }
-
-    h1 {
-      font-size: clamp(2.5rem, 5vw, 4.9rem);
+      line-height: 1.12;
+      margin: 0 0 14px;
       letter-spacing: -0.03em;
     }
 
-    h2 {
-      font-size: clamp(1.8rem, 2.5vw, 3rem);
-      margin-bottom: 18px;
-    }
+    h1 { font-size: clamp(2.3rem, 5vw, 4.5rem); }
+    h2 { font-size: clamp(1.55rem, 2.5vw, 2.5rem); }
+    h3 { font-size: 1.18rem; }
 
-    h3 {
-      font-size: 1.3rem;
-    }
+    p { margin: 0; }
 
     .lead {
-      font-size: 1.16rem;
-      color: #3a3a3a;
-      max-width: 700px;
+      color: #333b49;
+      font-size: 1.06rem;
+      max-width: 720px;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
-      margin: 28px 0 20px;
+      gap: 12px;
+      margin-top: 24px;
     }
 
     .trust-line {
       color: var(--muted);
-      font-size: 0.98rem;
+      margin-top: 20px;
+      font-size: 0.95rem;
     }
 
     .hero-side {
       display: grid;
-      gap: 22px;
+      gap: 18px;
     }
 
-    .hero-photo {
-      min-height: 100%;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at top left, rgba(184, 111, 82, 0.2), transparent 34%),
-        linear-gradient(180deg, #f5e9df 0%, #eadbce 100%);
-    }
-
-    .hero-photo .mockup {
-      height: 100%;
-      min-height: 420px;
-      border-radius: 24px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.65));
-      border: 1px solid rgba(255,255,255,0.9);
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .mockup-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .mockup-screen {
-      background: var(--paper);
-      border-radius: 20px;
-      border: 1px solid var(--line);
-      padding: 22px;
+    .preview-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
       display: grid;
-      gap: 16px;
+      gap: 18px;
+      align-content: start;
     }
 
-    .mockup-pill {
+    .preview-window {
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      border-radius: 24px;
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .window-bar {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 0.9rem;
+      gap: 12px;
+    }
+
+    .preview-pill {
       width: fit-content;
-      background: var(--soft);
-      color: var(--accent-dark);
+      background: white;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 0.84rem;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      color: var(--accent-dark);
+      font-weight: 700;
     }
 
-    .mockup-boxes {
+    .preview-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
     }
 
-    .mockup-box {
-      background: #faf5ef;
+    .preview-box {
+      background: white;
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 14px;
-      min-height: 80px;
+      min-height: 92px;
     }
 
-    .panel {
-      padding: 34px;
-      margin: 26px 0;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-    }
-
-    ul.clean-list {
-      list-style: none;
-      padding: 0;
-      margin: 22px 0 0;
-      display: grid;
-      gap: 14px;
-    }
-
-    ul.clean-list li {
-      padding: 16px 18px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.55);
-    }
-
-    .small-label {
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-size: 0.78rem;
-      margin-bottom: 6px;
+    .preview-box strong {
       display: block;
+      margin-bottom: 6px;
     }
 
+    .section {
+      padding: 14px 0 6px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin: 0 0 18px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    .grid-two,
     .feature-grid,
     .modules-grid,
     .testimonials-grid,
@@ -317,103 +287,91 @@
       gap: 18px;
     }
 
-    .feature-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .grid-two { grid-template-columns: 1fr 1fr; }
+    .feature-grid { grid-template-columns: repeat(3, 1fr); }
+    .modules-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-grid,
+    .faq-grid { grid-template-columns: repeat(3, 1fr); }
 
-    .feature-card {
-      padding: 24px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.65);
-      border: 1px solid var(--line);
-    }
-
+    .section-card p,
     .feature-card p,
     .module-card p,
     .testimonial p,
-    .faq-item p,
-    .panel p {
+    .faq-item p {
+      color: #404857;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
       margin: 0;
-      color: #444;
-    }
-
-    .module-head {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
       gap: 12px;
-      align-items: flex-start;
+    }
+
+    .list li {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px 18px;
+      color: #334;
+    }
+
+    .module-label {
+      display: inline-block;
       margin-bottom: 10px;
-    }
-
-    .module-number {
       color: var(--accent-dark);
-      font-size: 0.92rem;
-      letter-spacing: 0.08em;
+      background: var(--accent-soft);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
+      font-weight: 700;
     }
 
-    .modules-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .module-card,
-    .testimonial,
-    .faq-item {
-      padding: 24px;
-      border-radius: 22px;
-    }
-
-    .testimonials-grid,
-    .faq-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .quote {
-      font-size: 1.05rem;
-      margin-bottom: 18px;
-    }
-
+    .module-meta,
     .person {
       color: var(--muted);
       font-size: 0.94rem;
     }
 
+    .quote {
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
     .about-grid {
       display: grid;
-      grid-template-columns: 0.88fr 1.12fr;
-      gap: 24px;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
       align-items: stretch;
     }
 
     .portrait {
-      min-height: 300px;
-      border-radius: 24px;
-      background:
-        linear-gradient(180deg, rgba(184,111,82,0.14), rgba(184,111,82,0.06)),
-        linear-gradient(140deg, #f0e0d3, #f8f3ee);
-      border: 1px solid rgba(184, 111, 82, 0.12);
+      background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      min-height: 280px;
       display: flex;
       align-items: end;
-      justify-content: start;
       padding: 24px;
-      color: var(--accent-dark);
-      font-size: 1rem;
+      color: var(--muted);
     }
 
-    .footer-cta {
-      padding: 40px;
-      margin: 30px 0 70px;
+    .cta-card {
       text-align: center;
+      margin-top: 4px;
     }
 
-    .footer-cta p {
+    .cta-card p {
       max-width: 760px;
       margin: 0 auto 22px;
-      color: #444;
+      color: #404857;
     }
 
-    .site-footer {
-      padding: 0 0 36px;
+    .footer {
+      padding: 0 0 42px;
       color: var(--muted);
       font-size: 0.92rem;
       text-align: center;
@@ -421,7 +379,7 @@
 
     @media (max-width: 980px) {
       .hero-grid,
-      .two-col,
+      .grid-two,
       .feature-grid,
       .modules-grid,
       .testimonials-grid,
@@ -430,61 +388,40 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-card,
-      .panel,
-      .footer-cta {
-        padding: 28px;
-      }
-
-      .nav {
-        flex-direction: column;
+      .topbar-inner {
+        padding: 14px 0;
         align-items: flex-start;
-      }
-
-      .nav-links {
-        flex-wrap: wrap;
-        gap: 14px 18px;
+        flex-direction: column;
       }
     }
 
-    @media (max-width: 640px) {
-      .container {
-        width: min(var(--max), calc(100% - 24px));
-      }
-
-      .hero {
-        padding-top: 34px;
-      }
-
+    @media (max-width: 700px) {
+      .container { width: min(var(--max), calc(100% - 24px)); }
+      .preview-grid { grid-template-columns: 1fr; }
       .hero-card,
-      .panel,
+      .section-card,
+      .feature-card,
       .module-card,
       .testimonial,
       .faq-item,
-      .footer-cta {
-        border-radius: 20px;
-      }
-
-      .mockup-boxes {
-        grid-template-columns: 1fr;
-      }
+      .cta-card { padding: 22px; }
     }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav">
+  <header class="topbar">
+    <div class="container topbar-inner">
       <div class="brand">
-        <span class="brand-title">Daria's English Studio</span>
-        <span class="brand-subtitle">Advanced English for ambitious adults</span>
+        <strong>Daria's English Studio</strong>
+        <span>Advanced English for ambitious adults</span>
       </div>
 
-      <nav class="nav-links">
+      <nav class="topnav">
         <a href="#about">About</a>
         <a href="#curriculum">Curriculum</a>
         <a href="#results">Results</a>
         <a href="#faq">FAQ</a>
-        <a href="#join" class="button button-primary">Join the course</a>
+        <a href="dashboard.html" class="button button-primary">Go to your course</a>
       </nav>
     </div>
   </header>
@@ -492,223 +429,222 @@
   <main>
     <section class="hero">
       <div class="container hero-grid">
-        <div class="hero-card">
-          <span class="eyebrow">Self-paced online course</span>
+        <article class="card hero-card">
+          <div class="eyebrow">Self-paced online course</div>
           <h1>Advanced English for people who are tired of sounding simpler than they think.</h1>
           <p class="lead">Build sharper vocabulary, more natural fluency, and real confidence through beautifully designed lessons, interactive practice, and a structured learning path for serious adult learners.</p>
 
           <div class="hero-actions">
             <a href="dashboard.html" class="button button-primary">Go to your course</a>
-  <a href="#curriculum" class="button button-secondary">View the curriculum</a>
+            <a href="#curriculum" class="button button-secondary">View the curriculum</a>
           </div>
 
           <p class="trust-line">Created by Daria Talanova • for advanced learners, teachers, and internationally minded professionals</p>
-        </div>
-
-        <div class="hero-side">
-          <div class="hero-photo hero-card">
-            <div class="mockup">
-              <div class="mockup-top">
-                <span>Lesson preview</span>
-                <span>Module 2 • Vocabulary & nuance</span>
-              </div>
-
-              <div class="mockup-screen">
-                <div class="mockup-pill">Interactive lesson</div>
-                <h3>Use precise language with confidence</h3>
-                <p>Learn collocations, advanced phrasing, and speaking patterns that help you sound clearer, more natural, and more convincing.</p>
-                <div class="mockup-boxes">
-                  <div class="mockup-box">
-                    <strong>Speaking tasks</strong>
-                    <p>Guided practice for real fluency</p>
-                  </div>
-                  <div class="mockup-box">
-                    <strong>Smart revision</strong>
-                    <p>Exercises designed for retention</p>
-                  </div>
-                  <div class="mockup-box">
-                    <strong>Natural vocabulary</strong>
-                    <p>Examples in real contexts</p>
-                  </div>
-                  <div class="mockup-box">
-                    <strong>Elegant design</strong>
-                    <p>A calm, focused learning space</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="container panel" id="results">
-      <span class="small-label">This course is for you if...</span>
-      <h2>You already know English — but you still don’t sound like yourself in it.</h2>
-      <div class="two-col">
-        <ul class="clean-list">
-          <li>You can communicate well, but still search for words when you speak.</li>
-          <li>You understand a lot, but your own English sounds flatter or simpler than you want.</li>
-          <li>You want more than random videos, scattered notes, or one-off apps.</li>
-        </ul>
-        <ul class="clean-list">
-          <li>You want structure, beauty, and thoughtful practice in one place.</li>
-          <li>You need advanced English for work, teaching, relocation, or personal growth.</li>
-          <li>You want lessons that feel modern, intelligent, and genuinely useful.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="container panel">
-      <span class="small-label">What you'll achieve</span>
-      <h2>By the end of the course, you will be able to...</h2>
-      <div class="feature-grid">
-        <article class="feature-card">
-          <h3>Express ideas with more nuance</h3>
-          <p>Move beyond safe, generic English and say exactly what you mean.</p>
-        </article>
-        <article class="feature-card">
-          <h3>Use advanced vocabulary naturally</h3>
-          <p>Learn words and collocations in context so they actually become part of your speech.</p>
-        </article>
-        <article class="feature-card">
-          <h3>Speak with more fluency</h3>
-          <p>Reduce hesitation, sound more confident, and build smoother speaking habits.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="container panel" id="curriculum">
-      <span class="small-label">Inside the course</span>
-      <h2>A structured path that helps advanced learners stop plateauing.</h2>
-      <div class="modules-grid">
-        <article class="module-card">
-          <div class="module-head">
-            <div>
-              <div class="module-number">Module 1</div>
-              <h3>Breaking out of plateau English</h3>
-            </div>
-          </div>
-          <p>Understand what’s keeping your English in the upper-intermediate zone and how to move beyond it strategically.</p>
         </article>
 
-        <article class="module-card">
-          <div class="module-head">
-            <div>
-              <div class="module-number">Module 2</div>
-              <h3>Smarter vocabulary and collocations</h3>
-            </div>
-          </div>
-          <p>Learn the phrases, shades of meaning, and natural combinations that make your English sound more polished.</p>
-        </article>
-
-        <article class="module-card">
-          <div class="module-head">
-            <div>
-              <div class="module-number">Module 3</div>
-              <h3>Speaking with confidence and precision</h3>
-            </div>
-          </div>
-          <p>Practice saying more complex things clearly, smoothly, and without overthinking every sentence.</p>
-        </article>
-
-        <article class="module-card">
-          <div class="module-head">
-            <div>
-              <div class="module-number">Module 4</div>
-              <h3>Grammar that supports advanced expression</h3>
-            </div>
-          </div>
-          <p>Focus on high-value grammar points that help you sound more elegant, flexible, and persuasive.</p>
-        </article>
-
-        <article class="module-card">
-          <div class="module-head">
-            <div>
-              <div class="module-number">Module 5</div>
-              <h3>Real-world discussion and fluency work</h3>
-            </div>
-          </div>
-          <p>Use your English actively through guided discussion, reflection, and interactive tasks that feel meaningful.</p>
-        </article>
-
-        <article class="module-card">
-          <div class="module-head">
-            <div>
-              <div class="module-number">Module 6</div>
-              <h3>Revision and long-term retention</h3>
-            </div>
-          </div>
-          <p>Review what matters, keep it active, and build a system that helps your progress last.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="container panel" id="about">
-      <div class="about-grid">
-        <div class="portrait">
+        <aside class="card hero-card preview-card">
           <div>
-            <strong>Your brand photo can go here</strong><br />
-            or a visual preview of the course platform.
+            <div class="eyebrow">Platform preview</div>
+            <h2>A clean, focused learning space</h2>
+            <p class="lead">Designed to feel more like a premium learning product than a cluttered course platform.</p>
+          </div>
+
+          <div class="preview-window">
+            <div class="window-bar">
+              <span>Dashboard view</span>
+              <span>Module 1 • Lesson flow</span>
+            </div>
+            <div class="preview-pill">Interactive lesson design</div>
+            <div class="preview-grid">
+              <div class="preview-box">
+                <strong>Structured modules</strong>
+                Clear progression without overwhelm.
+              </div>
+              <div class="preview-box">
+                <strong>Smart revision</strong>
+                Lessons built for retention, not cramming.
+              </div>
+              <div class="preview-box">
+                <strong>Audio + speaking</strong>
+                Practice that actually supports fluency.
+              </div>
+              <div class="preview-box">
+                <strong>Elegant interface</strong>
+                Calm visuals that help students focus.
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="results">
+      <div class="container grid-two">
+        <article class="card section-card">
+          <div class="eyebrow">This course is for you if...</div>
+          <h2>You already know English — but you still don’t sound like yourself in it.</h2>
+          <ul class="list">
+            <li>You can communicate well, but still search for words when you speak.</li>
+            <li>You understand a lot, but your own English sounds flatter or simpler than you want.</li>
+            <li>You want more than random videos, scattered notes, or one-off apps.</li>
+          </ul>
+        </article>
+
+        <article class="card section-card">
+          <div class="eyebrow">What you'll achieve</div>
+          <h2>By the end of the course, you will be able to...</h2>
+          <ul class="list">
+            <li>Express ideas with more nuance and precision.</li>
+            <li>Use advanced vocabulary more naturally in speech.</li>
+            <li>Speak with more fluency, confidence, and clarity.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>What makes the learning experience different</h2>
+            <p>This is not a random library of disconnected exercises. It’s a curated learning path built for advanced learners who want better English, better retention, and a better study experience.</p>
           </div>
         </div>
 
-        <div>
-          <span class="small-label">Why learn with me</span>
+        <div class="feature-grid">
+          <article class="card feature-card">
+            <h3>Designed for advanced learners</h3>
+            <p>Every lesson is built around nuance, precision, and the real problems high-level learners face.</p>
+          </article>
+          <article class="card feature-card">
+            <h3>Interactive and guided</h3>
+            <p>Students don’t just read. They listen, speak, revise, and move through a clear structure.</p>
+          </article>
+          <article class="card feature-card">
+            <h3>Clean and motivating</h3>
+            <p>The platform feels calm, polished, and easy to navigate — which makes studying far more appealing.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="curriculum">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Curriculum preview</h2>
+            <p>A structured path that helps advanced learners stop plateauing and start sounding more precise, natural, and confident.</p>
+          </div>
+        </div>
+
+        <div class="modules-grid">
+          <article class="card module-card">
+            <div class="module-label">Module 1</div>
+            <h3>Breaking out of plateau English</h3>
+            <p>Understand what keeps strong learners stuck and build a smarter foundation for real progress.</p>
+          </article>
+          <article class="card module-card">
+            <div class="module-label">Module 2</div>
+            <h3>Smarter vocabulary and collocations</h3>
+            <p>Learn higher-value language that helps your English sound more polished and more natural.</p>
+          </article>
+          <article class="card module-card">
+            <div class="module-label">Module 3</div>
+            <h3>Speaking with confidence and precision</h3>
+            <p>Practice expressing more complex ideas clearly, smoothly, and with less hesitation.</p>
+          </article>
+          <article class="card module-card">
+            <div class="module-label">Module 4</div>
+            <h3>Grammar for advanced expression</h3>
+            <p>Focus on grammar that genuinely improves range, control, and elegance in communication.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="portrait card">
+          <div>
+            Add your brand photo, platform screenshot, or course visual here.
+          </div>
+        </div>
+
+        <article class="card section-card">
+          <div class="eyebrow">Why learn with me</div>
           <h2>Designed by a teacher who understands advanced learners deeply.</h2>
           <p>I’m Daria Talanova, an English teacher and school founder who has spent years helping high-level learners sound clearer, sharper, and more natural in English. I create materials that are practical, elegant, and genuinely engaging — so studying feels focused, modern, and motivating.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>What students often say</h2>
+            <p>Replace these with your real testimonials when you’re ready.</p>
+          </div>
+        </div>
+
+        <div class="testimonials-grid">
+          <article class="card testimonial">
+            <p class="quote">“For the first time, I felt like someone understood exactly why I was stuck — and how to help me move forward.”</p>
+            <div class="person">Anna • English teacher</div>
+          </article>
+          <article class="card testimonial">
+            <p class="quote">“The lessons are beautiful, clear, and incredibly useful. I finally started using advanced vocabulary naturally.”</p>
+            <div class="person">Elena • Marketing professional</div>
+          </article>
+          <article class="card testimonial">
+            <p class="quote">“This course made my English sound more like me — not just correct, but precise and confident.”</p>
+            <div class="person">Sofia • Relocation client</div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="container panel">
-      <span class="small-label">Student feedback</span>
-      <h2>What students often say after working with me</h2>
-      <div class="testimonials-grid">
-        <article class="testimonial">
-          <p class="quote">“For the first time, I felt like someone understood exactly why I was stuck — and how to help me move forward.”</p>
-          <div class="person">Anna • English teacher</div>
-        </article>
-        <article class="testimonial">
-          <p class="quote">“The lessons are beautiful, clear, and incredibly useful. I finally started using advanced vocabulary naturally.”</p>
-          <div class="person">Elena • Marketing professional</div>
-        </article>
-        <article class="testimonial">
-          <p class="quote">“This course made my English sound more like me — not just correct, but precise and confident.”</p>
-          <div class="person">Sofia • Relocation client</div>
-        </article>
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>FAQ</h2>
+            <p>A few key questions before joining.</p>
+          </div>
+        </div>
+
+        <div class="faq-grid">
+          <article class="card faq-item">
+            <h3>What level do I need?</h3>
+            <p>This course is best for upper-intermediate to advanced learners who already communicate in English and want more nuance, fluency, and precision.</p>
+          </article>
+          <article class="card faq-item">
+            <h3>Is it self-paced?</h3>
+            <p>Yes. Students can move through the lessons on their own schedule and return to materials whenever they need revision.</p>
+          </article>
+          <article class="card faq-item">
+            <h3>How do I access the course?</h3>
+            <p>Access happens through your private course platform, where lessons, audio, and structured navigation are all in one place.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section class="container panel" id="faq">
-      <span class="small-label">FAQ</span>
-      <h2>Questions you might have before joining</h2>
-      <div class="faq-grid">
-        <article class="faq-item">
-          <h3>What level do I need?</h3>
-          <p>This course is best for upper-intermediate to advanced learners who can already communicate in English and want more nuance, fluency, and precision.</p>
-        </article>
-        <article class="faq-item">
-          <h3>Is it self-paced?</h3>
-          <p>Yes. You can move through the lessons on your own schedule and come back to materials whenever you need revision.</p>
-        </article>
-        <article class="faq-item">
-          <h3>Will I get lifetime access?</h3>
-          <p>Replace this section with your actual access policy once you decide how you want to run enrollment.</p>
+    <section class="section">
+      <div class="container">
+        <article class="card cta-card">
+          <div class="eyebrow">Ready to begin?</div>
+          <h2>Move beyond upper-intermediate English and build a version of English that feels more powerful, precise, and fully yours.</h2>
+          <p>You can connect this to your external payment page, an application form, a waitlist, or a private enrollment flow later.</p>
+          <a href="dashboard.html" class="button button-primary">Go to your course</a>
         </article>
       </div>
-    </section>
-
-    <section class="container footer-cta" id="join">
-      <span class="small-label">Ready to join?</span>
-      <h2>Move beyond upper-intermediate English and build a version of English that feels more powerful, precise, and fully yours.</h2>
-      <p>You can connect this button later to your external payment page, an application form, a waitlist, or a private enrollment flow.</p>
-      <a href="#" class="button button-primary">Join the course</a>
     </section>
   </main>
 
-  <footer class="site-footer container">
+  <footer class="footer container">
     © 2026 Daria's English Studio • Built for advanced learners
   </footer>
 </body>
 </html>
+
