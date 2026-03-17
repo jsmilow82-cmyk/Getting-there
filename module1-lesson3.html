@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lesson 3 — Let’s Grab a Coffee</title>
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;margin:0;background:#fff;}
+  .app{max-width:980px;margin:0 auto;padding:18px;}
+  .card{border:1px solid #e3e3e3;border-radius:16px;padding:18px;margin:14px 0;}
+  h1{margin:0 0 6px;font-size:26px;}
+  .sub{margin:0 0 14px;opacity:.75;}
+  audio{width:100%;margin:10px 0 6px;}
+
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 12px;align-items:center;}
+  button{padding:10px 14px;font-size:14px;border-radius:10px;border:1px solid #bbb;background:#fff;cursor:pointer;}
+  button:hover{background:#f6f6f6;}
+  .hidden{display:none;}
+
+  .prompt{margin:6px 0 12px;font-size:16px;}
+  .options{display:grid;gap:8px;margin-top:8px;}
+  label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  @media (max-width:720px){ .grid2{grid-template-columns:1fr;} }
+
+  input[type="text"]{width:280px;max-width:100%;padding:8px 10px;border:1px solid #bbb;border-radius:10px;font-size:15px;}
+  select{padding:8px 10px;border:1px solid #bbb;border-radius:10px;font-size:15px;}
+
+  .feedback{margin-top:12px;padding:12px;border-radius:12px;border:1px solid #ddd;display:none;}
+  .feedback.good{border-color:#7cc47c;}
+  .feedback.bad{border-color:#e07a7a;}
+  .note{margin-top:8px;font-size:14px;opacity:.8;}
+
+  /* Transcript */
+  .dialogueArea{margin-top:8px;}
+  .line{opacity:0;transform:translateY(4px);transition:opacity 200ms ease,transform 200ms ease;margin:4px 0;padding:0;border:none;box-shadow:none;background:transparent;}
+  .line.visible{opacity:1;transform:translateY(0);}
+  .line.past{opacity:.6;}
+  .line.current{opacity:1;padding-left:10px;border-left:3px solid #ddd;}
+  .speaker{font-weight:800;margin-right:6px;}
+  .maria .speaker{color:#1f4e79;}
+  .rosie .speaker{color:#0b6b4f;}
+
+  /* Prevent weird thin lines inside transcript */
+  .dialogueArea,.dialogueArea *{border-top:none!important;border-bottom:none!important;box-shadow:none!important;background-image:none!important;}
+  .dialogueArea hr{display:none!important;}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+
+<script>
+(() => {
+  const uid = "l3_" + Math.random().toString(16).slice(2);
+
+  // Put lesson-03.mp3 in the SAME folder as this index.html
+  const mp3 = "lesson-03.mp3";
+
+  /* ---- Timing sync fix (prevents drifting) ----
+     If audio gets ahead over time, set TIME_SCALE slightly under 1 (e.g. 0.98).
+     If everything is just offset, adjust TIME_OFFSET (e.g. -0.4).
+  */
+  const TIME_SCALE = 0.97;
+const TIME_OFFSET = +0.8;
+  const T = (t) => (t * TIME_SCALE) + TIME_OFFSET;
+
+  // Speaker names are NOT spoken. Parenthetical actions excluded.
+  const dialogueLines = [
+    { t: 0.0,  speaker: "Maria", cls:"maria", text: "Hmm, Rosie’s late… as usual." },
+
+    { t: 2.6,  speaker: "Rosie", cls:"rosie", text: "Masha! It’s amazing to see you!" },
+    { t: 6.4,  speaker: "Maria", cls:"maria", text: "I can’t believe it’s really you! It’s been what? Four years?" },
+    { t: 11.9, speaker: "Rosie", cls:"rosie", text: "Oh my god, four years! New years in Barcelona, right? That was insane!" },
+    { t: 18.8, speaker: "Maria", cls:"maria", text: "Yeah, and you didn’t respond to my text for like two days after that. I had no idea what happened to you." },
+    { t: 28.4, speaker: "Rosie", cls:"rosie", text: "Ha! Yeah, I think I never actually told you the whole story. Come on, let’s go grab a coffee and catch up." },
+    { t: 37.4, speaker: "Maria", cls:"maria", text: "Coffee, yes! You’ve got to show me the good spots around here." },
+    { t: 43.2, speaker: "Rosie", cls:"rosie", text: "To be honest, I usually just grab some to go from the bodega right here on the corner. It’s cheap and strong." },
+    { t: 53.6, speaker: "Maria", cls:"maria", text: "Bodega? Is that something Spanish?" },
+    { t: 56.6, speaker: "Rosie", cls:"rosie", text: "Yeah, the word is Spanish," },
+    { t: 60.8, speaker: "Rosie", cls:"rosie", text: "but the idea of a tiny corner store that serves hot food, coffee and other random stuff is originally a New York thing." },
+    { t: 70.2, speaker: "Maria", cls:"maria", text: "Oh cool! I’ll keep that in mind for when I’m in a rush, but I really wanted to check out some of the cafes. I’ve heard there are some good ones around here." },
+    { t: 82.4, speaker: "Rosie", cls:"rosie", text: "For sure. So, there’s a really nice place around the corner called Branelle. It’s super cute; totally your vibe." },
+    { t: 93.4, speaker: "Maria", cls:"maria", text: "Nice! Any other places we can check out?" },
+    { t: 97.4, speaker: "Rosie", cls:"rosie", text: "A couple blocks down there’s Breadcraft. It’s a bakery with great coffee and croissants. I know how you love almond croissants." },
+    { t: 108.6, speaker: "Maria", cls:"maria", text: "Say no more! I’ve been dying for a croissant. How far did you say it is, two blocks? Let’s go!" },
+    { t: 120.2, speaker: "Rosie", cls:"rosie", text: "OK, but wait up. It’s in the other direction!" }
+  ];
+
+  const el = document.getElementById("app");
+  el.innerHTML = `
+    <h1>Let’s Grab a Coffee</h1>
+    <p class="sub">Audio first, optional transcript, then exercises.</p>
+
+    <!-- AUDIO + TRANSCRIPT -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">Audio</h2>
+      <audio id="${uid}_audio" controls preload="metadata">
+        <source src="${mp3}" type="audio/mpeg" />
+        Your browser can’t play this audio.
+      </audio>
+
+      <div class="controls">
+        <button id="${uid}_show" type="button">Show dialogue</button>
+        <button id="${uid}_hide" type="button" class="hidden">Hide dialogue</button>
+        <button id="${uid}_full" type="button" class="hidden">Show full transcript</button>
+      </div>
+
+      <div id="${uid}_dlg" class="dialogueArea hidden" aria-live="polite"></div>
+      <div class="note">Tip: click a revealed line to jump to that moment.</div>
+    </div>
+
+    <!-- EX1: MATCHING -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">1) Comprehension</h2>
+      <p class="prompt"><strong>Match the establishment with its description.</strong></p>
+
+      <div class="row" style="margin-top:10px;">
+        <strong style="min-width:95px;">Branelle</strong>
+        <select id="${uid}_m1">
+          <option value="">Choose…</option>
+          <option value="a">a place with great bakery products</option>
+          <option value="b">a place to get take-away food and coffee quickly</option>
+          <option value="c">a cool place to spend time</option>
+        </select>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <strong style="min-width:95px;">Bodega</strong>
+        <select id="${uid}_m2">
+          <option value="">Choose…</option>
+          <option value="a">a place with great bakery products</option>
+          <option value="b">a place to get take-away food and coffee quickly</option>
+          <option value="c">a cool place to spend time</option>
+        </select>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <strong style="min-width:95px;">Breadcraft</strong>
+        <select id="${uid}_m3">
+          <option value="">Choose…</option>
+          <option value="a">a place with great bakery products</option>
+          <option value="b">a place to get take-away food and coffee quickly</option>
+          <option value="c">a cool place to spend time</option>
+        </select>
+      </div>
+
+      <button id="${uid}_match_check" type="button" style="margin-top:14px;">Check answers</button>
+      <div id="${uid}_match_fb" class="feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- EX2: ON / AROUND THE CORNER -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">2) On the corner / Around the corner</h2>
+
+      <p class="prompt"><strong>Choose the correct option to complete the sentences.</strong></p>
+
+      <div class="grid2" style="margin-top:10px;">
+        <div>
+          <div class="note" style="margin:0 0 6px;">
+            Describes a place located at one of the corners created by an intersection of two streets.
+          </div>
+          <select id="${uid}_corner1">
+            <option value="">Choose…</option>
+            <option value="on">On the corner</option>
+            <option value="around">Around the corner</option>
+          </select>
+        </div>
+
+        <div>
+          <div class="note" style="margin:0 0 6px;">
+            Describes a place located nearby, but on a different street.
+          </div>
+          <select id="${uid}_corner2">
+            <option value="">Choose…</option>
+            <option value="around">Around the corner</option>
+            <option value="on">On the corner</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="${uid}_corner_check" type="button" style="margin-top:14px;">Check answers</button>
+      <div id="${uid}_corner_fb" class="feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- EX3: GRAB -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">3) Verb: grab</h2>
+      <p class="prompt"><strong>Which verb is used to talk about quickly getting food or drink in the sentences?</strong></p>
+
+      <div class="options" style="margin-top:10px;">
+        <label><input type="radio" name="${uid}_grab" value="grab"> grab</label>
+        <label><input type="radio" name="${uid}_grab" value="take"> take</label>
+        <label><input type="radio" name="${uid}_grab" value="make"> make</label>
+        <label><input type="radio" name="${uid}_grab" value="serve"> serve</label>
+      </div>
+
+      <button id="${uid}_grab_check" type="button" style="margin-top:14px;">Check answer</button>
+      <div id="${uid}_grab_fb" class="feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- EX4: CHECK OUT -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">4) Phrasal verb: check out</h2>
+      <p class="prompt"><strong>Complete the sentence with the correct phrasal verb from the story.</strong></p>
+
+      <div class="row" style="margin-top:10px;">
+        <span>Are there any other places we can</span>
+        <input id="${uid}_checkout" type="text" placeholder="..." autocomplete="off" />
+        <span>?</span>
+      </div>
+
+      <button id="${uid}_checkout_check" type="button" style="margin-top:14px;">Check answer</button>
+      <div id="${uid}_checkout_fb" class="feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- EX5: CATCH UP fill -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">5) Phrasal verb: catch up</h2>
+      <p class="prompt"><strong>Complete the sentence with the correct phrasal verb from the story.</strong></p>
+
+      <div class="row" style="margin-top:10px;">
+        <span>Let’s go grab a coffee and</span>
+        <input id="${uid}_catchup" type="text" placeholder="..." autocomplete="off" />
+        <span>.</span>
+      </div>
+
+      <button id="${uid}_catchup_check" type="button" style="margin-top:14px;">Check answer</button>
+      <div id="${uid}_catchup_fb" class="feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- EX6: CATCH UP meaning -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">6) Meaning: catch up</h2>
+      <p class="prompt"><strong>When you catch up, you…</strong></p>
+
+      <div class="options">
+        <label><input type="radio" name="${uid}_catchup_mean" value="a"> tell a friend what you’ve been doing since you last saw them.</label>
+        <label><input type="radio" name="${uid}_catchup_mean" value="b"> try something new with an old friend.</label>
+        <label><input type="radio" name="${uid}_catchup_mean" value="c"> try to find something that you’ve been looking for for a long time.</label>
+      </div>
+
+      <button id="${uid}_catchup_mean_check" type="button" style="margin-top:14px;">Check answer</button>
+      <div id="${uid}_catchup_mean_fb" class="feedback" aria-live="polite"></div>
+    </div>
+
+    <!-- EX7: DYING FOR -->
+    <div class="card">
+      <h2 style="margin:0 0 8px;font-size:18px;">7) Phrase: I’ve been…</h2>
+      <p class="prompt"><strong>When you really want something you can say: “I’ve been…”</strong></p>
+
+      <div class="options">
+        <label><input type="radio" name="${uid}_dying" value="a"> killing for</label>
+        <label><input type="radio" name="${uid}_dying" value="b"> attack someone about</label>
+        <label><input type="radio" name="${uid}_dying" value="c"> take a shot at</label>
+        <label><input type="radio" name="${uid}_dying" value="d"> dying for</label>
+      </div>
+
+      <button id="${uid}_dying_check" type="button" style="margin-top:14px;">Check answer</button>
+      <div id="${uid}_dying_fb" class="feedback" aria-live="polite"></div>
+    </div>
+  `;
+
+  /* ---------------- Transcript engine ---------------- */
+  const audio = document.getElementById(`${uid}_audio`);
+  const dlg = document.getElementById(`${uid}_dlg`);
+  const showBtn = document.getElementById(`${uid}_show`);
+  const hideBtn = document.getElementById(`${uid}_hide`);
+  const fullBtn = document.getElementById(`${uid}_full`);
+
+  let enabled = false, lastShown = -1, currentIdx = -1;
+
+  const nodes = dialogueLines.map(line => {
+    const div = document.createElement("div");
+    div.className = `line ${line.cls}`;
+    div.innerHTML = `<span class="speaker">${line.speaker}:</span><span>${line.text}</span>`;
+    div.addEventListener("click", () => { audio.currentTime = T(line.t); audio.play(); });
+    dlg.appendChild(div);
+    return div;
+  });
+
+  function clearStates(){
+    nodes.forEach(n => n.classList.remove("visible","past","current"));
+    lastShown = -1; currentIdx = -1;
+  }
+  function setCurrent(idx){
+    if (currentIdx === idx) return;
+    if (currentIdx >= 0){ nodes[currentIdx].classList.remove("current"); nodes[currentIdx].classList.add("past"); }
+    currentIdx = idx;
+    nodes[currentIdx].classList.add("current","visible");
+    nodes[currentIdx].classList.remove("past");
+  }
+  function revealUpTo(t){
+    if (!enabled) return;
+    while (lastShown + 1 < dialogueLines.length && T(dialogueLines[lastShown + 1].t) <= t + 0.05){
+      lastShown++;
+      nodes[lastShown].classList.add("visible","past");
+      nodes[lastShown].classList.remove("current");
+    }
+    let idx = -1;
+    for (let i=0;i<dialogueLines.length;i++){
+      if (T(dialogueLines[i].t) <= t + 0.05) idx = i; else break;
+    }
+    if (idx >= 0 && idx <= lastShown) setCurrent(idx);
+  }
+
+  audio.addEventListener("timeupdate", () => revealUpTo(audio.currentTime));
+  audio.addEventListener("seeked", () => { if (enabled) { clearStates(); revealUpTo(audio.currentTime); } });
+
+  showBtn.addEventListener("click", () => {
+    enabled = true;
+    dlg.classList.remove("hidden");
+    showBtn.classList.add("hidden");
+    hideBtn.classList.remove("hidden");
+    fullBtn.classList.remove("hidden");
+    clearStates();
+    revealUpTo(audio.currentTime);
+  });
+
+  hideBtn.addEventListener("click", () => {
+    enabled = false;
+    dlg.classList.add("hidden");
+    showBtn.classList.remove("hidden");
+    hideBtn.classList.add("hidden");
+    fullBtn.classList.add("hidden");
+    clearStates();
+  });
+
+  fullBtn.addEventListener("click", () => {
+    if (!enabled) return;
+    nodes.forEach(n => { n.classList.add("visible","past"); n.classList.remove("current"); });
+    lastShown = nodes.length - 1; currentIdx = -1;
+  });
+
+  /* ---------------- Two-try feedback system ---------------- */
+  const attempts = {};
+  const norm = s => (s||"").trim().toLowerCase().replace(/\s+/g," ").replace(/[.?!,;:()"’']/g,"");
+
+  function showFB(fbEl, ok, html){
+    fbEl.style.display = "block";
+    fbEl.className = ok ? "feedback good" : "feedback bad";
+    fbEl.innerHTML = html;
+  }
+
+  function twoTryCheck(key, fbEl, checkFn){
+    if (!(key in attempts)) attempts[key] = 0;
+    const res = checkFn();
+    if (res.correct){
+      attempts[key] = 0;
+      showFB(fbEl, true, res.correctHtml);
+      return;
+    }
+    attempts[key] += 1;
+    if (attempts[key] === 1){
+      showFB(fbEl, false, res.tryAgainHtml || "❌ Try again.");
+    } else {
+      attempts[key] = 0;
+      showFB(fbEl, false, res.wrongFinalHtml);
+    }
+  }
+
+  /* EX1 Matching */
+  const matchFb = document.getElementById(`${uid}_match_fb`);
+  document.getElementById(`${uid}_match_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_match`, matchFb, () => {
+      const m1 = document.getElementById(`${uid}_m1`).value;
+      const m2 = document.getElementById(`${uid}_m2`).value;
+      const m3 = document.getElementById(`${uid}_m3`).value;
+
+      const wrongFinalHtml = `Correct matches:<br>
+        <strong>Branelle</strong> → a cool place to spend time<br>
+        <strong>Bodega</strong> → a place to get take-away food and coffee quickly<br>
+        <strong>Breadcraft</strong> → a place with great bakery products`;
+
+      if (!m1 || !m2 || !m3){
+        return { correct:false, tryAgainHtml:"Please choose an option for all three.", wrongFinalHtml };
+      }
+
+      const ok = (m1==="c" && m2==="b" && m3==="a");
+      return ok ? { correct:true, correctHtml:"✅ Correct!" }
+                : { correct:false, tryAgainHtml:"❌ Try again.", wrongFinalHtml };
+    });
+  });
+
+  /* EX2 Corner */
+  const cornerFb = document.getElementById(`${uid}_corner_fb`);
+  document.getElementById(`${uid}_corner_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_corner`, cornerFb, () => {
+      const c1 = document.getElementById(`${uid}_corner1`).value;
+      const c2 = document.getElementById(`${uid}_corner2`).value;
+
+      const wrongFinalHtml = `Correct answers:<br>
+        <strong>On the corner</strong> = at an intersection corner.<br>
+        <strong>Around the corner</strong> = nearby, on a different street.`;
+
+      if (!c1 || !c2){
+        return { correct:false, tryAgainHtml:"Please choose both answers.", wrongFinalHtml };
+      }
+
+      const ok = (c1==="on" && c2==="around");
+      return ok ? { correct:true, correctHtml:`✅ Correct!<div class="note"><strong>On the corner</strong> = at the intersection corner. <strong>Around the corner</strong> = nearby.</div>` }
+                : { correct:false, tryAgainHtml:"❌ Try again.", wrongFinalHtml };
+    });
+  });
+
+  /* EX3 Grab */
+  const grabFb = document.getElementById(`${uid}_grab_fb`);
+  document.getElementById(`${uid}_grab_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_grab`, grabFb, () => {
+      const sel = document.querySelector(`input[name="${uid}_grab"]:checked`);
+      const wrongFinalHtml = `Correct answer: <strong>grab</strong>.`;
+      if (!sel) return { correct:false, tryAgainHtml:"Choose one option.", wrongFinalHtml };
+      const ok = (sel.value === "grab");
+      return ok ? { correct:true, correctHtml:`✅ Correct!<div class="note"><em>Grab</em> often means “get quickly,” especially food/drink.</div>` }
+                : { correct:false, tryAgainHtml:"❌ Try again.", wrongFinalHtml };
+    });
+  });
+
+  /* EX4 check out */
+  const checkoutFb = document.getElementById(`${uid}_checkout_fb`);
+  document.getElementById(`${uid}_checkout_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_checkout`, checkoutFb, () => {
+      const ans = norm(document.getElementById(`${uid}_checkout`).value);
+      const wrongFinalHtml = `Correct answer: <strong>check out</strong>.<div class="note">One meaning of <strong>check out</strong> is to go to a new place and see if you like it or not.</div>`;
+      const ok = (ans === "check out");
+      return ok ? { correct:true, correctHtml:`✅ Correct!<div class="note">One meaning of <strong>check out</strong> is to go to a new place and see if you like it or not.</div>` }
+                : { correct:false, tryAgainHtml:"❌ Try again.", wrongFinalHtml };
+    });
+  });
+
+  /* EX5 catch up */
+  const catchupFb = document.getElementById(`${uid}_catchup_fb`);
+  document.getElementById(`${uid}_catchup_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_catchup`, catchupFb, () => {
+      const ans = norm(document.getElementById(`${uid}_catchup`).value);
+      const wrongFinalHtml = `Correct answer: <strong>catch up</strong>.`;
+      const ok = (ans === "catch up");
+      return ok ? { correct:true, correctHtml:`✅ Correct!` }
+                : { correct:false, tryAgainHtml:"❌ Try again.", wrongFinalHtml };
+    });
+  });
+
+  /* EX6 catch up meaning */
+  const catchupMeanFb = document.getElementById(`${uid}_catchup_mean_fb`);
+  document.getElementById(`${uid}_catchup_mean_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_catchup_mean`, catchupMeanFb, () => {
+      const sel = document.querySelector(`input[name="${uid}_catchup_mean"]:checked`);
+      const wrongFinalHtml = `Correct answer: <strong>tell a friend what you’ve been doing since you last saw them.</strong>`;
+      if (!sel) return { correct:false, tryAgainHtml:"Choose one option.", wrongFinalHtml };
+      const ok = (sel.value === "a");
+      return ok ? { correct:true, correctHtml:`✅ Correct!<div class="note"><strong>Catch up</strong> = exchange updates after time apart.</div>` }
+                : { correct:false, tryAgainHtml:"❌ Try again.", wrongFinalHtml };
+    });
+  });
+
+  /* EX7 dying for */
+  const dyingFb = document.getElementById(`${uid}_dying_fb`);
+  document.getElementById(`${uid}_dying_check`).addEventListener("click", () => {
+    twoTryCheck(`${uid}_dying`, dyingFb, () => {
+      const sel = document.querySelector(`input[name="${uid}_dying"]:checked`);
+      const wrongFinalHtml = `Correct answer: <strong>dying for</strong>.<div class="note"><strong>Dying for</strong> is most often used with Present Perfect Continuous. A similar phrase is <strong>I’d kill for…</strong></div>`;
+      if (!sel) return { correct:false, tryAgainHtml:"Choose one option.", wrongFinalHtml };
+      const ok = (sel.value === "d");
+      return ok ? { correct:true, correctHtml:`✅ Correct!<div class="note"><strong>Dying for</strong> is most often used with Present Perfect Continuous. A similar phrase is <strong>I’d kill for…</strong></div>` }
+                : { correct:false, tryAgainHtml:"❌ Try again.", wrongFinalHtml };
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
