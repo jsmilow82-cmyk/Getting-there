@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Advanced English Course</title>
+  <title>Daria's English Studio</title>
   <style>
     :root {
       --bg: #f6f7fb;
@@ -24,6 +24,7 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -125,12 +126,12 @@
     }
 
     .hero {
-      padding: 38px 0 16px;
+      padding: 40px 0 18px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
+      grid-template-columns: 1.02fr 0.98fr;
       gap: 22px;
       align-items: stretch;
     }
@@ -146,7 +147,7 @@
     .section-card,
     .feature-card,
     .module-card,
-    .testimonial,
+    .about-card,
     .faq-item,
     .cta-card {
       padding: 28px;
@@ -172,21 +173,21 @@
     }
 
     h1, h2, h3 {
-      line-height: 1.12;
+      line-height: 1.1;
       margin: 0 0 14px;
       letter-spacing: -0.03em;
     }
 
-    h1 { font-size: clamp(2.3rem, 5vw, 4.5rem); }
-    h2 { font-size: clamp(1.55rem, 2.5vw, 2.5rem); }
-    h3 { font-size: 1.18rem; }
+    h1 { font-size: clamp(2.3rem, 5vw, 4.4rem); }
+    h2 { font-size: clamp(1.5rem, 2.5vw, 2.35rem); }
+    h3 { font-size: 1.15rem; }
 
     p { margin: 0; }
 
     .lead {
       color: #333b49;
-      font-size: 1.06rem;
-      max-width: 720px;
+      font-size: 1.05rem;
+      max-width: 700px;
     }
 
     .hero-actions {
@@ -196,110 +197,57 @@
       margin-top: 24px;
     }
 
-    .trust-line {
+    .mini-note {
+      margin-top: 18px;
       color: var(--muted);
-      margin-top: 20px;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
     }
 
-    .hero-side {
-      display: grid;
-      gap: 18px;
-    }
-
-    .preview-card {
-      background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
-      display: grid;
-      gap: 18px;
-      align-content: start;
-    }
-
-    .preview-window {
-      border: 1px solid var(--line);
-      background: var(--surface-soft);
-      border-radius: 24px;
+    .image-card {
       padding: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
       display: grid;
       gap: 14px;
     }
 
-    .window-bar {
-      display: flex;
-      justify-content: space-between;
+    .hero-image {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      min-height: 100%;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 1 / 1;
+    }
+
+    .image-caption {
       color: var(--muted);
-      font-size: 0.9rem;
-      gap: 12px;
-    }
-
-    .preview-pill {
-      width: fit-content;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 8px 10px;
-      font-size: 0.8rem;
-      color: var(--accent-dark);
-      font-weight: 700;
-    }
-
-    .preview-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .preview-box {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 14px;
-      min-height: 92px;
-    }
-
-    .preview-box strong {
-      display: block;
-      margin-bottom: 6px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      padding: 0 6px 4px;
     }
 
     .section {
       padding: 14px 0 6px;
     }
 
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 16px;
-      margin: 0 0 18px;
-    }
-
-    .section-head p {
-      color: var(--muted);
-      max-width: 720px;
-    }
-
     .grid-two,
     .feature-grid,
     .modules-grid,
-    .testimonials-grid,
     .faq-grid {
       display: grid;
       gap: 18px;
     }
 
     .grid-two { grid-template-columns: 1fr 1fr; }
-    .feature-grid { grid-template-columns: repeat(3, 1fr); }
-    .modules-grid { grid-template-columns: repeat(2, 1fr); }
-    .testimonials-grid,
+    .feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .modules-grid { grid-template-columns: repeat(3, 1fr); }
     .faq-grid { grid-template-columns: repeat(3, 1fr); }
-
-    .section-card p,
-    .feature-card p,
-    .module-card p,
-    .testimonial p,
-    .faq-item p {
-      color: #404857;
-    }
 
     .list {
       list-style: none;
@@ -317,6 +265,13 @@
       color: #334;
     }
 
+    .feature-card p,
+    .module-card p,
+    .about-card p,
+    .faq-item p {
+      color: #404857;
+    }
+
     .module-label {
       display: inline-block;
       margin-bottom: 10px;
@@ -330,33 +285,23 @@
       font-weight: 700;
     }
 
-    .module-meta,
-    .person {
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .quote {
-      font-size: 1rem;
-      margin-bottom: 14px;
-    }
-
     .about-grid {
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
+      grid-template-columns: 0.92fr 1.08fr;
       gap: 18px;
       align-items: stretch;
     }
 
-    .portrait {
+    .about-visual {
+      border-radius: var(--radius-xl);
       background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
       border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      min-height: 280px;
-      display: flex;
-      align-items: end;
-      padding: 24px;
+      min-height: 260px;
+      display: grid;
+      place-items: center;
       color: var(--muted);
+      padding: 24px;
+      text-align: center;
     }
 
     .cta-card {
@@ -365,7 +310,7 @@
     }
 
     .cta-card p {
-      max-width: 760px;
+      max-width: 720px;
       margin: 0 auto 22px;
       color: #404857;
     }
@@ -382,7 +327,6 @@
       .grid-two,
       .feature-grid,
       .modules-grid,
-      .testimonials-grid,
       .faq-grid,
       .about-grid {
         grid-template-columns: 1fr;
@@ -397,14 +341,16 @@
 
     @media (max-width: 700px) {
       .container { width: min(var(--max), calc(100% - 24px)); }
-      .preview-grid { grid-template-columns: 1fr; }
+
       .hero-card,
       .section-card,
       .feature-card,
       .module-card,
-      .testimonial,
+      .about-card,
       .faq-item,
-      .cta-card { padding: 22px; }
+      .cta-card {
+        padding: 22px;
+      }
     }
   </style>
 </head>
@@ -417,9 +363,8 @@
       </div>
 
       <nav class="topnav">
-        <a href="#about">About</a>
         <a href="#curriculum">Curriculum</a>
-        <a href="#results">Results</a>
+        <a href="#about">About</a>
         <a href="#faq">FAQ</a>
         <a href="dashboard.html" class="button button-primary">Go to your course</a>
       </nav>
@@ -432,145 +377,96 @@
         <article class="card hero-card">
           <div class="eyebrow">Self-paced online course</div>
           <h1>Advanced English for people who are tired of sounding simpler than they think.</h1>
-          <p class="lead">Build sharper vocabulary, more natural fluency, and real confidence through beautifully designed lessons, interactive practice, and a structured learning path for serious adult learners.</p>
+          <p class="lead">A structured course for ambitious adults who want more precise vocabulary, smoother fluency, and a cleaner path beyond plateau English.</p>
 
           <div class="hero-actions">
             <a href="dashboard.html" class="button button-primary">Go to your course</a>
-            <a href="#curriculum" class="button button-secondary">View the curriculum</a>
+            <a href="#curriculum" class="button button-secondary">View curriculum</a>
           </div>
 
-          <p class="trust-line">Created by Daria Talanova • for advanced learners, teachers, and internationally minded professionals</p>
+          <p class="mini-note">Designed by Daria Talanova for advanced learners, teachers, and internationally minded professionals.</p>
         </article>
 
-        <aside class="card hero-card preview-card">
-          <div>
-            <div class="eyebrow">Platform preview</div>
-            <h2>A clean, focused learning space</h2>
-            <p class="lead">Designed to feel more like a premium learning product than a cluttered course platform.</p>
+        <aside class="card image-card">
+          <div class="hero-image">
+            <img src="maria-nyc-collage.png" alt="Maria experiencing New York in a stylized collage illustration" />
           </div>
-
-          <div class="preview-window">
-            <div class="window-bar">
-              <span>Dashboard view</span>
-              <span>Module 1 • Lesson flow</span>
-            </div>
-            <div class="preview-pill">Interactive lesson design</div>
-            <div class="preview-grid">
-              <div class="preview-box">
-                <strong>Structured modules</strong>
-                Clear progression without overwhelm.
-              </div>
-              <div class="preview-box">
-                <strong>Smart revision</strong>
-                Lessons built for retention, not cramming.
-              </div>
-              <div class="preview-box">
-                <strong>Audio + speaking</strong>
-                Practice that actually supports fluency.
-              </div>
-              <div class="preview-box">
-                <strong>Elegant interface</strong>
-                Calm visuals that help students focus.
-              </div>
-            </div>
-          </div>
+          <p class="image-caption">Maria in New York — a visual thread running through the course world: ambitious, observant, and learning to express herself with more precision.</p>
         </aside>
       </div>
     </section>
 
-    <section class="section" id="results">
+    <section class="section">
       <div class="container grid-two">
         <article class="card section-card">
-          <div class="eyebrow">This course is for you if...</div>
-          <h2>You already know English — but you still don’t sound like yourself in it.</h2>
+          <div class="eyebrow">Who this is for</div>
+          <h2>For strong learners who want sharper English.</h2>
           <ul class="list">
-            <li>You can communicate well, but still search for words when you speak.</li>
-            <li>You understand a lot, but your own English sounds flatter or simpler than you want.</li>
-            <li>You want more than random videos, scattered notes, or one-off apps.</li>
+            <li>You already speak English, but still search for better words.</li>
+            <li>You want more nuance, confidence, and natural phrasing.</li>
+            <li>You need a structured course, not random materials.</li>
           </ul>
         </article>
 
         <article class="card section-card">
-          <div class="eyebrow">What you'll achieve</div>
-          <h2>By the end of the course, you will be able to...</h2>
+          <div class="eyebrow">What you get</div>
+          <h2>A more focused way to improve.</h2>
           <ul class="list">
-            <li>Express ideas with more nuance and precision.</li>
-            <li>Use advanced vocabulary more naturally in speech.</li>
-            <li>Speak with more fluency, confidence, and clarity.</li>
+            <li>High-value vocabulary and collocations</li>
+            <li>Speaking practice with audio and guided tasks</li>
+            <li>A clean learning space with clear lesson flow</li>
           </ul>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>What makes the learning experience different</h2>
-            <p>This is not a random library of disconnected exercises. It’s a curated learning path built for advanced learners who want better English, better retention, and a better study experience.</p>
-          </div>
-        </div>
+      <div class="container feature-grid">
+        <article class="card feature-card">
+          <h3>Designed for advanced learners</h3>
+          <p>Built around nuance, precision, and the real problems high-level learners face.</p>
+        </article>
 
-        <div class="feature-grid">
-          <article class="card feature-card">
-            <h3>Designed for advanced learners</h3>
-            <p>Every lesson is built around nuance, precision, and the real problems high-level learners face.</p>
-          </article>
-          <article class="card feature-card">
-            <h3>Interactive and guided</h3>
-            <p>Students don’t just read. They listen, speak, revise, and move through a clear structure.</p>
-          </article>
-          <article class="card feature-card">
-            <h3>Clean and motivating</h3>
-            <p>The platform feels calm, polished, and easy to navigate — which makes studying far more appealing.</p>
-          </article>
-        </div>
+        <article class="card feature-card">
+          <h3>Interactive and guided</h3>
+          <p>Students listen, speak, revise, and move through a clear structure.</p>
+        </article>
       </div>
     </section>
 
     <section class="section" id="curriculum">
       <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Curriculum preview</h2>
-            <p>A structured path that helps advanced learners stop plateauing and start sounding more precise, natural, and confident.</p>
+        <article class="card section-card">
+          <div class="eyebrow">Curriculum preview</div>
+          <h2>A clear path through the course</h2>
+          <div class="modules-grid">
+            <div class="module-card">
+              <div class="module-label">Module 1</div>
+              <h3>Breaking out of plateau English</h3>
+              <p>Build a smarter foundation for real progress.</p>
+            </div>
+            <div class="module-card">
+              <div class="module-label">Module 2</div>
+              <h3>Smarter vocabulary and collocations</h3>
+              <p>Learn language that sounds more polished and natural.</p>
+            </div>
+            <div class="module-card">
+              <div class="module-label">Module 3</div>
+              <h3>Speaking with confidence and precision</h3>
+              <p>Practice clearer, smoother, more flexible expression.</p>
+            </div>
           </div>
-        </div>
-
-        <div class="modules-grid">
-          <article class="card module-card">
-            <div class="module-label">Module 1</div>
-            <h3>Breaking out of plateau English</h3>
-            <p>Understand what keeps strong learners stuck and build a smarter foundation for real progress.</p>
-          </article>
-          <article class="card module-card">
-            <div class="module-label">Module 2</div>
-            <h3>Smarter vocabulary and collocations</h3>
-            <p>Learn higher-value language that helps your English sound more polished and more natural.</p>
-          </article>
-          <article class="card module-card">
-            <div class="module-label">Module 3</div>
-            <h3>Speaking with confidence and precision</h3>
-            <p>Practice expressing more complex ideas clearly, smoothly, and with less hesitation.</p>
-          </article>
-          <article class="card module-card">
-            <div class="module-label">Module 4</div>
-            <h3>Grammar for advanced expression</h3>
-            <p>Focus on grammar that genuinely improves range, control, and elegance in communication.</p>
-          </article>
-        </div>
+        </article>
       </div>
     </section>
 
     <section class="section" id="about">
       <div class="container about-grid">
-        <div class="portrait card">
-          <div>
-            Add your brand photo, platform screenshot, or course visual here.
-          </div>
+        <div class="about-visual card">
+          Replace this with a teacher photo, another Maria visual, or a branded platform screenshot.
         </div>
 
-        <article class="card section-card">
+        <article class="card about-card">
           <div class="eyebrow">Why learn with me</div>
           <h2>Designed by a teacher who understands advanced learners deeply.</h2>
           <p>I’m Daria Talanova, an English teacher and school founder who has spent years helping high-level learners sound clearer, sharper, and more natural in English. I create materials that are practical, elegant, and genuinely engaging — so studying feels focused, modern, and motivating.</p>
@@ -578,55 +474,22 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>What students often say</h2>
-            <p>Replace these with your real testimonials when you’re ready.</p>
-          </div>
-        </div>
-
-        <div class="testimonials-grid">
-          <article class="card testimonial">
-            <p class="quote">“For the first time, I felt like someone understood exactly why I was stuck — and how to help me move forward.”</p>
-            <div class="person">Anna • English teacher</div>
-          </article>
-          <article class="card testimonial">
-            <p class="quote">“The lessons are beautiful, clear, and incredibly useful. I finally started using advanced vocabulary naturally.”</p>
-            <div class="person">Elena • Marketing professional</div>
-          </article>
-          <article class="card testimonial">
-            <p class="quote">“This course made my English sound more like me — not just correct, but precise and confident.”</p>
-            <div class="person">Sofia • Relocation client</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="faq">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>FAQ</h2>
-            <p>A few key questions before joining.</p>
-          </div>
-        </div>
+      <div class="container faq-grid">
+        <article class="card faq-item">
+          <h3>What level do I need?</h3>
+          <p>This course is best for upper-intermediate to advanced learners who already communicate in English and want more nuance, fluency, and precision.</p>
+        </article>
 
-        <div class="faq-grid">
-          <article class="card faq-item">
-            <h3>What level do I need?</h3>
-            <p>This course is best for upper-intermediate to advanced learners who already communicate in English and want more nuance, fluency, and precision.</p>
-          </article>
-          <article class="card faq-item">
-            <h3>Is it self-paced?</h3>
-            <p>Yes. Students can move through the lessons on their own schedule and return to materials whenever they need revision.</p>
-          </article>
-          <article class="card faq-item">
-            <h3>How do I access the course?</h3>
-            <p>Access happens through your private course platform, where lessons, audio, and structured navigation are all in one place.</p>
-          </article>
-        </div>
+        <article class="card faq-item">
+          <h3>Is it self-paced?</h3>
+          <p>Yes. Students can move through the lessons on their own schedule and return to materials whenever they need revision.</p>
+        </article>
+
+        <article class="card faq-item">
+          <h3>How do I access the course?</h3>
+          <p>Through your private course platform, where lessons, audio, and structured navigation are all in one place.</p>
+        </article>
       </div>
     </section>
 
@@ -635,7 +498,7 @@
         <article class="card cta-card">
           <div class="eyebrow">Ready to begin?</div>
           <h2>Move beyond upper-intermediate English and build a version of English that feels more powerful, precise, and fully yours.</h2>
-          <p>You can connect this to your external payment page, an application form, a waitlist, or a private enrollment flow later.</p>
+          <p>Connect this later to your external payment page, application form, or waitlist.</p>
           <a href="dashboard.html" class="button button-primary">Go to your course</a>
         </article>
       </div>
