@@ -3,28 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daria's English Studio</title>
-  <meta name="description" content="Advanced English for ambitious adults — choose where you want your English to take you." />
+
+  <title>Brooklyn School of English</title>
+
+  <meta
+    name="description"
+    content="Advanced English for ambitious adults — choose where you want your English to take you."
+  />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700&family=Karla:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700&family=Karla:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
   <style>
     :root {
-      --paper: #f2ede3;
-      --paper-deep: #e8e1d3;
-      --ink: #191512;
-      --ink-soft: #554c42;
-      --ink-faint: #8d8175;
-      --rule: #d3c9b8;
-      --ember: #a8492b;
+      --paper: #f4f5f2;
+      --paper-deep: #e9edf0;
+
+      --ink: #102b46;
+      --ink-soft: #465b6d;
+      --ink-faint: #7c8b97;
+
+      --rule: #ccd5dc;
+
+      --blue: #123d66;
+      --blue-mid: #24628e;
+      --orange: #ed7a3a;
+      --orange-soft: #f6a06c;
+
       --display: "Bodoni Moda", Georgia, "Times New Roman", serif;
       --body: "Karla", ui-sans-serif, system-ui, sans-serif;
+
       --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html { -webkit-text-size-adjust: 100%; }
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
 
     body {
       margin: 0;
@@ -33,55 +56,122 @@
       font-family: var(--body);
       line-height: 1.55;
       min-height: 100vh;
+
       display: flex;
       flex-direction: column;
     }
 
-    /* paper grain */
+    /* subtle paper grain */
+
     body::before {
       content: "";
       position: fixed;
       inset: 0;
+
       pointer-events: none;
       z-index: 4;
-      opacity: 0.32;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+
+      opacity: 0.22;
+
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     .shell {
       width: min(1120px, calc(100% - 44px));
       margin: 0 auto;
     }
 
+    /* =========================
+       HEADER
+       ========================= */
+
     header.masthead {
-      padding: 34px 0 0;
+      padding: 25px 0 0;
     }
 
     .masthead-inner {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       justify-content: space-between;
-      gap: 18px;
+
+      gap: 22px;
       flex-wrap: wrap;
+
       padding-bottom: 20px;
+
       border-bottom: 1px solid var(--rule);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .brand-logo {
+      width: 68px;
+      height: 68px;
+
+      flex: 0 0 68px;
+
+      border-radius: 50%;
+      object-fit: cover;
+
+      transition:
+        transform 0.4s var(--ease),
+        box-shadow 0.4s var(--ease);
+    }
+
+    .brand:hover .brand-logo {
+      transform: rotate(-2deg) scale(1.035);
+      box-shadow: 0 8px 20px rgba(18, 61, 102, 0.12);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .wordmark {
       font-family: var(--display);
-      font-size: 1.32rem;
+
+      font-size: clamp(1.3rem, 2.3vw, 1.72rem);
       font-weight: 500;
-      letter-spacing: -0.01em;
+
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+
+      color: var(--blue);
+    }
+
+    .brand-sub {
+      font-size: 0.69rem;
+
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+
+      color: var(--orange);
     }
 
     .masthead-note {
       font-size: 0.76rem;
+
       letter-spacing: 0.22em;
       text-transform: uppercase;
+
       color: var(--ink-faint);
     }
+
+    /* =========================
+       MAIN
+       ========================= */
 
     main {
       flex: 1;
@@ -90,18 +180,27 @@
 
     .prompt {
       font-family: var(--display);
+
       font-weight: 400;
-      font-size: clamp(1.9rem, 4.4vw, 3.1rem);
+
+      font-size: clamp(1.9rem, 4.4vw, 3.15rem);
       line-height: 1.06;
-      letter-spacing: -0.02em;
+
+      letter-spacing: -0.025em;
+
       margin: 0 0 46px;
+
       max-width: 15ch;
     }
 
     .prompt em {
       font-style: italic;
-      color: var(--ember);
+      color: var(--orange);
     }
+
+    /* =========================
+       PANELS
+       ========================= */
 
     .stack {
       display: grid;
@@ -110,177 +209,339 @@
 
     .panel {
       position: relative;
+
       display: grid;
+
       grid-template-columns: 4.2rem 1fr auto;
+
       align-items: center;
+
       gap: 22px;
+
       padding: 34px 30px;
-      background: rgba(255, 253, 248, 0.55);
+
+      background: rgba(255, 255, 255, 0.5);
+
       border: 1px solid var(--rule);
+
       overflow: hidden;
+
       isolation: isolate;
+
       opacity: 0;
+
       transform: translateY(14px);
+
       animation: rise 0.7s var(--ease) forwards;
-      transition: border-color 0.4s var(--ease), background 0.4s var(--ease), transform 0.4s var(--ease);
+
+      transition:
+        border-color 0.4s var(--ease),
+        background 0.4s var(--ease),
+        transform 0.4s var(--ease),
+        box-shadow 0.4s var(--ease);
     }
 
-    .panel:nth-child(1) { animation-delay: 0.08s; }
-    .panel:nth-child(2) { animation-delay: 0.18s; }
-    .panel:nth-child(3) { animation-delay: 0.28s; }
+    .panel:nth-child(1) {
+      animation-delay: 0.08s;
+    }
+
+    .panel:nth-child(2) {
+      animation-delay: 0.18s;
+    }
+
+    .panel:nth-child(3) {
+      animation-delay: 0.28s;
+    }
 
     @keyframes rise {
-      to { opacity: 1; transform: translateY(0); }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* wash that sweeps in on hover */
+    /* hover wash */
+
     .panel::before {
       content: "";
+
       position: absolute;
+
       inset: 0;
+
       z-index: -2;
-      background: linear-gradient(100deg, var(--paper-deep), rgba(232, 225, 211, 0.35));
+
+      background:
+        linear-gradient(
+          100deg,
+          rgba(36, 98, 142, 0.09),
+          rgba(237, 122, 58, 0.055)
+        );
+
       transform: scaleX(0);
+
       transform-origin: left center;
+
       transition: transform 0.55s var(--ease);
     }
 
     .panel-index {
       font-family: var(--display);
+
       font-size: 0.98rem;
+
       letter-spacing: 0.16em;
+
       color: var(--ink-faint);
+
       transition: color 0.4s var(--ease);
     }
 
     .panel-title {
       font-family: var(--display);
+
       font-weight: 400;
+
       font-size: clamp(1.75rem, 3.9vw, 2.9rem);
+
       line-height: 1.02;
-      letter-spacing: -0.02em;
+
+      letter-spacing: -0.025em;
+
       margin: 0;
     }
 
     .panel-sub {
       margin: 9px 0 0;
+
       color: var(--ink-soft);
+
       font-size: 0.98rem;
+
       max-width: 46ch;
     }
 
     .panel-mark {
       display: grid;
       place-items: center;
+
       width: 46px;
       height: 46px;
+
       border: 1px solid var(--rule);
+
       border-radius: 50%;
-      transition: transform 0.45s var(--ease), border-color 0.4s var(--ease), background 0.4s var(--ease);
+
+      transition:
+        transform 0.45s var(--ease),
+        border-color 0.4s var(--ease),
+        background 0.4s var(--ease),
+        color 0.4s var(--ease);
     }
 
-    .panel-mark svg { width: 17px; height: 17px; }
+    .panel-mark svg {
+      width: 17px;
+      height: 17px;
+    }
 
-    /* --- open panel --- */
-    .panel--open { cursor: pointer; }
+    /* OPEN PANEL */
+
+    .panel--open {
+      cursor: pointer;
+    }
 
     .panel--open .panel-mark {
-      border-color: var(--ink);
+      border-color: var(--blue);
     }
 
     .panel--open:hover,
     .panel--open:focus-visible {
-      border-color: var(--ink);
+      border-color: var(--blue);
+
       transform: translateX(6px);
+
+      box-shadow: 0 14px 36px rgba(18, 61, 102, 0.07);
+
       outline: none;
     }
 
     .panel--open:hover::before,
-    .panel--open:focus-visible::before { transform: scaleX(1); }
+    .panel--open:focus-visible::before {
+      transform: scaleX(1);
+    }
 
     .panel--open:hover .panel-index,
-    .panel--open:focus-visible .panel-index { color: var(--ember); }
+    .panel--open:focus-visible .panel-index {
+      color: var(--orange);
+    }
 
     .panel--open:hover .panel-mark,
     .panel--open:focus-visible .panel-mark {
-      background: var(--ink);
-      color: var(--paper);
+      background: var(--blue);
+      color: white;
+
       transform: rotate(-45deg);
     }
 
-    /* skyline motif, revealed on hover of the NY panel */
+    /* NYC skyline motif */
+
     .panel-art {
       position: absolute;
+
       z-index: -1;
+
       right: 6.5rem;
       bottom: -6px;
+
       width: min(300px, 40%);
-      color: var(--ember);
+
+      color: var(--orange);
+
       opacity: 0;
+
       transform: translateY(10px);
-      transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+
+      transition:
+        opacity 0.55s var(--ease),
+        transform 0.55s var(--ease);
     }
 
     .panel--open:hover .panel-art,
     .panel--open:focus-visible .panel-art {
-      opacity: 0.16;
+      opacity: 0.13;
       transform: translateY(0);
     }
 
-    /* --- pending panels --- */
+    /* PENDING PANELS */
+
     .panel--pending {
       background: transparent;
+
       border-style: dashed;
     }
 
-    .panel--pending .panel-title { color: var(--ink-soft); }
+    .panel--pending .panel-title {
+      color: var(--ink-soft);
+    }
 
     .panel--pending .panel-mark {
       border-style: dashed;
+
       color: var(--ink-faint);
     }
 
     .tag {
       display: inline-block;
+
       margin-top: 12px;
+
       font-size: 0.68rem;
+
       letter-spacing: 0.2em;
+
       text-transform: uppercase;
-      color: var(--ink-faint);
+
+      color: var(--blue-mid);
+
       border: 1px solid var(--rule);
+
       border-radius: 999px;
+
       padding: 4px 11px;
     }
 
+    /* =========================
+       FOOTER
+       ========================= */
+
     footer {
       padding: 0 0 38px;
+
       color: var(--ink-faint);
+
       font-size: 0.82rem;
+
       letter-spacing: 0.04em;
     }
 
     .footer-inner {
       border-top: 1px solid var(--rule);
+
       padding-top: 18px;
+
       display: flex;
+
       justify-content: space-between;
+
       gap: 14px;
+
       flex-wrap: wrap;
     }
 
+    /* =========================
+       MOBILE
+       ========================= */
+
     @media (max-width: 760px) {
-      .shell { width: min(1120px, calc(100% - 30px)); }
-      main { padding: 40px 0 30px; }
-      .prompt { margin-bottom: 32px; max-width: 20ch; }
+      .shell {
+        width: min(1120px, calc(100% - 30px));
+      }
+
+      header.masthead {
+        padding-top: 20px;
+      }
+
+      .masthead-inner {
+        align-items: flex-start;
+      }
+
+      .brand-logo {
+        width: 56px;
+        height: 56px;
+
+        flex-basis: 56px;
+      }
+
+      .wordmark {
+        font-size: 1.3rem;
+      }
+
+      .brand-sub {
+        font-size: 0.61rem;
+
+        letter-spacing: 0.14em;
+      }
+
+      .masthead-note {
+        display: none;
+      }
+
+      main {
+        padding: 40px 0 30px;
+      }
+
+      .prompt {
+        margin-bottom: 32px;
+
+        max-width: 20ch;
+      }
 
       .panel {
         grid-template-columns: 1fr auto;
+
         gap: 14px 18px;
+
         padding: 26px 22px;
       }
 
-      .panel-index { grid-column: 1 / -1; }
-      .panel-art { right: 1.5rem; width: 55%; }
+      .panel-index {
+        grid-column: 1 / -1;
+      }
+
+      .panel-art {
+        right: 1.5rem;
+        width: 55%;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -289,66 +550,279 @@
         transform: none;
         animation: none;
       }
-      .panel, .panel::before, .panel-mark, .panel-art { transition: none; }
-      .panel--open:hover { transform: none; }
+
+      .panel,
+      .panel::before,
+      .panel-mark,
+      .panel-art,
+      .brand-logo {
+        transition: none;
+      }
+
+      .panel--open:hover {
+        transform: none;
+      }
     }
   </style>
 </head>
+
 <body>
+
   <header class="masthead">
+
     <div class="shell masthead-inner">
-      <a class="wordmark" href="index.html">Daria&rsquo;s English Studio</a>
-      <span class="masthead-note">Advanced English</span>
-    </div>
-  </header>
 
-  <main class="shell">
-    <h1 class="prompt">Where do you want your English to <em>take you?</em></h1>
+      <a class="brand" href="index.html">
 
-    <div class="stack">
-      <a class="panel panel--open" href="dashboard.html">
-        <svg class="panel-art" viewBox="0 0 300 90" fill="currentColor" aria-hidden="true" focusable="false">
-          <path d="M0 90V62h14v28zM18 90V44h20v46zM42 90V52h12v38zM58 90V26h10v64zM72 90V38h16v52zM92 90V14h8v76zM104 90V46h18v44zM126 90V30h12v60zM142 90V58h14v32zM160 90V20h9v70zM173 90V48h20v42zM197 90V34h11v56zM212 90V60h16v30zM232 90V24h10v66zM246 90V50h18v40zM268 90V40h12v50zM284 90V64h16v26z"/>
-        </svg>
-        <span class="panel-index">01</span>
-        <span>
-          <h2 class="panel-title">Live in New York</h2>
-          <p class="panel-sub">Four lessons following Maria through the city &mdash; audio, vocabulary, and speaking practice.</p>
+        <img
+          class="brand-logo"
+          src="brooklyn-school-logo.png"
+          alt="Brooklyn School of English — Brooklyn Bridge logo"
+        />
+
+        <span class="brand-text">
+
+          <span class="wordmark">
+            Brooklyn School of English
+          </span>
+
+          <span class="brand-sub">
+            New York
+          </span>
+
         </span>
-        <span class="panel-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
+
       </a>
 
-      <div class="panel panel--pending" aria-disabled="true">
-        <span class="panel-index">02</span>
+      <span class="masthead-note">
+        Advanced English
+      </span>
+
+    </div>
+
+  </header>
+
+
+  <main class="shell">
+
+    <h1 class="prompt">
+      Where do you want your English to
+      <em>take you?</em>
+    </h1>
+
+
+    <div class="stack">
+
+
+      <!-- NEW YORK COURSE -->
+
+      <a
+        class="panel panel--open"
+        href="dashboard.html"
+      >
+
+        <svg
+          class="panel-art"
+          viewBox="0 0 300 90"
+          fill="currentColor"
+          aria-hidden="true"
+          focusable="false"
+        >
+
+          <path
+            d="
+            M0 90V62h14v28z
+            M18 90V44h20v46z
+            M42 90V52h12v38z
+            M58 90V26h10v64z
+            M72 90V38h16v52z
+            M92 90V14h8v76z
+            M104 90V46h18v44z
+            M126 90V30h12v60z
+            M142 90V58h14v32z
+            M160 90V20h9v70z
+            M173 90V48h20v42z
+            M197 90V34h11v56z
+            M212 90V60h16v30z
+            M232 90V24h10v66z
+            M246 90V50h18v40z
+            M268 90V40h12v50z
+            M284 90V64h16v26z
+            "
+          />
+
+        </svg>
+
+
+        <span class="panel-index">
+          01
+        </span>
+
+
         <span>
-          <h2 class="panel-title">Study in the US</h2>
-          <span class="tag">In preparation</span>
+
+          <h2 class="panel-title">
+            Live in New York
+          </h2>
+
+          <p class="panel-sub">
+            Four lessons following Maria through the city —
+            audio, vocabulary, and speaking practice.
+          </p>
+
         </span>
-        <span class="panel-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="8"/></svg>
+
+
+        <span
+          class="panel-mark"
+          aria-hidden="true"
+        >
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+
+            <path d="M5 12h14M13 6l6 6-6 6" />
+
+          </svg>
+
         </span>
+
+      </a>
+
+
+      <!-- STUDY IN THE US -->
+
+      <div
+        class="panel panel--pending"
+        aria-disabled="true"
+      >
+
+        <span class="panel-index">
+          02
+        </span>
+
+
+        <span>
+
+          <h2 class="panel-title">
+            Study in the US
+          </h2>
+
+          <span class="tag">
+            In preparation
+          </span>
+
+        </span>
+
+
+        <span
+          class="panel-mark"
+          aria-hidden="true"
+        >
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+          >
+
+            <path d="M12 7v5l3 2" />
+
+            <circle
+              cx="12"
+              cy="12"
+              r="8"
+            />
+
+          </svg>
+
+        </span>
+
       </div>
 
-      <div class="panel panel--pending" aria-disabled="true">
-        <span class="panel-index">03</span>
+
+      <!-- TRAVEL -->
+
+      <div
+        class="panel panel--pending"
+        aria-disabled="true"
+      >
+
+        <span class="panel-index">
+          03
+        </span>
+
+
         <span>
-          <h2 class="panel-title">Travel the world</h2>
-          <span class="tag">In preparation</span>
+
+          <h2 class="panel-title">
+            Travel the world
+          </h2>
+
+          <span class="tag">
+            In preparation
+          </span>
+
         </span>
-        <span class="panel-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="8"/></svg>
+
+
+        <span
+          class="panel-mark"
+          aria-hidden="true"
+        >
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+          >
+
+            <path d="M12 7v5l3 2" />
+
+            <circle
+              cx="12"
+              cy="12"
+              r="8"
+            />
+
+          </svg>
+
         </span>
+
       </div>
+
+
     </div>
+
   </main>
 
+
   <footer class="shell">
+
     <div class="footer-inner">
-      <span>&copy; 2026 Daria&rsquo;s English Studio</span>
-      <span>Taught by Daria Talanova</span>
+
+      <span>
+        &copy; 2026 Brooklyn School of English
+      </span>
+
+      <span>
+        New York
+      </span>
+
     </div>
+
   </footer>
+
+
 </body>
 </html>
