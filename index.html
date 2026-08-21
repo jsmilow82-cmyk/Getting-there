@@ -4,510 +4,351 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daria's English Studio</title>
+  <meta name="description" content="Advanced English for ambitious adults — choose where you want your English to take you." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700&family=Karla:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #f6f7fb;
-      --surface: #ffffff;
-      --surface-soft: #f9fafc;
-      --text: #151922;
-      --muted: #6c7483;
-      --line: #e7ebf2;
-      --accent: #4f6ef7;
-      --accent-soft: #eef2ff;
-      --accent-dark: #3852cf;
-      --shadow: 0 18px 40px rgba(20, 27, 45, 0.08);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --max: 1180px;
+      --paper: #f2ede3;
+      --paper-deep: #e8e1d3;
+      --ink: #191512;
+      --ink-soft: #554c42;
+      --ink-faint: #8d8175;
+      --rule: #d3c9b8;
+      --ember: #a8492b;
+      --display: "Bodoni Moda", Georgia, "Times New Roman", serif;
+      --body: "Karla", ui-sans-serif, system-ui, sans-serif;
+      --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+
+    html { -webkit-text-size-adjust: 100%; }
 
     body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background: linear-gradient(180deg, #f9fbff 0%, #f3f5fa 100%);
-      line-height: 1.58;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      line-height: 1.55;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* paper grain */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+      opacity: 0.32;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
     }
 
     a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
 
-    .container {
-      width: min(var(--max), calc(100% - 40px));
+    .shell {
+      width: min(1120px, calc(100% - 44px));
       margin: 0 auto;
     }
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(249, 251, 255, 0.88);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(79, 110, 247, 0.08);
+    header.masthead {
+      padding: 34px 0 0;
     }
 
-    .topbar-inner {
-      min-height: 78px;
+    .masthead-inner {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .brand strong {
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .brand span {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .topnav {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+      gap: 18px;
       flex-wrap: wrap;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--rule);
     }
 
-    .topnav a {
-      color: var(--muted);
-      font-size: 0.96rem;
+    .wordmark {
+      font-family: var(--display);
+      font-size: 1.32rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
     }
 
-    .topnav a:hover { color: var(--accent-dark); }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 18px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: 0.2s ease;
-      cursor: pointer;
+    .masthead-note {
+      font-size: 0.76rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
     }
 
-    .button-primary {
-      background: var(--accent);
-      color: white;
-      box-shadow: var(--shadow);
+    main {
+      flex: 1;
+      padding: 58px 0 40px;
     }
 
-    .button-primary:hover {
-      background: var(--accent-dark);
-      transform: translateY(-1px);
+    .prompt {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(1.9rem, 4.4vw, 3.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      margin: 0 0 46px;
+      max-width: 15ch;
     }
 
-    .button-secondary {
-      background: white;
-      border-color: var(--line);
-      color: var(--text);
+    .prompt em {
+      font-style: italic;
+      color: var(--ember);
     }
 
-    .button-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent-dark);
-    }
-
-    .hero {
-      padding: 40px 0 18px;
-    }
-
-    .hero-grid {
+    .stack {
       display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
+      gap: 14px;
+    }
+
+    .panel {
+      position: relative;
+      display: grid;
+      grid-template-columns: 4.2rem 1fr auto;
+      align-items: center;
       gap: 22px;
-      align-items: stretch;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-card,
-    .section-card,
-    .feature-card,
-    .module-card,
-    .about-card,
-    .faq-item,
-    .cta-card {
-      padding: 28px;
-    }
-
-    .hero-card {
-      padding: 34px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent-dark);
-      background: var(--accent-soft);
-      border-radius: 999px;
-      padding: 8px 12px;
-      margin-bottom: 18px;
-      font-weight: 700;
-    }
-
-    h1, h2, h3 {
-      line-height: 1.1;
-      margin: 0 0 14px;
-      letter-spacing: -0.03em;
-    }
-
-    h1 { font-size: clamp(2.3rem, 5vw, 4.4rem); }
-    h2 { font-size: clamp(1.5rem, 2.5vw, 2.35rem); }
-    h3 { font-size: 1.15rem; }
-
-    p { margin: 0; }
-
-    .lead {
-      color: #333b49;
-      font-size: 1.05rem;
-      max-width: 700px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 24px;
-    }
-
-    .mini-note {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .image-card {
-      padding: 18px;
-      background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
-      display: grid;
-      gap: 14px;
-    }
-
-    .hero-image {
+      padding: 34px 30px;
+      background: rgba(255, 253, 248, 0.55);
+      border: 1px solid var(--rule);
       overflow: hidden;
-      border-radius: 24px;
-      border: 1px solid var(--line);
-      background: var(--surface-soft);
-      min-height: 100%;
+      isolation: isolate;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: rise 0.7s var(--ease) forwards;
+      transition: border-color 0.4s var(--ease), background 0.4s var(--ease), transform 0.4s var(--ease);
     }
 
-    .hero-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      aspect-ratio: 1 / 1;
+    .panel:nth-child(1) { animation-delay: 0.08s; }
+    .panel:nth-child(2) { animation-delay: 0.18s; }
+    .panel:nth-child(3) { animation-delay: 0.28s; }
+
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .image-caption {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.5;
-      padding: 0 6px 4px;
+    /* wash that sweeps in on hover */
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: linear-gradient(100deg, var(--paper-deep), rgba(232, 225, 211, 0.35));
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.55s var(--ease);
     }
 
-    .section {
-      padding: 14px 0 6px;
+    .panel-index {
+      font-family: var(--display);
+      font-size: 0.98rem;
+      letter-spacing: 0.16em;
+      color: var(--ink-faint);
+      transition: color 0.4s var(--ease);
     }
 
-    .grid-two,
-    .feature-grid,
-    .modules-grid,
-    .faq-grid {
-      display: grid;
-      gap: 18px;
-    }
-
-    .grid-two { grid-template-columns: 1fr 1fr; }
-    .feature-grid { grid-template-columns: repeat(2, 1fr); }
-    .modules-grid { grid-template-columns: repeat(3, 1fr); }
-    .faq-grid { grid-template-columns: repeat(3, 1fr); }
-
-    .list {
-      list-style: none;
-      padding: 0;
+    .panel-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(1.75rem, 3.9vw, 2.9rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
       margin: 0;
-      display: grid;
-      gap: 12px;
     }
 
-    .list li {
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px 18px;
-      color: #334;
+    .panel-sub {
+      margin: 9px 0 0;
+      color: var(--ink-soft);
+      font-size: 0.98rem;
+      max-width: 46ch;
     }
 
-    .feature-card p,
-    .module-card p,
-    .about-card p,
-    .faq-item p {
-      color: #404857;
-    }
-
-    .module-label {
-      display: inline-block;
-      margin-bottom: 10px;
-      color: var(--accent-dark);
-      background: var(--accent-soft);
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 0.92fr 1.08fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .about-visual {
-      border-radius: var(--radius-xl);
-      background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
-      border: 1px solid var(--line);
-      min-height: 260px;
+    .panel-mark {
       display: grid;
       place-items: center;
-      color: var(--muted);
-      padding: 24px;
-      text-align: center;
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      transition: transform 0.45s var(--ease), border-color 0.4s var(--ease), background 0.4s var(--ease);
     }
 
-    .cta-card {
-      text-align: center;
-      margin-top: 4px;
+    .panel-mark svg { width: 17px; height: 17px; }
+
+    /* --- open panel --- */
+    .panel--open { cursor: pointer; }
+
+    .panel--open .panel-mark {
+      border-color: var(--ink);
     }
 
-    .cta-card p {
-      max-width: 720px;
-      margin: 0 auto 22px;
-      color: #404857;
+    .panel--open:hover,
+    .panel--open:focus-visible {
+      border-color: var(--ink);
+      transform: translateX(6px);
+      outline: none;
     }
 
-    .footer {
-      padding: 0 0 42px;
-      color: var(--muted);
-      font-size: 0.92rem;
-      text-align: center;
+    .panel--open:hover::before,
+    .panel--open:focus-visible::before { transform: scaleX(1); }
+
+    .panel--open:hover .panel-index,
+    .panel--open:focus-visible .panel-index { color: var(--ember); }
+
+    .panel--open:hover .panel-mark,
+    .panel--open:focus-visible .panel-mark {
+      background: var(--ink);
+      color: var(--paper);
+      transform: rotate(-45deg);
     }
 
-    @media (max-width: 980px) {
-      .hero-grid,
-      .grid-two,
-      .feature-grid,
-      .modules-grid,
-      .faq-grid,
-      .about-grid {
-        grid-template-columns: 1fr;
+    /* skyline motif, revealed on hover of the NY panel */
+    .panel-art {
+      position: absolute;
+      z-index: -1;
+      right: 6.5rem;
+      bottom: -6px;
+      width: min(300px, 40%);
+      color: var(--ember);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+    }
+
+    .panel--open:hover .panel-art,
+    .panel--open:focus-visible .panel-art {
+      opacity: 0.16;
+      transform: translateY(0);
+    }
+
+    /* --- pending panels --- */
+    .panel--pending {
+      background: transparent;
+      border-style: dashed;
+    }
+
+    .panel--pending .panel-title { color: var(--ink-soft); }
+
+    .panel--pending .panel-mark {
+      border-style: dashed;
+      color: var(--ink-faint);
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 4px 11px;
+    }
+
+    footer {
+      padding: 0 0 38px;
+      color: var(--ink-faint);
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-inner {
+      border-top: 1px solid var(--rule);
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 760px) {
+      .shell { width: min(1120px, calc(100% - 30px)); }
+      main { padding: 40px 0 30px; }
+      .prompt { margin-bottom: 32px; max-width: 20ch; }
+
+      .panel {
+        grid-template-columns: 1fr auto;
+        gap: 14px 18px;
+        padding: 26px 22px;
       }
 
-      .topbar-inner {
-        padding: 14px 0;
-        align-items: flex-start;
-        flex-direction: column;
-      }
+      .panel-index { grid-column: 1 / -1; }
+      .panel-art { right: 1.5rem; width: 55%; }
     }
 
-    @media (max-width: 700px) {
-      .container { width: min(var(--max), calc(100% - 24px)); }
-
-      .hero-card,
-      .section-card,
-      .feature-card,
-      .module-card,
-      .about-card,
-      .faq-item,
-      .cta-card {
-        padding: 22px;
+    @media (prefers-reduced-motion: reduce) {
+      .panel {
+        opacity: 1;
+        transform: none;
+        animation: none;
       }
+      .panel, .panel::before, .panel-mark, .panel-art { transition: none; }
+      .panel--open:hover { transform: none; }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <div class="brand">
-        <strong>Daria's English Studio</strong>
-        <span>Advanced English for ambitious adults</span>
-      </div>
-
-      <nav class="topnav">
-        <a href="#curriculum">Curriculum</a>
-        <a href="#about">About</a>
-        <a href="#faq">FAQ</a>
-        <a href="dashboard.html" class="button button-primary">Go to your course</a>
-      </nav>
+  <header class="masthead">
+    <div class="shell masthead-inner">
+      <a class="wordmark" href="index.html">Daria&rsquo;s English Studio</a>
+      <span class="masthead-note">Advanced English</span>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <article class="card hero-card">
-          <div class="eyebrow">Self-paced online course</div>
-          <h1>Advanced English for people who are tired of sounding simpler than they think.</h1>
-          <p class="lead">A structured course for ambitious adults who want more precise vocabulary, smoother fluency, and a cleaner path beyond plateau English.</p>
+  <main class="shell">
+    <h1 class="prompt">Where do you want your English to <em>take you?</em></h1>
 
-          <div class="hero-actions">
-            <a href="dashboard.html" class="button button-primary">Go to your course</a>
-            <a href="#curriculum" class="button button-secondary">View curriculum</a>
-          </div>
+    <div class="stack">
+      <a class="panel panel--open" href="dashboard.html">
+        <svg class="panel-art" viewBox="0 0 300 90" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M0 90V62h14v28zM18 90V44h20v46zM42 90V52h12v38zM58 90V26h10v64zM72 90V38h16v52zM92 90V14h8v76zM104 90V46h18v44zM126 90V30h12v60zM142 90V58h14v32zM160 90V20h9v70zM173 90V48h20v42zM197 90V34h11v56zM212 90V60h16v30zM232 90V24h10v66zM246 90V50h18v40zM268 90V40h12v50zM284 90V64h16v26z"/>
+        </svg>
+        <span class="panel-index">01</span>
+        <span>
+          <h2 class="panel-title">Live in New York</h2>
+          <p class="panel-sub">Four lessons following Maria through the city &mdash; audio, vocabulary, and speaking practice.</p>
+        </span>
+        <span class="panel-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
 
-          <p class="mini-note">Designed by Daria Talanova for advanced learners, teachers, and internationally minded professionals.</p>
-        </article>
-
-        <aside class="card image-card">
-          <div class="hero-image">
-            <img src="maria-nyc-collage.png" alt="Maria experiencing New York in a stylized collage illustration" />
-          </div>
-          <p class="image-caption">Maria in New York — a visual thread running through the course world: ambitious, observant, and learning to express herself with more precision.</p>
-        </aside>
+      <div class="panel panel--pending" aria-disabled="true">
+        <span class="panel-index">02</span>
+        <span>
+          <h2 class="panel-title">Study in the US</h2>
+          <span class="tag">In preparation</span>
+        </span>
+        <span class="panel-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="8"/></svg>
+        </span>
       </div>
-    </section>
 
-    <section class="section">
-      <div class="container grid-two">
-        <article class="card section-card">
-          <div class="eyebrow">Who this is for</div>
-          <h2>For strong learners who want sharper English.</h2>
-          <ul class="list">
-            <li>You already speak English, but still search for better words.</li>
-            <li>You want more nuance, confidence, and natural phrasing.</li>
-            <li>You need a structured course, not random materials.</li>
-          </ul>
-        </article>
-
-        <article class="card section-card">
-          <div class="eyebrow">What you get</div>
-          <h2>A more focused way to improve.</h2>
-          <ul class="list">
-            <li>High-value vocabulary and collocations</li>
-            <li>Speaking practice with audio and guided tasks</li>
-            <li>A clean learning space with clear lesson flow</li>
-          </ul>
-        </article>
+      <div class="panel panel--pending" aria-disabled="true">
+        <span class="panel-index">03</span>
+        <span>
+          <h2 class="panel-title">Travel the world</h2>
+          <span class="tag">In preparation</span>
+        </span>
+        <span class="panel-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="8"/></svg>
+        </span>
       </div>
-    </section>
-
-    <section class="section">
-      <div class="container feature-grid">
-        <article class="card feature-card">
-          <h3>Designed for advanced learners</h3>
-          <p>Built around nuance, precision, and the real problems high-level learners face.</p>
-        </article>
-
-        <article class="card feature-card">
-          <h3>Interactive and guided</h3>
-          <p>Students listen, speak, revise, and move through a clear structure.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="curriculum">
-      <div class="container">
-        <article class="card section-card">
-          <div class="eyebrow">Curriculum preview</div>
-          <h2>A clear path through the course</h2>
-          <div class="modules-grid">
-            <div class="module-card">
-              <div class="module-label">Module 1</div>
-              <h3>Breaking out of plateau English</h3>
-              <p>Build a smarter foundation for real progress.</p>
-            </div>
-            <div class="module-card">
-              <div class="module-label">Module 2</div>
-              <h3>Smarter vocabulary and collocations</h3>
-              <p>Learn language that sounds more polished and natural.</p>
-            </div>
-            <div class="module-card">
-              <div class="module-label">Module 3</div>
-              <h3>Speaking with confidence and precision</h3>
-              <p>Practice clearer, smoother, more flexible expression.</p>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="about">
-      <div class="container about-grid">
-        <div class="about-visual card">
-          Replace this with a teacher photo, another Maria visual, or a branded platform screenshot.
-        </div>
-
-        <article class="card about-card">
-          <div class="eyebrow">Why learn with me</div>
-          <h2>Designed by a teacher who understands advanced learners deeply.</h2>
-          <p>I’m Daria Talanova, an English teacher and school founder who has spent years helping high-level learners sound clearer, sharper, and more natural in English. I create materials that are practical, elegant, and genuinely engaging — so studying feels focused, modern, and motivating.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="faq">
-      <div class="container faq-grid">
-        <article class="card faq-item">
-          <h3>What level do I need?</h3>
-          <p>This course is best for upper-intermediate to advanced learners who already communicate in English and want more nuance, fluency, and precision.</p>
-        </article>
-
-        <article class="card faq-item">
-          <h3>Is it self-paced?</h3>
-          <p>Yes. Students can move through the lessons on their own schedule and return to materials whenever they need revision.</p>
-        </article>
-
-        <article class="card faq-item">
-          <h3>How do I access the course?</h3>
-          <p>Through your private course platform, where lessons, audio, and structured navigation are all in one place.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <article class="card cta-card">
-          <div class="eyebrow">Ready to begin?</div>
-          <h2>Move beyond upper-intermediate English and build a version of English that feels more powerful, precise, and fully yours.</h2>
-          <p>Connect this later to your external payment page, application form, or waitlist.</p>
-          <a href="dashboard.html" class="button button-primary">Go to your course</a>
-        </article>
-      </div>
-    </section>
+    </div>
   </main>
 
-  <footer class="footer container">
-    © 2026 Daria's English Studio • Built for advanced learners
+  <footer class="shell">
+    <div class="footer-inner">
+      <span>&copy; 2026 Daria&rsquo;s English Studio</span>
+      <span>Taught by Daria Talanova</span>
+    </div>
   </footer>
 </body>
 </html>
-
