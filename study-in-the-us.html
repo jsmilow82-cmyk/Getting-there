@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Study in the US | Brooklyn School of English</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --paper: #f4f5f2;
+      --paper-deep: #e9edf0;
+
+      --ink: #102b46;
+      --ink-soft: #465b6d;
+      --ink-faint: #7c8b97;
+
+      --rule: #ccd5dc;
+
+      --blue: #123d66;
+      --blue-mid: #24628e;
+
+      --orange: #ed7a3a;
+      --orange-soft: #f6a06c;
+
+      --display: "Bodoni Moda", serif;
+      --body: "Karla", sans-serif;
+
+      --ease: cubic-bezier(.2,.8,.2,1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+
+    .masthead {
+      padding: 32px 0 0;
+    }
+
+    .masthead-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding-bottom: 26px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand-logo {
+      width: 88px;
+      height: 88px;
+      flex: 0 0 88px;
+
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .wordmark {
+      font-family: var(--display);
+      font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+      font-weight: 500;
+      line-height: 1.05;
+
+      color: var(--blue);
+    }
+
+    .brand-sub {
+      font-size: 0.69rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+
+      color: var(--orange);
+    }
+
+    .masthead-note {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+
+      color: var(--ink-faint);
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 90px 0 65px;
+      max-width: 780px;
+    }
+
+    .eyebrow {
+      display: block;
+      margin-bottom: 18px;
+
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+
+      color: var(--orange);
+    }
+
+    .hero h1 {
+      margin: 0 0 24px;
+
+      font-family: var(--display);
+      font-size: clamp(3.2rem, 7vw, 6.6rem);
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -0.045em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 620px;
+
+      font-size: 1.1rem;
+      line-height: 1.7;
+
+      color: var(--ink-soft);
+    }
+
+    /* SECTION GRID */
+
+    .study-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+
+      margin-bottom: 90px;
+    }
+
+    .study-card {
+      min-height: 330px;
+
+      padding: 38px;
+
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      position: relative;
+      overflow: hidden;
+
+      transition:
+        background 0.35s var(--ease),
+        transform 0.35s var(--ease);
+    }
+
+    .study-card::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(36, 98, 142, 0.08),
+          rgba(237, 122, 58, 0.08)
+        );
+
+      opacity: 0;
+      transition: opacity 0.35s var(--ease);
+    }
+
+    .study-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-number,
+    .card-content,
+    .card-arrow {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-number {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+
+      color: var(--orange);
+    }
+
+    .card-title {
+      margin: 0 0 14px;
+
+      font-family: var(--display);
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 400;
+
+      letter-spacing: -0.025em;
+    }
+
+    .card-description {
+      margin: 0;
+
+      max-width: 36ch;
+
+      line-height: 1.65;
+
+      color: var(--ink-soft);
+    }
+
+    .card-arrow {
+      align-self: flex-end;
+
+      width: 36px;
+      height: 36px;
+
+      color: var(--blue);
+
+      transition: transform 0.3s var(--ease);
+    }
+
+    .study-card:hover .card-arrow {
+      transform: translateX(5px);
+    }
+
+    .card-arrow svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--rule);
+
+      padding: 28px 0 38px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 760px) {
+      .shell {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .masthead-inner {
+        align-items: flex-start;
+      }
+
+      .masthead-note {
+        display: none;
+      }
+
+      .brand-logo {
+        width: 68px;
+        height: 68px;
+        flex-basis: 68px;
+      }
+
+      .hero {
+        padding: 65px 0 45px;
+      }
+
+      .study-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .study-card {
+        min-height: 280px;
+        padding: 30px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="masthead">
+    <div class="shell masthead-inner">
+
+      <a class="brand" href="index.html">
+
+        <img
+          class="brand-logo"
+          src="brooklyn-bridge-icon.png"
+          alt="Brooklyn School of English bridge logo"
+        />
+
+        <span class="brand-text">
+          <span class="wordmark">
+            Brooklyn School of English
+          </span>
+
+          <span class="brand-sub">
+            New York
+          </span>
+        </span>
+
+      </a>
+
+      <span class="masthead-note">
+        Study in the US
+      </span>
+
+    </div>
+  </header>
+
+
+  <main class="shell">
+
+    <section class="hero">
+
+      <span class="eyebrow">
+        Study in the United States
+      </span>
+
+      <h1>
+        Study in the US
+      </h1>
+
+      <p>
+        Build the knowledge and academic skills you need to choose the right
+        university, navigate the admissions process, prepare for exams,
+        and succeed in an American academic environment.
+      </p>
+
+    </section>
+
+
+    <section class="study-grid">
+
+      <!-- ADMISSIONS -->
+
+      <a class="study-card" href="#">
+
+        <span class="card-number">
+          01
+        </span>
+
+        <div class="card-content">
+
+          <h2 class="card-title">
+            Admissions
+          </h2>
+
+          <p class="card-description">
+            Understand applications, requirements, personal statements,
+            recommendation letters, deadlines, and the U.S. admissions process.
+          </p>
+
+        </div>
+
+        <span class="card-arrow" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </span>
+
+      </a>
+
+
+      <!-- ACADEMIC SKILLS -->
+
+      <a class="study-card" href="#">
+
+        <span class="card-number">
+          02
+        </span>
+
+        <div class="card-content">
+
+          <h2 class="card-title">
+            Academic Skills
+          </h2>
+
+          <p class="card-description">
+            Develop academic writing, critical reading, research,
+            note-taking, presentation, and classroom communication skills.
+          </p>
+
+        </div>
+
+        <span class="card-arrow" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </span>
+
+      </a>
+
+
+      <!-- EXAM PREP -->
+
+      <a class="study-card" href="#">
+
+        <span class="card-number">
+          03
+        </span>
+
+        <div class="card-content">
+
+          <h2 class="card-title">
+            Exam Prep
+          </h2>
+
+          <p class="card-description">
+            Prepare strategically for the language and admissions exams
+            required for your academic goals.
+          </p>
+
+        </div>
+
+        <span class="card-arrow" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </span>
+
+      </a>
+
+
+      <!-- CHOOSING A UNIVERSITY -->
+
+      <a class="study-card" href="#">
+
+        <span class="card-number">
+          04
+        </span>
+
+        <div class="card-content">
+
+          <h2 class="card-title">
+            Choosing a University
+          </h2>
+
+          <p class="card-description">
+            Compare universities, programs, costs, locations, rankings,
+            career opportunities, and other factors before making your choice.
+          </p>
+
+        </div>
+
+        <span class="card-arrow" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </span>
+
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    <div class="shell footer-inner">
+
+      <span>
+        © 2026 Brooklyn School of English
+      </span>
+
+      <span>
+        New York
+      </span>
+
+    </div>
+  </footer>
+
+</body>
+</html>
