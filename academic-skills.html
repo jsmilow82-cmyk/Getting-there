@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Academic Skills | Brooklyn School of English</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --paper: #f4f5f2;
+      --ink: #102b46;
+      --ink-soft: #465b6d;
+      --ink-faint: #7c8b97;
+      --rule: #ccd5dc;
+      --blue: #123d66;
+      --orange: #ed7a3a;
+
+      --correct: #28734f;
+      --incorrect: #a44232;
+
+      --display: "Bodoni Moda", serif;
+      --body: "Karla", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1000px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+
+    .masthead {
+      padding: 32px 0 0;
+    }
+
+    .masthead-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding-bottom: 26px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand-logo {
+      width: 88px;
+      height: 88px;
+
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .wordmark {
+      font-family: var(--display);
+      font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+      font-weight: 500;
+      color: var(--blue);
+    }
+
+    .brand-sub {
+      font-size: 0.69rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .masthead-note {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    /* INTRO */
+
+    .back-link {
+      display: inline-block;
+      margin-top: 32px;
+
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+
+      color: var(--ink-soft);
+    }
+
+    .back-link:hover {
+      color: var(--orange);
+    }
+
+    .hero {
+      padding: 65px 0 55px;
+    }
+
+    .eyebrow {
+      display: block;
+      margin-bottom: 15px;
+
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+
+      color: var(--orange);
+    }
+
+    .hero h1 {
+      margin: 0 0 20px;
+
+      font-family: var(--display);
+      font-size: clamp(3.1rem, 7vw, 6rem);
+      font-weight: 400;
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0;
+
+      font-size: 1.08rem;
+      line-height: 1.7;
+
+      color: var(--ink-soft);
+    }
+
+    /* EXERCISE */
+
+    .exercise {
+      padding-bottom: 90px;
+    }
+
+    .exercise-title {
+      padding: 30px 0;
+
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .exercise-title h2 {
+      margin: 0 0 10px;
+
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+    }
+
+    .exercise-title p {
+      margin: 0;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .question {
+      padding: 42px 0;
+
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .question-number {
+      display: block;
+      margin-bottom: 15px;
+
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+
+      color: var(--orange);
+    }
+
+    .context {
+      display: inline-block;
+
+      margin-bottom: 14px;
+      padding: 8px 12px;
+
+      background: rgba(237, 122, 58, 0.09);
+
+      font-size: 0.88rem;
+      line-height: 1.4;
+
+      color: var(--ink-soft);
+    }
+
+    .sentence {
+      margin: 0 0 22px;
+
+      font-size: 1.15rem;
+      line-height: 1.65;
+
+      color: var(--ink);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+
+      color: var(--ink-soft);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 110px;
+
+      padding: 16px 18px;
+
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+
+      background: rgba(255, 255, 255, 0.55);
+
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.55;
+
+      resize: vertical;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+
+    .check-button {
+      margin-top: 14px;
+
+      padding: 11px 20px;
+
+      border: 1px solid var(--blue);
+      border-radius: 2px;
+
+      background: var(--blue);
+      color: white;
+
+      font-family: var(--body);
+      font-size: 0.85rem;
+      font-weight: 600;
+
+      cursor: pointer;
+    }
+
+    .check-button:hover {
+      opacity: 0.9;
+    }
+
+    .feedback {
+      display: none;
+
+      margin-top: 20px;
+      padding: 18px 20px;
+
+      border-left: 3px solid var(--rule);
+
+      background: rgba(255, 255, 255, 0.45);
+
+      line-height: 1.6;
+    }
+
+    .feedback.correct {
+      display: block;
+      border-left-color: var(--correct);
+    }
+
+    .feedback.incorrect {
+      display: block;
+      border-left-color: var(--incorrect);
+    }
+
+    .feedback-heading {
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-weight: 600;
+    }
+
+    .correct .feedback-heading {
+      color: var(--correct);
+    }
+
+    .incorrect .feedback-heading {
+      color: var(--incorrect);
+    }
+
+    .model-answer {
+      margin: 12px 0;
+    }
+
+    .model-answer strong {
+      color: var(--blue);
+    }
+
+    .explanation {
+      color: var(--ink-soft);
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 28px 0 38px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+    }
+
+    @media (max-width: 760px) {
+
+      .shell {
+        width: min(100% - 28px, 1000px);
+      }
+
+      .masthead-note {
+        display: none;
+      }
+
+      .brand-logo {
+        width: 68px;
+        height: 68px;
+      }
+
+      .hero {
+        padding: 50px 0 40px;
+      }
+
+      .question {
+        padding: 34px 0;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <header class="masthead">
+
+    <div class="shell masthead-inner">
+
+      <a class="brand" href="index.html">
+
+        <img
+          class="brand-logo"
+          src="brooklyn-bridge-icon.png"
+          alt="Brooklyn School of English logo"
+        />
+
+        <span class="brand-text">
+
+          <span class="wordmark">
+            Brooklyn School of English
+          </span>
+
+          <span class="brand-sub">
+            New York
+          </span>
+
+        </span>
+
+      </a>
+
+      <span class="masthead-note">
+        Academic Skills
+      </span>
+
+    </div>
+
+  </header>
+
+
+  <main class="shell">
+
+    <a class="back-link" href="study-in-the-us.html">
+      ← Study in the US
+    </a>
+
+
+    <section class="hero">
+
+      <span class="eyebrow">
+        Academic English
+      </span>
+
+      <h1>
+        Academic Skills
+      </h1>
+
+      <p>
+        Practice the language and skills you need for academic writing,
+        research, and university study.
+      </p>
+
+    </section>
+
+
+    <section class="exercise">
+
+      <div class="exercise-title">
+
+        <h2>
+          Error Correction
+        </h2>
+
+        <p>
+          Find the problem in each sentence and rewrite the sentence correctly.
+          After you submit your answer, compare it with the model answer and read
+          the explanation.
+        </p>
+
+      </div>
+
+
+      <div id="questions"></div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+
+    <div class="shell footer-inner">
+
+      <span>
+        © 2026 Brooklyn School of English
+      </span>
+
+      <span>
+        New York
+      </span>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    const questions = [
+
+      {
+        sentence:
+          "One reason is that when I was young, I watched several American movies and TV shows, such as Home Alone, Friends, White Chicks, and Mean Girls.",
+
+        context:
+          "Context: This is the opening sentence of a student's essay.",
+
+        answers: [
+          "One reason I chose to study in the United States is that when I was young, I watched several American movies and TV shows, such as Home Alone, Friends, White Chicks, and Mean Girls.",
+          "One reason I chose to study in the US is that when I was young, I watched several American movies and TV shows, such as Home Alone, Friends, White Chicks, and Mean Girls."
+        ],
+
+        model:
+          "One reason I chose to study in the United States is that when I was young, I watched several American movies and TV shows, such as Home Alone, Friends, White Chicks, and Mean Girls.",
+
+        explanation:
+          "Because this is the first sentence of the essay, the reader does not yet know what “one reason” refers to. The sentence needs to establish the topic and explain what the reason is a reason for."
+      },
+
+
+      {
+        sentence:
+          "Firstly, unlike other universities where classes or lecture halls are huge.",
+
+        answers: [
+          "Firstly, unlike other universities where classes or lecture halls are huge, the classes here are small.",
+          "Firstly, unlike at other universities where classes or lecture halls are huge, the classes here are small."
+        ],
+
+        model:
+          "Firstly, unlike at other universities where classes or lecture halls are huge, the classes here are small.",
+
+        explanation:
+          "The original is a sentence fragment. The phrase beginning with “unlike” cannot stand alone; it needs a complete main clause. The comparison also needs to make clear what is being compared."
+      },
+
+
+      {
+        sentence:
+          "And I think that I'll become more independent while studying here.",
+
+        answers: [
+          "I think that I'll become more independent while studying here.",
+          "I also think that I'll become more independent while studying here.",
+          "I think I'll become more independent while studying here.",
+          "I also think I'll become more independent while studying here."
+        ],
+
+        model:
+          "I also think that I'll become more independent while studying here.",
+
+        explanation:
+          "In formal academic writing, beginning a sentence with “And” is usually unnecessary here. “Also” can connect the idea more appropriately, or the conjunction can simply be removed."
+      },
+
+
+      {
+        sentence:
+          "Once my advisor recommended me the Adelphi University.",
+
+        answers: [
+          "Once my advisor recommended Adelphi University to me.",
+          "My advisor once recommended Adelphi University to me.",
+          "Once my advisor recommended that I attend Adelphi University.",
+          "My advisor once recommended that I attend Adelphi University."
+        ],
+
+        model:
+          "My advisor once recommended Adelphi University to me.",
+
+        explanation:
+          "We do not normally use “recommend someone something.” We say “recommend something to someone” or “recommend that someone do something.” University names such as “Adelphi University” also normally do not take “the.”"
+      },
+
+
+      {
+        sentence:
+          "I came here to get out of my comfort zone to be successful",
+
+        answers: [
+          "I came here to get out of my comfort zone and become successful.",
+          "I came here to get out of my comfort zone and be successful.",
+          "I came here to get out of my comfort zone so that I could be successful.",
+          "I came here to get out of my comfort zone in order to become successful."
+        ],
+
+        model:
+          "I came here to get out of my comfort zone and become successful.",
+
+        explanation:
+          "The two infinitive phrases are awkwardly connected in the original. The relationship between leaving the comfort zone and becoming successful should be made clearer. The sentence also needs final punctuation."
+      },
+
+
+      {
+        sentence:
+          "Firstly, I wanted to go far from home and my comfort zone so it will help me become more independent so when I actually go live by myself and specifically I chose the USA because it is a multi-cultural place so I have many opportunities to meet difference people.",
+
+        answers: [
+          "Firstly, I wanted to go far from home and leave my comfort zone because it would help me become more independent. I chose the USA specifically because it is a multicultural place, so I have many opportunities to meet different people.",
+          "Firstly, I wanted to go far from home and get out of my comfort zone because it would help me become more independent. I specifically chose the USA because it is a multicultural place, so I have many opportunities to meet different people."
+        ],
+
+        model:
+          "Firstly, I wanted to go far from home and get out of my comfort zone because it would help me become more independent. I specifically chose the USA because it is a multicultural place, so I have many opportunities to meet different people.",
+
+        explanation:
+          "The original sentence contains too many ideas joined with repeated uses of “so,” which creates a run-on sentence. It also has problems with tense and word choice: “will” should agree with the past context, “difference people” should be “different people,” and the ideas should be divided and connected more clearly."
+      },
+
+
+      {
+        sentence:
+          "I want to move to NYC because my family lives here and I've been here too many times.",
+
+        answers: [
+          "I want to move to NYC because my family lives here and I've been here many times.",
+          "I want to move to NYC because my family lives here and I've visited many times."
+        ],
+
+        model:
+          "I want to move to NYC because my family lives here and I've been here many times.",
+
+        explanation:
+          "“Too many” usually suggests that the number is excessive or undesirable. If repeated visits are a positive reason for moving to New York, “many times” is the appropriate expression."
+      },
+
+
+      {
+        sentence:
+          "The first thing I see that everything is so strange and new to me.",
+
+        answers: [
+          "The first thing I saw was that everything was so strange and new to me.",
+          "The first thing I noticed was that everything was so strange and new to me."
+        ],
+
+        model:
+          "The first thing I noticed was that everything was so strange and new to me.",
+
+        explanation:
+          "The original sentence is missing a verb linking “the first thing” to the clause that follows. The tense should also be consistent when describing a past first impression."
+      },
+
+
+      {
+        sentence:
+          "When study in another country, we can easily discover new things.",
+
+        answers: [
+          "When we study in another country, we can easily discover new things.",
+          "When studying in another country, we can easily discover new things."
+        ],
+
+        model:
+          "When we study in another country, we can easily discover new things.",
+
+        explanation:
+          "After “when,” you can use a complete clause with a subject and verb (“when we study”) or a reduced -ing clause (“when studying”). “When study” is not a grammatical structure."
+      }
+
+    ];
+
+
+    function normalize(text) {
+
+      return text
+        .trim()
+        .toLowerCase()
+        .replace(/[“”]/g, '"')
+        .replace(/[‘’]/g, "'")
+        .replace(/\s+/g, " ")
+        .replace(/[.!?]+$/, "");
+
+    }
+
+
+    function buildQuestions() {
+
+      const container = document.getElementById("questions");
+
+      questions.forEach((question, index) => {
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "question";
+
+        let contextHTML = "";
+
+        if (question.context) {
+          contextHTML =
+            `<div class="context">${question.context}</div>`;
+        }
+
+        wrapper.innerHTML = `
+
+          <span class="question-number">
+            Sentence ${index + 1}
+          </span>
+
+          ${contextHTML}
+
+          <p class="sentence">
+            ${question.sentence}
+          </p>
+
+          <label for="answer-${index}">
+            Your correction
+          </label>
+
+          <textarea
+            id="answer-${index}"
+            placeholder="Rewrite the sentence here..."
+          ></textarea>
+
+          <button
+            class="check-button"
+            onclick="checkAnswer(${index})"
+          >
+            Check answer
+          </button>
+
+          <div
+            class="feedback"
+            id="feedback-${index}"
+          ></div>
+
+        `;
+
+        container.appendChild(wrapper);
+
+      });
+
+    }
+
+
+    function checkAnswer(index) {
+
+      const question = questions[index];
+
+      const textarea =
+        document.getElementById(`answer-${index}`);
+
+      const feedback =
+        document.getElementById(`feedback-${index}`);
+
+      const studentAnswer =
+        normalize(textarea.value);
+
+      if (!studentAnswer) {
+
+        feedback.className =
+          "feedback incorrect";
+
+        feedback.innerHTML = `
+          <span class="feedback-heading">
+            Write an answer first.
+          </span>
+        `;
+
+        return;
+      }
+
+
+      const acceptedAnswers =
+        question.answers.map(answer => normalize(answer));
+
+      const correct =
+        acceptedAnswers.includes(studentAnswer);
+
+
+      feedback.className =
+        correct
+          ? "feedback correct"
+          : "feedback incorrect";
+
+
+      feedback.innerHTML = `
+
+        <span class="feedback-heading">
+          ${correct ? "Correct." : "Not quite."}
+        </span>
+
+        <div class="model-answer">
+          <strong>Model answer:</strong>
+          ${question.model}
+        </div>
+
+        <div class="explanation">
+          <strong>Why:</strong>
+          ${question.explanation}
+        </div>
+
+      `;
+
+    }
+
+
+    buildQuestions();
+
+  </script>
+
+</body>
+</html>
