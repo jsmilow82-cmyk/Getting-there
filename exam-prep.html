@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Exam Prep | Brooklyn School of English</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --paper: #f4f5f2;
+      --ink: #102b46;
+      --ink-soft: #465b6d;
+      --ink-faint: #7c8b97;
+      --rule: #ccd5dc;
+
+      --blue: #123d66;
+      --orange: #ed7a3a;
+
+      --display: "Bodoni Moda", serif;
+      --body: "Karla", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+
+    .masthead {
+      padding: 32px 0 0;
+    }
+
+    .masthead-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding-bottom: 26px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand-logo {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .wordmark {
+      font-family: var(--display);
+      font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--blue);
+    }
+
+    .brand-sub {
+      font-size: 0.69rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .masthead-note {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    /* BACK LINK */
+
+    .back-link {
+      display: inline-block;
+      margin-top: 34px;
+
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+
+      color: var(--ink-soft);
+    }
+
+    .back-link:hover {
+      color: var(--orange);
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 70px 0 55px;
+    }
+
+    .eyebrow {
+      display: block;
+      margin-bottom: 16px;
+
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+
+      color: var(--orange);
+    }
+
+    .hero h1 {
+      margin: 0;
+
+      font-family: var(--display);
+      font-size: clamp(3.4rem, 8vw, 7rem);
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -0.045em;
+    }
+
+    /* PROFILE */
+
+    .profile {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+
+      padding: 55px 0 75px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .profile-image-wrap {
+      position: relative;
+    }
+
+    .profile-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+
+      object-fit: cover;
+      object-position: center;
+
+      border-radius: 2px;
+    }
+
+    .profile-copy h2 {
+      margin: 0 0 6px;
+
+      font-family: var(--display);
+      font-size: clamp(2.3rem, 4vw, 3.8rem);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+    }
+
+    .profile-role {
+      display: block;
+      margin-bottom: 28px;
+
+      color: var(--orange);
+
+      font-size: 0.78rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .profile-copy p {
+      margin: 0 0 20px;
+
+      font-size: 1.03rem;
+      line-height: 1.75;
+
+      color: var(--ink-soft);
+    }
+
+    /* CREDENTIALS */
+
+    .credentials {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+
+      margin-bottom: 80px;
+    }
+
+    .credential {
+      min-height: 175px;
+
+      padding: 28px 24px;
+
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .credential-label {
+      display: block;
+      margin-bottom: 14px;
+
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+
+      color: var(--orange);
+    }
+
+    .credential strong {
+      display: block;
+
+      font-family: var(--display);
+      font-size: 1.45rem;
+      font-weight: 500;
+      line-height: 1.2;
+
+      color: var(--blue);
+    }
+
+    .credential p {
+      margin: 8px 0 0;
+
+      line-height: 1.5;
+      font-size: 0.9rem;
+
+      color: var(--ink-soft);
+    }
+
+    /* APPROACH */
+
+    .approach {
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      gap: 70px;
+
+      padding: 10px 0 90px;
+    }
+
+    .approach h2 {
+      margin: 0;
+
+      font-family: var(--display);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+    }
+
+    .approach-copy {
+      font-size: 1.1rem;
+      line-height: 1.75;
+
+      color: var(--ink-soft);
+    }
+
+    .approach-copy strong {
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 28px 0 38px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 760px) {
+
+      .shell {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .masthead-note {
+        display: none;
+      }
+
+      .brand-logo {
+        width: 68px;
+        height: 68px;
+      }
+
+      .hero {
+        padding: 55px 0 40px;
+      }
+
+      .profile {
+        grid-template-columns: 1fr;
+        gap: 36px;
+
+        padding: 40px 0 55px;
+      }
+
+      .profile-image {
+        aspect-ratio: 4 / 3;
+      }
+
+      .credentials {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .approach {
+        grid-template-columns: 1fr;
+        gap: 24px;
+
+        padding-bottom: 60px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header class="masthead">
+    <div class="shell masthead-inner">
+
+      <a class="brand" href="index.html">
+
+        <img
+          class="brand-logo"
+          src="brooklyn-bridge-icon.png"
+          alt="Brooklyn School of English logo"
+        />
+
+        <span class="brand-text">
+          <span class="wordmark">
+            Brooklyn School of English
+          </span>
+
+          <span class="brand-sub">
+            New York
+          </span>
+        </span>
+
+      </a>
+
+      <span class="masthead-note">
+        Study in the US
+      </span>
+
+    </div>
+  </header>
+
+
+  <main class="shell">
+
+    <a class="back-link" href="study-in-the-us.html">
+      ← Study in the US
+    </a>
+
+
+    <section class="hero">
+
+      <span class="eyebrow">
+        Test Preparation
+      </span>
+
+      <h1>
+        Exam Prep
+      </h1>
+
+    </section>
+
+
+    <section class="profile">
+
+      <div class="profile-image-wrap">
+
+        <img
+          class="profile-image"
+          src="jon-exam-prep.png"
+          alt="Jon Smilow, Exam Prep instructor"
+        />
+
+      </div>
+
+
+      <div class="profile-copy">
+
+        <h2>
+          Jon Smilow
+        </h2>
+
+        <span class="profile-role">
+          Exam Prep & Academic English Instructor
+        </span>
+
+        <p>
+          Jon is a native English-speaking instructor with an
+          <strong>MA in Applied Linguistics from the University of Birmingham</strong>
+          and more than <strong>10 years of experience</strong> preparing students
+          for major standardized exams, including TOEFL, IELTS, SAT, ACT, GRE,
+          and GMAT.
+        </p>
+
+        <p>
+          He currently teaches academic English at
+          <strong>Long Island University</strong> and
+          <strong>Adelphi University International</strong>, working with
+          international students on the language and academic skills they need
+          to succeed at U.S. universities.
+        </p>
+
+        <p>
+          His professional background also includes curriculum development,
+          instructional design, teacher training, and educational content
+          development.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <section class="credentials">
+
+      <div class="credential">
+        <span class="credential-label">
+          Experience
+        </span>
+
+        <strong>
+          10+ Years
+        </strong>
+
+        <p>
+          Exam preparation experience
+        </p>
+      </div>
+
+
+      <div class="credential">
+        <span class="credential-label">
+          Exams
+        </span>
+
+        <strong>
+          TOEFL · IELTS<br>
+          SAT · ACT<br>
+          GRE · GMAT
+        </strong>
+      </div>
+
+
+      <div class="credential">
+        <span class="credential-label">
+          Education
+        </span>
+
+        <strong>
+          MA Applied Linguistics
+        </strong>
+
+        <p>
+          University of Birmingham
+        </p>
+      </div>
+
+
+      <div class="credential">
+        <span class="credential-label">
+          Current Teaching
+        </span>
+
+        <strong>
+          University Instructor
+        </strong>
+
+        <p>
+          Long Island University & Adelphi University International
+        </p>
+      </div>
+
+    </section>
+
+
+    <section class="approach">
+
+      <h2>
+        Test strategy.<br>
+        Genuine skill development.
+      </h2>
+
+      <div class="approach-copy">
+
+        Jon's approach to exam preparation goes beyond memorizing tricks and
+        test-taking formulas.
+
+        <strong>
+          Students learn what each task is actually testing, how to approach
+          questions strategically, and how to strengthen the underlying
+          language and academic skills they need to perform confidently on
+          test day.
+        </strong>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+
+    <div class="shell footer-inner">
+
+      <span>
+        © 2026 Brooklyn School of English
+      </span>
+
+      <span>
+        New York
+      </span>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
