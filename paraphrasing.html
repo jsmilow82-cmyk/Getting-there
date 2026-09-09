@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Paraphrasing | Brooklyn School of English</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --paper: #f4f5f2;
+      --ink: #102b46;
+      --ink-soft: #465b6d;
+      --ink-faint: #7c8b97;
+      --rule: #ccd5dc;
+      --blue: #123d66;
+      --orange: #ed7a3a;
+
+      --display: "Bodoni Moda", serif;
+      --body: "Karla", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(920px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+
+    .masthead {
+      padding: 32px 0 0;
+    }
+
+    .masthead-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding-bottom: 26px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand-logo {
+      width: 88px;
+      height: 88px;
+
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .wordmark {
+      font-family: var(--display);
+      font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+      font-weight: 500;
+      color: var(--blue);
+    }
+
+    .brand-sub {
+      font-size: 0.69rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .masthead-note {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    /* HERO */
+
+    .back-link {
+      display: inline-block;
+      margin-top: 32px;
+
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+
+      color: var(--ink-soft);
+    }
+
+    .back-link:hover {
+      color: var(--orange);
+    }
+
+    .hero {
+      padding: 65px 0 50px;
+    }
+
+    .eyebrow {
+      display: block;
+      margin-bottom: 15px;
+
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+
+      color: var(--orange);
+    }
+
+    .hero h1 {
+      margin: 0 0 20px;
+
+      font-family: var(--display);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0;
+
+      font-size: 1.08rem;
+      line-height: 1.7;
+
+      color: var(--ink-soft);
+    }
+
+    /* KEY IDEA */
+
+    .criteria-box {
+      margin-bottom: 50px;
+      padding: 28px;
+
+      border: 1px solid var(--rule);
+
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .criteria-box h2 {
+      margin: 0 0 14px;
+
+      font-family: var(--display);
+      font-size: 1.8rem;
+      font-weight: 400;
+    }
+
+    .criteria-box p {
+      margin: 0 0 12px;
+
+      line-height: 1.7;
+      color: var(--ink-soft);
+    }
+
+    .criteria-box ul {
+      margin: 15px 0 0;
+      padding-left: 22px;
+
+      line-height: 1.8;
+      color: var(--ink-soft);
+    }
+
+    .warning {
+      margin-top: 20px;
+      padding: 16px 18px;
+
+      background: rgba(237, 122, 58, 0.08);
+
+      line-height: 1.6;
+    }
+
+    /* EXERCISES */
+
+    .exercise {
+      padding: 44px 0;
+
+      border-top: 1px solid var(--rule);
+    }
+
+    .exercise-number {
+      display: block;
+      margin-bottom: 10px;
+
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+
+      color: var(--orange);
+    }
+
+    .exercise h2 {
+      margin: 0 0 12px;
+
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 400;
+    }
+
+    .instructions {
+      max-width: 760px;
+
+      margin: 0 0 28px;
+
+      line-height: 1.7;
+      color: var(--ink-soft);
+    }
+
+    .item {
+      margin: 28px 0;
+      padding: 24px;
+
+      border: 1px solid var(--rule);
+
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .item p {
+      line-height: 1.65;
+    }
+
+    .source-label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+
+      color: var(--orange);
+    }
+
+    .source-text {
+      margin: 0 0 20px;
+
+      font-size: 1.05rem;
+      line-height: 1.7;
+
+      color: var(--ink);
+    }
+
+    .options {
+      display: grid;
+      gap: 12px;
+
+      margin-top: 18px;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+
+      line-height: 1.55;
+      cursor: pointer;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 110px;
+
+      margin-top: 12px;
+      padding: 16px;
+
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+
+      background: rgba(255, 255, 255, 0.7);
+
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.55;
+
+      resize: vertical;
+    }
+
+    textarea.long-answer {
+      min-height: 160px;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+
+    .prompt {
+      margin-top: 16px;
+      margin-bottom: 8px;
+
+      font-weight: 600;
+    }
+
+    .hint {
+      margin: 10px 0;
+
+      color: var(--ink-soft);
+      font-size: 0.94rem;
+      line-height: 1.6;
+    }
+
+    .self-check {
+      margin-top: 28px;
+      padding: 22px;
+
+      background: rgba(237, 122, 58, 0.08);
+    }
+
+    .self-check h3 {
+      margin: 0 0 14px;
+
+      font-family: var(--display);
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+
+    .self-check label {
+      display: block;
+      margin: 9px 0;
+
+      line-height: 1.5;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--rule);
+
+      padding: 28px 0 38px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+    }
+
+    @media (max-width: 760px) {
+
+      .shell {
+        width: min(100% - 28px, 920px);
+      }
+
+      .masthead-note {
+        display: none;
+      }
+
+      .brand-logo {
+        width: 68px;
+        height: 68px;
+      }
+
+      .hero {
+        padding: 50px 0 38px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <header class="masthead">
+
+    <div class="shell masthead-inner">
+
+      <a class="brand" href="index.html">
+
+        <img
+          class="brand-logo"
+          src="brooklyn-bridge-icon.png"
+          alt="Brooklyn School of English logo"
+        />
+
+        <span class="brand-text">
+
+          <span class="wordmark">
+            Brooklyn School of English
+          </span>
+
+          <span class="brand-sub">
+            New York
+          </span>
+
+        </span>
+
+      </a>
+
+      <span class="masthead-note">
+        Academic Skills
+      </span>
+
+    </div>
+
+  </header>
+
+
+  <main class="shell">
+
+    <a class="back-link" href="academic-skills.html">
+      ← Academic Skills
+    </a>
+
+
+    <section class="hero">
+
+      <span class="eyebrow">
+        Writing Skills
+      </span>
+
+      <h1>
+        Paraphrasing
+      </h1>
+
+      <p>
+        Learn how to express information from a source in your own words
+        while keeping the original meaning.
+      </p>
+
+    </section>
+
+
+    <section class="criteria-box">
+
+      <h2>
+        What is paraphrasing?
+      </h2>
+
+      <p>
+        A paraphrase expresses the same idea as the original source,
+        but uses different language and sentence structure.
+      </p>
+
+      <p>
+        A good paraphrase should:
+      </p>
+
+      <ul>
+        <li>keep the original meaning;</li>
+        <li>use your own vocabulary where appropriate;</li>
+        <li>change the sentence structure, not only individual words;</li>
+        <li>include approximately the same level of detail as the original;</li>
+        <li>be written naturally and clearly.</li>
+      </ul>
+
+      <div class="warning">
+        <strong>Remember:</strong>
+        Changing a few words to synonyms is not enough.
+        Even when you paraphrase successfully, you still need to cite the original source in academic writing.
+      </div>
+
+    </section>
+
+
+    <!-- EXERCISE 1 -->
+
+    <section class="exercise">
+
+      <span class="exercise-number">
+        Exercise 1
+      </span>
+
+      <h2>
+        Which is the better paraphrase?
+      </h2>
+
+      <p class="instructions">
+        Read the original sentence and the two versions below it.
+        Choose the version that paraphrases the idea more effectively.
+      </p>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          Many university students experience stress because they have to balance academic responsibilities, work, and their personal lives.
+        </p>
+
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="p1">
+            Many college students feel stressed because they need to balance academic responsibilities, jobs, and their personal lives.
+          </label>
+
+          <label class="option">
+            <input type="radio" name="p1">
+            Trying to manage coursework alongside employment and personal commitments can create considerable stress for university students.
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          Regular physical activity can improve mental health by reducing anxiety and improving mood.
+        </p>
+
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="p2">
+            Exercise can support psychological well-being because it may decrease anxiety and help people feel better emotionally.
+          </label>
+
+          <label class="option">
+            <input type="radio" name="p2">
+            Regular exercise can improve mental health by decreasing anxiety and improving people's moods.
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          Social media allows people to communicate across long distances, but excessive use may also contribute to feelings of isolation.
+        </p>
+
+        <div class="options">
+
+          <label class="option">
+            <input type="radio" name="p3">
+            Although online platforms make it easier to stay in contact with people who live far away, spending too much time on them may leave users feeling more socially disconnected.
+          </label>
+
+          <label class="option">
+            <input type="radio" name="p3">
+            Social media enables people to communicate over long distances, but too much use can contribute to isolation.
+          </label>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- EXERCISE 2 -->
+
+    <section class="exercise">
+
+      <span class="exercise-number">
+        Exercise 2
+      </span>
+
+      <h2>
+        Change the structure
+      </h2>
+
+      <p class="instructions">
+        Paraphrasing is not just replacing vocabulary.
+        Practice changing the grammatical structure while keeping the same meaning.
+      </p>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          Because housing costs have increased, many students are choosing to live with their parents while attending university.
+        </p>
+
+        <p class="prompt">
+          Begin your sentence with:
+        </p>
+
+        <p class="hint">
+          <strong>Rising housing costs...</strong>
+        </p>
+
+        <textarea
+          placeholder="Rewrite the sentence..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          Students who regularly participate in class discussions often become more confident speakers.
+        </p>
+
+        <p class="prompt">
+          Begin your sentence with:
+        </p>
+
+        <p class="hint">
+          <strong>Regular participation...</strong>
+        </p>
+
+        <textarea
+          placeholder="Rewrite the sentence..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          Universities are introducing more online courses because students increasingly want flexible study options.
+        </p>
+
+        <p class="prompt">
+          Begin your sentence with:
+        </p>
+
+        <p class="hint">
+          <strong>Students' growing demand...</strong>
+        </p>
+
+        <textarea
+          placeholder="Rewrite the sentence..."
+        ></textarea>
+
+      </div>
+
+    </section>
+
+
+    <!-- EXERCISE 3 -->
+
+    <section class="exercise">
+
+      <span class="exercise-number">
+        Exercise 3
+      </span>
+
+      <h2>
+        Guided paraphrasing
+      </h2>
+
+      <p class="instructions">
+        Rewrite each sentence in your own words.
+        The prompts underneath give you ideas for how you could change the language or structure.
+        You do not have to use every suggestion.
+      </p>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          International students may struggle during their first semester because they have to adjust to both a new academic system and a new culture.
+        </p>
+
+        <p class="hint">
+          You might use: <strong>face difficulties · adapt · unfamiliar · cultural environment</strong>
+        </p>
+
+        <textarea
+          placeholder="Write your paraphrase..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          Getting enough sleep is important for students because sleep affects concentration, memory, and academic performance.
+        </p>
+
+        <p class="hint">
+          You might use: <strong>adequate sleep · ability to focus · remember information · perform academically</strong>
+        </p>
+
+        <textarea
+          placeholder="Write your paraphrase..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          Students who develop effective time-management skills are often better able to meet deadlines and avoid unnecessary stress.
+        </p>
+
+        <p class="hint">
+          You might use: <strong>manage their time effectively · complete work on time · reduce stress</strong>
+        </p>
+
+        <textarea
+          placeholder="Write your paraphrase..."
+        ></textarea>
+
+      </div>
+
+    </section>
+
+
+    <!-- EXERCISE 4 -->
+
+    <section class="exercise">
+
+      <span class="exercise-number">
+        Exercise 4
+      </span>
+
+      <h2>
+        Paraphrase independently
+      </h2>
+
+      <p class="instructions">
+        Now paraphrase each sentence without prompts.
+        Try to change both the vocabulary and the structure while preserving the original meaning.
+      </p>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          Young adults are increasingly delaying major life decisions such as getting married, buying a home, and having children.
+        </p>
+
+        <textarea
+          class="long-answer"
+          placeholder="Write your paraphrase..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          Learning a second language can help people understand different cultures and communicate with a wider range of people.
+        </p>
+
+        <textarea
+          class="long-answer"
+          placeholder="Write your paraphrase..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          The growing cost of higher education has caused many students to question whether a university degree is worth the financial investment.
+        </p>
+
+        <textarea
+          class="long-answer"
+          placeholder="Write your paraphrase..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Original
+        </span>
+
+        <p class="source-text">
+          Working from home gives employees greater flexibility, although some people find it more difficult to separate their professional and personal lives.
+        </p>
+
+        <textarea
+          class="long-answer"
+          placeholder="Write your paraphrase..."
+        ></textarea>
+
+      </div>
+
+    </section>
+
+
+    <!-- EXERCISE 5 -->
+
+    <section class="exercise">
+
+      <span class="exercise-number">
+        Exercise 5
+      </span>
+
+      <h2>
+        Paraphrase short passages
+      </h2>
+
+      <p class="instructions">
+        Paraphrase each short passage.
+        Keep all of the important information, but express the ideas using your own language and sentence structure.
+      </p>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Source A
+        </span>
+
+        <p class="source-text">
+          College students often experience changes in their social relationships after beginning university. They may spend less time with friends from high school while forming new relationships with classmates and roommates. These changes can be exciting, but they can also make some students feel lonely during the transition.
+        </p>
+
+        <textarea
+          class="long-answer"
+          placeholder="Write your paraphrase..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Source B
+        </span>
+
+        <p class="source-text">
+          Smartphones have made it possible for people to access information almost anywhere and at any time. However, constant access to digital information may make it more difficult for people to concentrate on a single task for long periods.
+        </p>
+
+        <textarea
+          class="long-answer"
+          placeholder="Write your paraphrase..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="source-label">
+          Source C
+        </span>
+
+        <p class="source-text">
+          Part-time employment can provide university students with valuable professional experience and additional income. At the same time, working too many hours may reduce the amount of time students have available for studying and completing assignments.
+        </p>
+
+        <textarea
+          class="long-answer"
+          placeholder="Write your paraphrase..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="self-check">
+
+        <h3>
+          Check your paraphrases
+        </h3>
+
+        <label>
+          <input type="checkbox">
+          I kept the meaning of the original.
+        </label>
+
+        <label>
+          <input type="checkbox">
+          I changed more than just a few individual words.
+        </label>
+
+        <label>
+          <input type="checkbox">
+          I changed some of the sentence structure.
+        </label>
+
+        <label>
+          <input type="checkbox">
+          I did not add ideas that were not in the original.
+        </label>
+
+        <label>
+          <input type="checkbox">
+          My paraphrase sounds natural and clear.
+        </label>
+
+        <label>
+          <input type="checkbox">
+          I would cite the original source if I used this paraphrase in an academic paper.
+        </label>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+
+    <div class="shell footer-inner">
+
+      <span>
+        © 2026 Brooklyn School of English
+      </span>
+
+      <span>
+        New York
+      </span>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
