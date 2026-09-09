@@ -23,6 +23,8 @@
       --rule: #ccd5dc;
       --blue: #123d66;
       --orange: #ed7a3a;
+      --correct: #28734f;
+      --incorrect: #a44232;
 
       --display: "Bodoni Moda", serif;
       --body: "Karla", sans-serif;
@@ -49,8 +51,6 @@
       margin: 0 auto;
     }
 
-    /* HEADER */
-
     .masthead {
       padding: 32px 0 0;
     }
@@ -59,7 +59,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-
       padding-bottom: 26px;
       border-bottom: 1px solid var(--rule);
     }
@@ -104,16 +103,12 @@
       color: var(--ink-faint);
     }
 
-    /* HERO */
-
     .back-link {
       display: inline-block;
       margin-top: 32px;
-
       font-size: 0.76rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-
       color: var(--ink-soft);
     }
 
@@ -128,17 +123,14 @@
     .eyebrow {
       display: block;
       margin-bottom: 15px;
-
       font-size: 0.72rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-
       color: var(--orange);
     }
 
     .hero h1 {
       margin: 0 0 20px;
-
       font-family: var(--display);
       font-size: clamp(3rem, 7vw, 5.5rem);
       font-weight: 400;
@@ -149,26 +141,20 @@
     .hero p {
       max-width: 700px;
       margin: 0;
-
       font-size: 1.08rem;
       line-height: 1.7;
-
       color: var(--ink-soft);
     }
-
-    /* INTRO BOX */
 
     .criteria-box {
       margin-bottom: 50px;
       padding: 26px;
-
       border: 1px solid var(--rule);
-      background: rgba(255, 255, 255, 0.45);
+      background: rgba(255,255,255,0.45);
     }
 
     .criteria-box h2 {
       margin: 0 0 14px;
-
       font-family: var(--display);
       font-size: 1.8rem;
       font-weight: 400;
@@ -177,12 +163,9 @@
     .criteria-box ul {
       margin: 0;
       padding-left: 22px;
-
       line-height: 1.8;
       color: var(--ink-soft);
     }
-
-    /* EXERCISES */
 
     .exercise {
       padding: 42px 0;
@@ -192,17 +175,14 @@
     .exercise-number {
       display: block;
       margin-bottom: 10px;
-
       font-size: 0.7rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-
       color: var(--orange);
     }
 
     .exercise h2 {
       margin: 0 0 12px;
-
       font-family: var(--display);
       font-size: clamp(2rem, 4vw, 2.8rem);
       font-weight: 400;
@@ -217,18 +197,12 @@
     .item {
       margin: 28px 0;
       padding: 22px;
-
       border: 1px solid var(--rule);
-      background: rgba(255, 255, 255, 0.4);
+      background: rgba(255,255,255,0.4);
     }
 
     .item p {
       line-height: 1.65;
-    }
-
-    .intro-text {
-      margin-bottom: 18px;
-      line-height: 1.7;
     }
 
     .statement {
@@ -241,56 +215,92 @@
       margin-top: 16px;
     }
 
-    label.option {
+    .option {
       display: flex;
       gap: 10px;
       align-items: flex-start;
-
       cursor: pointer;
       line-height: 1.5;
     }
 
     textarea {
       width: 100%;
-      min-height: 100px;
-
-      margin-top: 12px;
+      min-height: 95px;
+      margin-top: 10px;
       padding: 15px;
-
       border: 1px solid var(--rule);
-
-      background: rgba(255, 255, 255, 0.65);
-
+      background: rgba(255,255,255,0.7);
       font-family: var(--body);
       font-size: 1rem;
       line-height: 1.5;
-
       resize: vertical;
     }
 
-    .short-input {
-      min-height: 80px;
+    textarea:focus {
+      outline: none;
+      border-color: var(--blue);
     }
 
-    .topic-box {
-      margin-bottom: 12px;
+    .check-button {
+      margin-top: 10px;
+      padding: 12px 22px;
+      border: 1px solid var(--blue);
+      border-radius: 2px;
+      background: var(--blue);
+      color: white;
+      font-family: var(--body);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .check-button:hover {
+      opacity: 0.9;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 16px;
+      padding: 17px 19px;
+      border-left: 3px solid var(--blue);
+      background: rgba(255,255,255,0.55);
+      line-height: 1.65;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.correct {
+      border-left-color: var(--correct);
+    }
+
+    .feedback.incorrect {
+      border-left-color: var(--incorrect);
+    }
+
+    .feedback-heading {
+      display: block;
+      margin-bottom: 8px;
       font-weight: 600;
     }
 
-    .ideas {
-      margin: 10px 0 18px;
+    .correct .feedback-heading {
+      color: var(--correct);
+    }
+
+    .incorrect .feedback-heading {
+      color: var(--incorrect);
+    }
+
+    .model-answer {
+      margin-top: 8px;
       color: var(--ink-soft);
     }
 
     .self-check {
-      margin-top: 28px;
+      margin-top: 24px;
       padding: 20px;
-
-      background: rgba(237, 122, 58, 0.08);
-    }
-
-    .self-check h3 {
-      margin-top: 0;
+      background: rgba(237,122,58,0.08);
     }
 
     .self-check label {
@@ -306,7 +316,6 @@
     .footer-inner {
       display: flex;
       justify-content: space-between;
-
       font-size: 0.75rem;
       color: var(--ink-faint);
     }
@@ -339,480 +348,676 @@
 
 <body>
 
-  <header class="masthead">
-    <div class="shell masthead-inner">
+<header class="masthead">
+  <div class="shell masthead-inner">
 
-      <a class="brand" href="index.html">
+    <a class="brand" href="index.html">
 
-        <img
-          class="brand-logo"
-          src="brooklyn-bridge-icon.png"
-          alt="Brooklyn School of English logo"
-        />
+      <img
+        class="brand-logo"
+        src="brooklyn-bridge-icon.png"
+        alt="Brooklyn School of English logo"
+      />
 
-        <span class="brand-text">
-          <span class="wordmark">Brooklyn School of English</span>
-          <span class="brand-sub">New York</span>
-        </span>
-
-      </a>
-
-      <span class="masthead-note">
-        Academic Skills
+      <span class="brand-text">
+        <span class="wordmark">Brooklyn School of English</span>
+        <span class="brand-sub">New York</span>
       </span>
 
-    </div>
-  </header>
-
-
-  <main class="shell">
-
-    <a class="back-link" href="academic-skills.html">
-      ← Academic Skills
     </a>
 
-    <section class="hero">
+    <span class="masthead-note">Academic Skills</span>
 
-      <span class="eyebrow">
-        Writing Skills
-      </span>
+  </div>
+</header>
 
-      <h1>
-        Thesis Statements
-      </h1>
+
+<main class="shell">
+
+  <a class="back-link" href="academic-skills.html">
+    ← Academic Skills
+  </a>
+
+
+  <section class="hero">
+
+    <span class="eyebrow">Writing Skills</span>
+
+    <h1>Thesis Statements</h1>
+
+    <p>
+      Learn how to recognize, evaluate, improve, and write effective
+      thesis statements for academic essays.
+    </p>
+
+  </section>
+
+
+  <section class="criteria-box">
+
+    <h2>What makes a strong thesis statement?</h2>
+
+    <ul>
+      <li>It clearly states the main idea of the essay.</li>
+      <li>It is specific rather than vague.</li>
+      <li>It shows the writer's position or focus.</li>
+      <li>It gives the reader an idea of what the essay will discuss.</li>
+    </ul>
+
+  </section>
+
+
+  <!-- EXERCISE 1 -->
+
+  <section class="exercise">
+
+    <span class="exercise-number">Exercise 1</span>
+
+    <h2>Identify the thesis statement</h2>
+
+    <p class="instructions">
+      Read each introduction. Copy the thesis statement and identify the
+      three main points it introduces.
+    </p>
+
+
+    <div class="item">
 
       <p>
-        Learn how to recognize, evaluate, improve, and write effective thesis statements for academic essays.
+        Many international students choose to study in the United States
+        because of its universities, career opportunities, and cultural
+        diversity. However, studying abroad can also be challenging.
+        International students can succeed in U.S. universities if they
+        develop strong academic skills, build a support network, and learn
+        to adapt to a new culture.
       </p>
 
-    </section>
+      <p><strong>Copy the thesis statement:</strong></p>
 
+      <textarea></textarea>
 
-    <section class="criteria-box">
+      <p><strong>What three main points does it introduce?</strong></p>
 
-      <h2>
-        What makes a strong thesis statement?
-      </h2>
+      <textarea></textarea>
 
-      <ul>
-        <li>It clearly states the main idea of the essay.</li>
-        <li>It is specific rather than vague.</li>
-        <li>It shows the writer's position or focus.</li>
-        <li>It gives the reader an idea of what the essay will discuss.</li>
-      </ul>
+      <div class="feedback" id="thesis1-feedback">
+        <span class="feedback-heading">Model answer</span>
 
-    </section>
-
-
-    <!-- EXERCISE 1 -->
-
-    <section class="exercise">
-
-      <span class="exercise-number">
-        Exercise 1
-      </span>
-
-      <h2>
-        Identify the thesis statement
-      </h2>
-
-      <p class="instructions">
-        Read each short introduction. Identify the thesis statement.
-        Then identify the main points that the thesis introduces.
-      </p>
-
-
-      <div class="item">
-
-        <p class="intro-text">
-          Many international students choose to study in the United States because of its universities, career opportunities, and cultural diversity. However, studying abroad can also be challenging. International students can succeed in U.S. universities if they develop strong academic skills, build a support network, and learn to adapt to a new culture.
-        </p>
-
-        <label>
-          Copy the thesis statement:
-        </label>
-
-        <textarea class="short-input"></textarea>
-
-        <label>
-          What three main points does it introduce?
-        </label>
-
-        <textarea class="short-input"></textarea>
-
-      </div>
-
-
-      <div class="item">
-
-        <p class="intro-text">
-          Technology has become an important part of modern education. Students now use digital tools for research, communication, and completing assignments. Technology can improve university learning by increasing access to information, supporting collaboration, and giving students more flexible ways to study.
-        </p>
-
-        <label>
-          Copy the thesis statement:
-        </label>
-
-        <textarea class="short-input"></textarea>
-
-        <label>
-          What three main points does it introduce?
-        </label>
-
-        <textarea class="short-input"></textarea>
-
-      </div>
-
-    </section>
-
-
-    <!-- EXERCISE 2 -->
-
-    <section class="exercise">
-
-      <span class="exercise-number">
-        Exercise 2
-      </span>
-
-      <h2>
-        Strong or weak?
-      </h2>
-
-      <p class="instructions">
-        Decide whether each thesis statement is strong or weak.
-        If it is weak, think about what is missing or unclear.
-      </p>
-
-
-      <div class="item">
-
-        <p class="statement">
-          1. Social media is popular.
-        </p>
-
-        <div class="options">
-          <label class="option">
-            <input type="radio" name="q2-1">
-            Strong
-          </label>
-
-          <label class="option">
-            <input type="radio" name="q2-1">
-            Weak
-          </label>
+        <div class="model-answer">
+          <strong>Thesis:</strong>
+          International students can succeed in U.S. universities if they
+          develop strong academic skills, build a support network, and learn
+          to adapt to a new culture.
+          <br><br>
+          <strong>Main points:</strong>
+          academic skills; a support network; adapting to a new culture.
         </div>
-
-        <textarea placeholder="Explain your answer..."></textarea>
-
       </div>
-
-
-      <div class="item">
-
-        <p class="statement">
-          2. Universities should offer more mental health support because academic pressure, financial stress, and social isolation can negatively affect students.
-        </p>
-
-        <div class="options">
-          <label class="option">
-            <input type="radio" name="q2-2">
-            Strong
-          </label>
-
-          <label class="option">
-            <input type="radio" name="q2-2">
-            Weak
-          </label>
-        </div>
-
-        <textarea placeholder="Explain your answer..."></textarea>
-
-      </div>
-
-
-      <div class="item">
-
-        <p class="statement">
-          3. This essay will talk about studying abroad.
-        </p>
-
-        <div class="options">
-          <label class="option">
-            <input type="radio" name="q2-3">
-            Strong
-          </label>
-
-          <label class="option">
-            <input type="radio" name="q2-3">
-            Weak
-          </label>
-        </div>
-
-        <textarea placeholder="Explain your answer..."></textarea>
-
-      </div>
-
-
-      <div class="item">
-
-        <p class="statement">
-          4. Living in New York can help international students become more independent, culturally aware, and confident.
-        </p>
-
-        <div class="options">
-          <label class="option">
-            <input type="radio" name="q2-4">
-            Strong
-          </label>
-
-          <label class="option">
-            <input type="radio" name="q2-4">
-            Weak
-          </label>
-        </div>
-
-        <textarea placeholder="Explain your answer..."></textarea>
-
-      </div>
-
-    </section>
-
-
-    <!-- EXERCISE 3 -->
-
-    <section class="exercise">
-
-      <span class="exercise-number">
-        Exercise 3
-      </span>
-
-      <h2>
-        Improve the thesis statement
-      </h2>
-
-      <p class="instructions">
-        Rewrite each weak thesis statement so that it is clearer and more specific.
-        Try to include two or three main areas that the essay could discuss.
-      </p>
-
-
-      <div class="item">
-
-        <p class="statement">
-          Studying abroad is good.
-        </p>
-
-        <textarea placeholder="Write a stronger thesis statement..."></textarea>
-
-      </div>
-
-
-      <div class="item">
-
-        <p class="statement">
-          Technology has changed education.
-        </p>
-
-        <textarea placeholder="Write a stronger thesis statement..."></textarea>
-
-      </div>
-
-
-      <div class="item">
-
-        <p class="statement">
-          College is difficult.
-        </p>
-
-        <textarea placeholder="Write a stronger thesis statement..."></textarea>
-
-      </div>
-
-
-      <div class="item">
-
-        <p class="statement">
-          New York is a good place to live.
-        </p>
-
-        <textarea placeholder="Write a stronger thesis statement..."></textarea>
-
-      </div>
-
-    </section>
-
-
-    <!-- EXERCISE 4 -->
-
-    <section class="exercise">
-
-      <span class="exercise-number">
-        Exercise 4
-      </span>
-
-      <h2>
-        Build a thesis statement
-      </h2>
-
-      <p class="instructions">
-        Use the topic and supporting ideas to write one clear thesis statement.
-      </p>
-
-
-      <div class="item">
-
-        <div class="topic-box">
-          Topic: Benefits of studying in another country
-        </div>
-
-        <div class="ideas">
-          Supporting ideas: independence · language development · cultural awareness
-        </div>
-
-        <textarea placeholder="Write your thesis statement..."></textarea>
-
-      </div>
-
-
-      <div class="item">
-
-        <div class="topic-box">
-          Topic: Working while studying
-        </div>
-
-        <div class="ideas">
-          Supporting ideas: money · time management · work experience
-        </div>
-
-        <textarea placeholder="Write your thesis statement..."></textarea>
-
-      </div>
-
-
-      <div class="item">
-
-        <div class="topic-box">
-          Topic: Living in a big city
-        </div>
-
-        <div class="ideas">
-          Supporting ideas: opportunities · diversity · independence
-        </div>
-
-        <textarea placeholder="Write your thesis statement..."></textarea>
-
-      </div>
-
-    </section>
-
-
-    <!-- EXERCISE 5 -->
-
-    <section class="exercise">
-
-      <span class="exercise-number">
-        Exercise 5
-      </span>
-
-      <h2>
-        Write your own thesis statement
-      </h2>
-
-      <p class="instructions">
-        Choose one topic and write a strong thesis statement.
-        Your thesis should clearly state the main idea and preview two or three points that you could develop in an essay.
-      </p>
-
-
-      <div class="item">
-
-        <p><strong>Choose one:</strong></p>
-
-        <div class="options">
-
-          <label class="option">
-            <input type="radio" name="final-topic">
-            Should university students be required to attend all classes?
-          </label>
-
-          <label class="option">
-            <input type="radio" name="final-topic">
-            What are the main challenges international students face?
-          </label>
-
-          <label class="option">
-            <input type="radio" name="final-topic">
-            Is living in a large city good for college students?
-          </label>
-
-          <label class="option">
-            <input type="radio" name="final-topic">
-            What makes a successful university student?
-          </label>
-
-          <label class="option">
-            <input type="radio" name="final-topic">
-            Should students work while studying?
-          </label>
-
-        </div>
-
-        <textarea
-          style="min-height: 130px;"
-          placeholder="Write your thesis statement..."
-        ></textarea>
-
-
-        <div class="self-check">
-
-          <h3>
-            Self-check
-          </h3>
-
-          <label>
-            <input type="checkbox">
-            My main idea is clear.
-          </label>
-
-          <label>
-            <input type="checkbox">
-            My thesis is specific.
-          </label>
-
-          <label>
-            <input type="checkbox">
-            My thesis answers the topic.
-          </label>
-
-          <label>
-            <input type="checkbox">
-            My thesis previews the main points of the essay.
-          </label>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <footer>
-
-    <div class="shell footer-inner">
-
-      <span>
-        © 2026 Brooklyn School of English
-      </span>
-
-      <span>
-        New York
-      </span>
 
     </div>
 
-  </footer>
+
+    <div class="item">
+
+      <p>
+        Technology has become an important part of modern education.
+        Students now use digital tools for research, communication, and
+        completing assignments. Technology can improve university learning
+        by increasing access to information, supporting collaboration, and
+        giving students more flexible ways to study.
+      </p>
+
+      <p><strong>Copy the thesis statement:</strong></p>
+
+      <textarea></textarea>
+
+      <p><strong>What three main points does it introduce?</strong></p>
+
+      <textarea></textarea>
+
+      <div class="feedback" id="thesis2-feedback">
+        <span class="feedback-heading">Model answer</span>
+
+        <div class="model-answer">
+          <strong>Thesis:</strong>
+          Technology can improve university learning by increasing access to
+          information, supporting collaboration, and giving students more
+          flexible ways to study.
+          <br><br>
+          <strong>Main points:</strong>
+          access to information; collaboration; flexible study options.
+        </div>
+      </div>
+
+    </div>
+
+    <button
+      class="check-button"
+      onclick="showModels(['thesis1-feedback','thesis2-feedback'])">
+      Check answers
+    </button>
+
+  </section>
+
+
+  <!-- EXERCISE 2 -->
+
+  <section class="exercise">
+
+    <span class="exercise-number">Exercise 2</span>
+
+    <h2>Strong or weak?</h2>
+
+    <p class="instructions">
+      Decide whether each thesis statement is strong or weak.
+    </p>
+
+
+    <div class="item">
+
+      <p class="statement">
+        1. Social media is popular.
+      </p>
+
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="sw1" value="strong"> Strong
+        </label>
+
+        <label class="option">
+          <input type="radio" name="sw1" value="weak"> Weak
+        </label>
+      </div>
+
+      <div class="feedback" id="sw1-feedback"></div>
+
+    </div>
+
+
+    <div class="item">
+
+      <p class="statement">
+        2. Universities should offer more mental health support because
+        academic pressure, financial stress, and social isolation can
+        negatively affect students.
+      </p>
+
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="sw2" value="strong"> Strong
+        </label>
+
+        <label class="option">
+          <input type="radio" name="sw2" value="weak"> Weak
+        </label>
+      </div>
+
+      <div class="feedback" id="sw2-feedback"></div>
+
+    </div>
+
+
+    <div class="item">
+
+      <p class="statement">
+        3. This essay will talk about studying abroad.
+      </p>
+
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="sw3" value="strong"> Strong
+        </label>
+
+        <label class="option">
+          <input type="radio" name="sw3" value="weak"> Weak
+        </label>
+      </div>
+
+      <div class="feedback" id="sw3-feedback"></div>
+
+    </div>
+
+
+    <div class="item">
+
+      <p class="statement">
+        4. Living in New York can help international students become more
+        independent, culturally aware, and confident.
+      </p>
+
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="sw4" value="strong"> Strong
+        </label>
+
+        <label class="option">
+          <input type="radio" name="sw4" value="weak"> Weak
+        </label>
+      </div>
+
+      <div class="feedback" id="sw4-feedback"></div>
+
+    </div>
+
+    <button class="check-button" onclick="checkStrongWeak()">
+      Check answers
+    </button>
+
+  </section>
+
+
+  <!-- EXERCISE 3 -->
+
+  <section class="exercise">
+
+    <span class="exercise-number">Exercise 3</span>
+
+    <h2>Improve the thesis statement</h2>
+
+    <p class="instructions">
+      Rewrite each weak thesis statement so that it is clearer and more
+      specific.
+    </p>
+
+
+    <div class="item">
+      <p class="statement">Studying abroad is good.</p>
+      <textarea placeholder="Write a stronger thesis statement..."></textarea>
+
+      <div class="feedback" id="improve1">
+        <span class="feedback-heading">Model answer</span>
+        Studying abroad can help students become more independent,
+        improve their language skills, and develop greater cultural awareness.
+      </div>
+    </div>
+
+
+    <div class="item">
+      <p class="statement">Technology has changed education.</p>
+      <textarea placeholder="Write a stronger thesis statement..."></textarea>
+
+      <div class="feedback" id="improve2">
+        <span class="feedback-heading">Model answer</span>
+        Technology has transformed university education by expanding access
+        to information, supporting online collaboration, and creating more
+        flexible learning opportunities.
+      </div>
+    </div>
+
+
+    <div class="item">
+      <p class="statement">College is difficult.</p>
+      <textarea placeholder="Write a stronger thesis statement..."></textarea>
+
+      <div class="feedback" id="improve3">
+        <span class="feedback-heading">Model answer</span>
+        University students often face challenges related to academic
+        workload, time management, and financial pressure.
+      </div>
+    </div>
+
+
+    <div class="item">
+      <p class="statement">New York is a good place to live.</p>
+      <textarea placeholder="Write a stronger thesis statement..."></textarea>
+
+      <div class="feedback" id="improve4">
+        <span class="feedback-heading">Model answer</span>
+        New York can be an attractive place for university students because
+        of its cultural diversity, professional opportunities, and extensive
+        public transportation system.
+      </div>
+    </div>
+
+    <button
+      class="check-button"
+      onclick="showModels(['improve1','improve2','improve3','improve4'])">
+      Check answers
+    </button>
+
+  </section>
+
+
+  <!-- EXERCISE 4 -->
+
+  <section class="exercise">
+
+    <span class="exercise-number">Exercise 4</span>
+
+    <h2>Build a thesis statement</h2>
+
+    <p class="instructions">
+      Use the topic and supporting ideas to write one clear thesis statement.
+    </p>
+
+
+    <div class="item">
+
+      <p>
+        <strong>Topic:</strong> Benefits of studying in another country
+      </p>
+
+      <p>
+        Supporting ideas: independence · language development · cultural awareness
+      </p>
+
+      <textarea></textarea>
+
+      <div class="feedback" id="build1">
+        <span class="feedback-heading">Model answer</span>
+        Studying in another country can help students become more independent,
+        develop their language skills, and gain greater cultural awareness.
+      </div>
+
+    </div>
+
+
+    <div class="item">
+
+      <p><strong>Topic:</strong> Working while studying</p>
+
+      <p>
+        Supporting ideas: money · time management · work experience
+      </p>
+
+      <textarea></textarea>
+
+      <div class="feedback" id="build2">
+        <span class="feedback-heading">Model answer</span>
+        Working while attending university can provide students with
+        additional income, improve their time-management skills, and give them
+        valuable professional experience.
+      </div>
+
+    </div>
+
+
+    <div class="item">
+
+      <p><strong>Topic:</strong> Living in a big city</p>
+
+      <p>
+        Supporting ideas: opportunities · diversity · independence
+      </p>
+
+      <textarea></textarea>
+
+      <div class="feedback" id="build3">
+        <span class="feedback-heading">Model answer</span>
+        Living in a large city can offer students greater professional
+        opportunities, exposure to diverse cultures, and increased independence.
+      </div>
+
+    </div>
+
+    <button
+      class="check-button"
+      onclick="showModels(['build1','build2','build3'])">
+      Check answers
+    </button>
+
+  </section>
+
+
+  <!-- EXERCISE 5 -->
+
+  <section class="exercise">
+
+    <span class="exercise-number">Exercise 5</span>
+
+    <h2>Write your own thesis statement</h2>
+
+    <p class="instructions">
+      Choose one topic and write a thesis statement.
+      Then compare your answer with a possible model.
+    </p>
+
+
+    <div class="item">
+
+      <div class="options">
+
+        <label class="option">
+          <input type="radio" name="finalTopic" value="attendance">
+          Should university students be required to attend all classes?
+        </label>
+
+        <label class="option">
+          <input type="radio" name="finalTopic" value="international">
+          What are the main challenges international students face?
+        </label>
+
+        <label class="option">
+          <input type="radio" name="finalTopic" value="city">
+          Is living in a large city good for college students?
+        </label>
+
+        <label class="option">
+          <input type="radio" name="finalTopic" value="successful">
+          What makes a successful university student?
+        </label>
+
+        <label class="option">
+          <input type="radio" name="finalTopic" value="work">
+          Should students work while studying?
+        </label>
+
+      </div>
+
+      <textarea
+        style="min-height:130px;"
+        placeholder="Write your thesis statement...">
+      </textarea>
+
+
+      <div class="self-check">
+
+        <strong>Self-check</strong>
+
+        <label>
+          <input type="checkbox">
+          My main idea is clear.
+        </label>
+
+        <label>
+          <input type="checkbox">
+          My thesis is specific.
+        </label>
+
+        <label>
+          <input type="checkbox">
+          My thesis answers the topic.
+        </label>
+
+        <label>
+          <input type="checkbox">
+          My thesis previews the main points.
+        </label>
+
+      </div>
+
+
+      <div class="feedback" id="final-feedback"></div>
+
+    </div>
+
+
+    <button class="check-button" onclick="checkFinalThesis()">
+      Check answer
+    </button>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  <div class="shell footer-inner">
+
+    <span>© 2026 Brooklyn School of English</span>
+    <span>New York</span>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+function showModels(ids) {
+
+  ids.forEach(id => {
+    document.getElementById(id).classList.add("show");
+  });
+
+}
+
+
+function checkStrongWeak() {
+
+  const answers = {
+    sw1: {
+      correct: "weak",
+      explanation:
+        "This statement is too general. It does not show a clear focus or preview what the essay will discuss."
+    },
+
+    sw2: {
+      correct: "strong",
+      explanation:
+        "This statement presents a clear position and identifies three specific areas the essay can develop."
+    },
+
+    sw3: {
+      correct: "weak",
+      explanation:
+        "The statement only announces the topic. It does not present a specific argument, focus, or main points."
+    },
+
+    sw4: {
+      correct: "strong",
+      explanation:
+        "This thesis clearly identifies the topic and previews three specific benefits: independence, cultural awareness, and confidence."
+    }
+  };
+
+
+  Object.keys(answers).forEach(name => {
+
+    const selected =
+      document.querySelector(`input[name="${name}"]:checked`);
+
+    const feedback =
+      document.getElementById(`${name}-feedback`);
+
+    feedback.className = "feedback show";
+
+
+    if (!selected) {
+
+      feedback.classList.add("incorrect");
+
+      feedback.innerHTML =
+        `<span class="feedback-heading">Choose an answer first.</span>`;
+
+      return;
+
+    }
+
+
+    const correct =
+      selected.value === answers[name].correct;
+
+
+    feedback.classList.add(
+      correct ? "correct" : "incorrect"
+    );
+
+
+    feedback.innerHTML = `
+
+      <span class="feedback-heading">
+        ${correct ? "Correct." : "Not quite."}
+      </span>
+
+      ${answers[name].explanation}
+
+    `;
+
+  });
+
+}
+
+
+function checkFinalThesis() {
+
+  const selected =
+    document.querySelector(
+      'input[name="finalTopic"]:checked'
+    );
+
+  const feedback =
+    document.getElementById("final-feedback");
+
+
+  feedback.className =
+    "feedback show";
+
+
+  if (!selected) {
+
+    feedback.classList.add("incorrect");
+
+    feedback.innerHTML =
+      `<span class="feedback-heading">
+        Choose a topic first.
+      </span>`;
+
+    return;
+
+  }
+
+
+  const models = {
+
+    attendance:
+      "University students should be required to attend most classes because regular attendance promotes active participation, improves understanding of course material, and encourages consistent study habits.",
+
+    international:
+      "International students often face challenges related to language, cultural adjustment, and unfamiliar academic expectations.",
+
+    city:
+      "Living in a large city can benefit college students by providing greater professional opportunities, cultural diversity, and access to public transportation.",
+
+    successful:
+      "Successful university students typically manage their time effectively, participate actively in their courses, and develop strong independent study habits.",
+
+    work:
+      "University students can benefit from part-time employment because it provides income, professional experience, and opportunities to develop time-management skills."
+
+  };
+
+
+  feedback.innerHTML = `
+
+    <span class="feedback-heading">
+      Possible model answer
+    </span>
+
+    ${models[selected.value]}
+
+    <div class="model-answer">
+      Your wording can be different. Compare the focus,
+      specificity, and supporting points in your thesis with
+      the model.
+    </div>
+
+  `;
+
+}
+
+</script>
 
 </body>
 </html>
