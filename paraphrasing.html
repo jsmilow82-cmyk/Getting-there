@@ -345,7 +345,135 @@
       }
 
     }
+/* PARAPHRASING GUIDE */
 
+.paraphrase-guide {
+  margin: 0 0 54px;
+}
+
+.paraphrase-guide-title {
+  margin: 0 0 14px;
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+}
+
+.paraphrase-guide-intro {
+  max-width: 760px;
+  margin: 0 0 28px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.guide-section {
+  margin: 22px 0;
+  padding: 26px;
+  border: 1px solid var(--rule);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.guide-section-number {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.guide-section h3 {
+  margin: 0 0 10px;
+  font-family: var(--display);
+  font-size: 1.75rem;
+  font-weight: 400;
+}
+
+.guide-section > p {
+  margin: 0 0 18px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.example-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.example-card {
+  padding: 18px;
+  border: 1px solid var(--rule);
+  background: rgba(244, 245, 242, 0.75);
+}
+
+.example-type {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.example-line {
+  margin: 10px 0;
+  line-height: 1.7;
+}
+
+.example-line strong {
+  color: var(--blue);
+}
+
+.swap-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0;
+  font-weight: 600;
+}
+
+.arrow-swap {
+  color: var(--orange);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.lang-old {
+  color: #1d5f8c;
+  background: rgba(29, 95, 140, 0.10);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.lang-new {
+  color: #a04b14;
+  background: rgba(237, 122, 58, 0.14);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.lang-structure {
+  color: #4b5c27;
+  background: rgba(116, 145, 62, 0.16);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.guide-note {
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .guide-section {
+    padding: 20px;
+  }
+}
   </style>
 </head>
 
@@ -423,7 +551,261 @@
   </div>
 
 </section>
+<section class="paraphrase-guide">
 
+  <h2 class="paraphrase-guide-title">
+    How to paraphrase
+  </h2>
+
+  <p class="paraphrase-guide-intro">
+    Good paraphrasing usually combines more than one technique. You can replace
+    words, change the part of speech, or reorganize the grammar of the sentence
+    while keeping the original meaning.
+  </p>
+
+
+  <!-- SECTION 1 -->
+
+  <div class="guide-section">
+
+    <span class="guide-section-number">
+      Technique 1
+    </span>
+
+    <h3>
+      Replace content words with synonyms
+    </h3>
+
+    <p>
+      One way to paraphrase is to replace key academic content words with
+      synonyms. The new word should fit the same meaning and context.
+    </p>
+
+    <div class="example-grid">
+
+      <div class="example-card">
+
+        <span class="example-type">
+          Simple → more academic
+        </span>
+
+        <p class="example-line">
+          <strong>Original:</strong>
+          The study examined <span class="lang-old">important</span> factors
+          that affect student motivation.
+        </p>
+
+        <div class="swap-row">
+          <span class="lang-old">important</span>
+          <span class="arrow-swap">→</span>
+          <span class="lang-new">significant</span>
+        </div>
+
+        <p class="example-line">
+          <strong>Paraphrase:</strong>
+          The study examined <span class="lang-new">significant</span> factors
+          that affect student motivation.
+        </p>
+
+      </div>
+
+
+      <div class="example-card">
+
+        <span class="example-type">
+          Equal sophistication
+        </span>
+
+        <p class="example-line">
+          <strong>Original:</strong>
+          Researchers used this <span class="lang-old">method</span> to
+          investigate classroom interaction.
+        </p>
+
+        <div class="swap-row">
+          <span class="lang-old">method</span>
+          <span class="arrow-swap">→</span>
+          <span class="lang-new">approach</span>
+        </div>
+
+        <p class="example-line">
+          <strong>Paraphrase:</strong>
+          Researchers used this <span class="lang-new">approach</span> to
+          investigate classroom interaction.
+        </p>
+
+      </div>
+
+    </div>
+
+    <p class="guide-note">
+      Notice: you do not need to replace every word. Focus on meaningful
+      academic content words.
+    </p>
+
+  </div>
+
+
+  <!-- SECTION 2 -->
+
+  <div class="guide-section">
+
+    <span class="guide-section-number">
+      Technique 2
+    </span>
+
+    <h3>
+      Change the part of speech
+    </h3>
+
+    <p>
+      A paraphrase can become stronger if you change a word into a different
+      part of speech. This often helps you build a new sentence structure.
+    </p>
+
+    <div class="example-grid">
+
+      <div class="example-card">
+
+        <span class="example-type">
+          Verb → noun
+        </span>
+
+        <p class="example-line">
+          <strong>Original:</strong>
+          Researchers <span class="lang-old">analyzed</span> the data before
+          drawing conclusions.
+        </p>
+
+        <div class="swap-row">
+          <span class="lang-old">analyzed</span>
+          <span class="arrow-swap">→</span>
+          <span class="lang-new">conducted an analysis of</span>
+        </div>
+
+        <p class="example-line">
+          <strong>Paraphrase:</strong>
+          Researchers <span class="lang-new">conducted an analysis of</span>
+          the data before drawing conclusions.
+        </p>
+
+      </div>
+
+
+      <div class="example-card">
+
+        <span class="example-type">
+          Noun phrase → verb
+        </span>
+
+        <p class="example-line">
+          <strong>Original:</strong>
+          The committee made a <span class="lang-old">recommendation</span>
+          to revise the policy.
+        </p>
+
+        <div class="swap-row">
+          <span class="lang-old">made a recommendation</span>
+          <span class="arrow-swap">→</span>
+          <span class="lang-new">recommended</span>
+        </div>
+
+        <p class="example-line">
+          <strong>Paraphrase:</strong>
+          The committee <span class="lang-new">recommended</span> revising
+          the policy.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SECTION 3 -->
+
+  <div class="guide-section">
+
+    <span class="guide-section-number">
+      Technique 3
+    </span>
+
+    <h3>
+      Reorganize the clause structure
+    </h3>
+
+    <p>
+      You can also paraphrase by changing the grammar of the sentence.
+      For example, you can turn a compound sentence into a complex one,
+      or you can change a clause into a phrase.
+    </p>
+
+    <div class="example-grid">
+
+      <div class="example-card">
+
+        <span class="example-type">
+          Compound → complex
+        </span>
+
+        <p class="example-line">
+          <strong>Original:</strong>
+          The sample size was small,
+          <span class="lang-structure">but</span>
+          the results were meaningful.
+        </p>
+
+        <div class="swap-row">
+          <span class="lang-structure">..., but ...</span>
+          <span class="arrow-swap">→</span>
+          <span class="lang-new">Although ... , ...</span>
+        </div>
+
+        <p class="example-line">
+          <strong>Paraphrase:</strong>
+          <span class="lang-new">Although</span> the sample size was small,
+          the results were meaningful.
+        </p>
+
+      </div>
+
+
+      <div class="example-card">
+
+        <span class="example-type">
+          Clause → phrase
+        </span>
+
+        <p class="example-line">
+          <strong>Original:</strong>
+          <span class="lang-structure">When students collaborate on research
+          projects</span>, they often develop stronger analytical skills.
+        </p>
+
+        <div class="swap-row">
+          <span class="lang-structure">When students collaborate on research projects</span>
+          <span class="arrow-swap">→</span>
+          <span class="lang-new">Collaboration on research projects</span>
+        </div>
+
+        <p class="example-line">
+          <strong>Paraphrase:</strong>
+          <span class="lang-new">Collaboration on research projects</span>
+          often helps students develop stronger analytical skills.
+        </p>
+
+      </div>
+
+    </div>
+
+    <p class="guide-note">
+      In good paraphrasing, sentence structure often changes along with the vocabulary.
+    </p>
+
+  </div>
+
+</section>
 
 <!-- EXERCISE 1 -->
 
