@@ -1,826 +1,1849 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Advanced Booster | My CAE Progress Tracker</title>
 
-  <title>Brooklyn School of English</title>
+<style>
+  :root{
+    --bg:#f6f8fb;
+    --card:#ffffff;
+    --text:#172033;
+    --muted:#6b7280;
+    --line:#dbe2ea;
+    --accent:#2563eb;
+    --accent2:#dbeafe;
+    --good:#15803d;
+    --warn:#b45309;
+    --danger:#b91c1c;
+  }
 
-  <meta
-    name="description"
-    content="Advanced English for ambitious adults — choose where you want your English to take you."
-  />
+  *{
+    box-sizing:border-box;
+  }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  body{
+    margin:0;
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700&family=Karla:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
+  .wrap{
+    max-width:1050px;
+    margin:0 auto;
+    padding:24px 16px 56px;
+  }
 
-  <style>
-    :root {
-      --paper: #f4f5f2;
-      --paper-deep: #e9edf0;
+  .brand-label{
+    display:inline-block;
+    margin-bottom:10px;
+    font-size:12px;
+    font-weight:750;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
 
-      --ink: #102b46;
-      --ink-soft: #465b6d;
-      --ink-faint: #7c8b97;
+  .hero{
+    display:flex;
+    gap:20px;
+    align-items:flex-end;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+  }
 
-      --rule: #ccd5dc;
+  h1{
+    margin:0;
+    font-size:clamp(28px,5vw,42px);
+    line-height:1.05;
+  }
 
-      --blue: #123d66;
-      --blue-mid: #24628e;
-      --orange: #ed7a3a;
-      --orange-soft: #f6a06c;
+  .subtitle{
+    color:var(--muted);
+    margin-top:8px;
+    max-width:700px;
+  }
 
-      --display: "Bodoni Moda", Georgia, "Times New Roman", serif;
-      --body: "Karla", ui-sans-serif, system-ui, sans-serif;
+  .namebox{
+    min-width:260px;
+    flex:0 1 340px;
+  }
 
-      --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  label{
+    font-size:13px;
+    color:var(--muted);
+    display:block;
+  }
+
+  input,
+  textarea,
+  select,
+  button{
+    font:inherit;
+  }
+
+  input,
+  textarea,
+  select{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 12px;
+    background:white;
+    color:var(--text);
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus{
+    outline:2px solid rgba(37,99,235,.18);
+    border-color:var(--accent);
+  }
+
+  button{
+    border:0;
+    border-radius:10px;
+    padding:10px 14px;
+    cursor:pointer;
+  }
+
+  .btn{
+    background:var(--accent);
+    color:white;
+    font-weight:650;
+  }
+
+  .btn.secondary{
+    background:white;
+    color:var(--text);
+    border:1px solid var(--line);
+  }
+
+  .btn.ghost{
+    background:transparent;
+    color:var(--muted);
+    text-decoration:underline;
+  }
+
+  .topgrid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:12px;
+    margin:18px 0 24px;
+  }
+
+  .stat{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px;
+  }
+
+  .stat .small{
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  .stat .big{
+    font-size:26px;
+    font-weight:750;
+    margin-top:3px;
+  }
+
+  .progress{
+    height:10px;
+    background:#e8edf3;
+    border-radius:99px;
+    overflow:hidden;
+    margin-top:8px;
+  }
+
+  .progress > div{
+    height:100%;
+    background:var(--accent);
+    width:0;
+    transition:width .2s ease;
+  }
+
+  .actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+  }
+
+  .paper{
+    margin-top:24px;
+  }
+
+  .paper-head{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:center;
+    margin-bottom:8px;
+  }
+
+  .paper-head h2{
+    font-size:20px;
+    margin:0;
+  }
+
+  .paper-meta{
+    font-size:13px;
+    color:var(--muted);
+  }
+
+  .part{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    margin-bottom:10px;
+    overflow:hidden;
+  }
+
+  .part-toggle{
+    width:100%;
+    background:transparent;
+    color:inherit;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    text-align:left;
+    padding:14px 16px;
+  }
+
+  .part-toggle:hover{
+    background:#fafcff;
+  }
+
+  .part-title{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+  }
+
+  .badge{
+    font-size:12px;
+    font-weight:750;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:5px 8px;
+    white-space:nowrap;
+    background:#fafafa;
+  }
+
+  .part-name{
+    font-weight:700;
+  }
+
+  .part-stats{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    font-size:12px;
+    color:var(--muted);
+    justify-content:flex-end;
+  }
+
+  .part-stats strong{
+    color:var(--text);
+  }
+
+  .panel{
+    border-top:1px solid var(--line);
+    padding:14px 16px 16px;
+  }
+
+  .hidden{
+    display:none;
+  }
+
+  .tablewrap{
+    overflow-x:auto;
+    margin-bottom:14px;
+  }
+
+  table{
+    border-collapse:collapse;
+    width:100%;
+    min-width:650px;
+    font-size:14px;
+  }
+
+  th,
+  td{
+    border-bottom:1px solid var(--line);
+    padding:9px 8px;
+    text-align:left;
+    vertical-align:top;
+  }
+
+  th{
+    font-size:12px;
+    color:var(--muted);
+    font-weight:650;
+  }
+
+  .attempt-form{
+    display:grid;
+    grid-template-columns:1.1fr .7fr .7fr 2fr auto;
+    gap:8px;
+    align-items:end;
+  }
+
+  .attempt-form .field label{
+    margin-bottom:5px;
+  }
+
+  .hint{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:8px;
+  }
+
+  .note{
+    font-size:13px;
+    white-space:pre-wrap;
+  }
+
+  .delete{
+    background:transparent;
+    color:var(--danger);
+    padding:4px 0;
+    text-decoration:underline;
+  }
+
+  .empty{
+    font-size:14px;
+    color:var(--muted);
+    padding:4px 0 10px;
+  }
+
+  .summarybox{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px;
+    margin-top:28px;
+  }
+
+  .summarybox h3{
+    margin:0 0 8px;
+  }
+
+  .summarybox p{
+    margin:0;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .toast{
+    margin-top:8px;
+    font-size:13px;
+    color:var(--good);
+    min-height:18px;
+  }
+
+  .danger-zone{
+    margin-top:22px;
+    text-align:right;
+  }
+
+  @media (max-width:800px){
+    .topgrid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
     }
 
-    * {
-      box-sizing: border-box;
+    .attempt-form{
+      grid-template-columns:1fr 1fr;
     }
 
-    html {
-      -webkit-text-size-adjust: 100%;
+    .attempt-form .notes{
+      grid-column:1 / -1;
     }
 
-    body {
-      margin: 0;
-      background: var(--paper);
-      color: var(--ink);
-      font-family: var(--body);
-      line-height: 1.55;
-      min-height: 100vh;
+    .attempt-form button{
+      grid-column:1 / -1;
+    }
+  }
 
-      display: flex;
-      flex-direction: column;
+  @media (max-width:520px){
+    .topgrid{
+      grid-template-columns:1fr;
     }
 
-    /* subtle paper grain */
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-
-      pointer-events: none;
-      z-index: 4;
-
-      opacity: 0.22;
-
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    .part-toggle{
+      align-items:flex-start;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    .part-stats{
+      justify-content:flex-start;
     }
 
-    .shell {
-      width: min(1120px, calc(100% - 44px));
-      margin: 0 auto;
+    .attempt-form{
+      grid-template-columns:1fr;
     }
 
-    /* =========================
-       HEADER
-       ========================= */
-
-    header.masthead {
-      padding: 35px 0 0;
+    .attempt-form .notes,
+    .attempt-form button{
+      grid-column:auto;
     }
-
-    .masthead-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 22px;
-      flex-wrap: wrap;
-
-      padding-bottom: 30px;
-
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .brand-logo {
-      width: 90px;
-      height: 90px;
-
-      flex: 0 0 90px;
-
-      border-radius: 50%;
-      object-fit: cover;
-
-      transition:
-        transform 0.4s var(--ease),
-        box-shadow 0.4s var(--ease);
-    }
-
-    .brand:hover .brand-logo {
-      transform: rotate(-2deg) scale(1.035);
-      box-shadow: 0 8px 20px rgba(18, 61, 102, 0.12);
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .wordmark {
-      font-family: var(--display);
-
-      font-size: clamp(1.3rem, 2.3vw, 1.72rem);
-      font-weight: 500;
-
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-
-      color: var(--blue);
-    }
-
-    .brand-sub {
-      font-size: 0.69rem;
-
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-
-      color: var(--orange);
-    }
-
-    .masthead-note {
-      font-size: 0.76rem;
-
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-
-      color: var(--ink-faint);
-    }
-
-    /* =========================
-       MAIN
-       ========================= */
-
-    main {
-      flex: 1;
-      padding: 58px 0 40px;
-    }
-
-    .prompt {
-      font-family: var(--display);
-
-      font-weight: 400;
-
-      font-size: clamp(1.9rem, 4.4vw, 3.15rem);
-      line-height: 1.06;
-
-      letter-spacing: -0.025em;
-
-      margin: 0 0 46px;
-
-      max-width: 15ch;
-    }
-
-    .prompt em {
-      font-style: italic;
-      color: var(--orange);
-    }
-
-    /* =========================
-       PANELS
-       ========================= */
-
-    .stack {
-      display: grid;
-      gap: 14px;
-    }
-
-    .panel {
-      position: relative;
-
-      display: grid;
-
-      grid-template-columns: 4.2rem 1fr auto;
-
-      align-items: center;
-
-      gap: 22px;
-
-      text-align: left;
-color: inherit;
-
-      padding: 34px 30px;
-
-      background: rgba(255, 255, 255, 0.5);
-
-      border: 1px solid var(--rule);
-
-      overflow: hidden;
-
-      isolation: isolate;
-
-      opacity: 0;
-
-      transform: translateY(14px);
-
-      animation: rise 0.7s var(--ease) forwards;
-
-      transition:
-        border-color 0.4s var(--ease),
-        background 0.4s var(--ease),
-        transform 0.4s var(--ease),
-        box-shadow 0.4s var(--ease);
-    }
-
-    .panel:nth-child(1) {
-      animation-delay: 0.08s;
-    }
-
-    .panel:nth-child(2) {
-      animation-delay: 0.18s;
-    }
-
-    .panel:nth-child(3) {
-      animation-delay: 0.28s;
-    }
-
-    @keyframes rise {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* hover wash */
-
-    .panel::before {
-      content: "";
-
-      position: absolute;
-
-      inset: 0;
-
-      z-index: -2;
-
-      background:
-        linear-gradient(
-          100deg,
-          rgba(36, 98, 142, 0.09),
-          rgba(237, 122, 58, 0.055)
-        );
-
-      transform: scaleX(0);
-
-      transform-origin: left center;
-
-      transition: transform 0.55s var(--ease);
-    }
-
-    .panel-index {
-      font-family: var(--display);
-
-      font-size: 0.98rem;
-
-      letter-spacing: 0.16em;
-
-      color: var(--ink-faint);
-
-      transition: color 0.4s var(--ease);
-    }
-
-    .panel-title {
-      font-family: var(--display);
-
-      font-weight: 400;
-
-      font-size: clamp(1.75rem, 3.9vw, 2.9rem);
-
-      line-height: 1.02;
-
-      letter-spacing: -0.025em;
-
-      margin: 0;
-    }
-
-    .panel-sub {
-      margin: 9px 0 0;
-
-      color: var(--ink-soft);
-
-      font-size: 0.98rem;
-
-      max-width: 46ch;
-    }
-
-    .panel-mark {
-      display: grid;
-      place-items: center;
-
-      width: 46px;
-      height: 46px;
-
-      border: 1px solid var(--rule);
-
-      border-radius: 50%;
-
-      transition:
-        transform 0.45s var(--ease),
-        border-color 0.4s var(--ease),
-        background 0.4s var(--ease),
-        color 0.4s var(--ease);
-    }
-
-    .panel-mark svg {
-      width: 17px;
-      height: 17px;
-    }
-
-    /* OPEN PANEL */
-
-    .panel--open {
-      cursor: pointer;
-    }
-
-    .panel--open .panel-mark {
-      border-color: var(--blue);
-    }
-
-    .panel--open:hover,
-    .panel--open:focus-visible {
-      border-color: var(--blue);
-
-      transform: translateX(6px);
-
-      box-shadow: 0 14px 36px rgba(18, 61, 102, 0.07);
-
-      outline: none;
-    }
-
-    .panel--open:hover::before,
-    .panel--open:focus-visible::before {
-      transform: scaleX(1);
-    }
-
-    .panel--open:hover .panel-index,
-    .panel--open:focus-visible .panel-index {
-      color: var(--orange);
-    }
-
-    .panel--open:hover .panel-mark,
-    .panel--open:focus-visible .panel-mark {
-      background: var(--blue);
-      color: white;
-
-      transform: rotate(-45deg);
-    }
-
-    /* NYC skyline motif */
-
-    .panel-art {
-      position: absolute;
-
-      z-index: -1;
-
-      right: 6.5rem;
-      bottom: -6px;
-
-      width: min(300px, 40%);
-
-      color: var(--orange);
-
-      opacity: 0;
-
-      transform: translateY(10px);
-
-      transition:
-        opacity 0.55s var(--ease),
-        transform 0.55s var(--ease);
-    }
-
-    .panel--open:hover .panel-art,
-    .panel--open:focus-visible .panel-art {
-      opacity: 0.13;
-      transform: translateY(0);
-    }
-
-    /* PENDING PANELS */
-
-    .panel--pending {
-      background: transparent;
-
-      border-style: dashed;
-    }
-
-    .panel--pending .panel-title {
-      color: var(--ink-soft);
-    }
-
-    .panel--pending .panel-mark {
-      border-style: dashed;
-
-      color: var(--ink-faint);
-    }
-
-    .tag {
-      display: inline-block;
-
-      margin-top: 12px;
-
-      font-size: 0.68rem;
-
-      letter-spacing: 0.2em;
-
-      text-transform: uppercase;
-
-      color: var(--blue-mid);
-
-      border: 1px solid var(--rule);
-
-      border-radius: 999px;
-
-      padding: 4px 11px;
-    }
-
-    /* =========================
-       FOOTER
-       ========================= */
-
-    footer {
-      padding: 0 0 38px;
-
-      color: var(--ink-faint);
-
-      font-size: 0.82rem;
-
-      letter-spacing: 0.04em;
-    }
-
-    .footer-inner {
-      border-top: 1px solid var(--rule);
-
-      padding-top: 18px;
-
-      display: flex;
-
-      justify-content: space-between;
-
-      gap: 14px;
-
-      flex-wrap: wrap;
-    }
-
-    /* =========================
-       MOBILE
-       ========================= */
-
-    @media (max-width: 760px) {
-      .shell {
-        width: min(1120px, calc(100% - 30px));
-      }
-
-      header.masthead {
-        padding-top: 20px;
-      }
-
-      .masthead-inner {
-        align-items: flex-start;
-      }
-
-      .brand-logo {
-        width: 56px;
-        height: 56px;
-
-        flex-basis: 56px;
-      }
-
-      .wordmark {
-        font-size: 1.3rem;
-      }
-
-      .brand-sub {
-        font-size: 0.61rem;
-
-        letter-spacing: 0.14em;
-      }
-
-      .masthead-note {
-        display: none;
-      }
-
-      main {
-        padding: 40px 0 30px;
-      }
-
-      .prompt {
-        margin-bottom: 32px;
-
-        max-width: 20ch;
-      }
-
-      .panel {
-        grid-template-columns: 1fr auto;
-
-        gap: 14px 18px;
-
-        padding: 26px 22px;
-      }
-
-      .panel-index {
-        grid-column: 1 / -1;
-      }
-
-      .panel-art {
-        right: 1.5rem;
-        width: 55%;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .panel {
-        opacity: 1;
-        transform: none;
-        animation: none;
-      }
-
-      .panel,
-      .panel::before,
-      .panel-mark,
-      .panel-art,
-      .brand-logo {
-        transition: none;
-      }
-
-      .panel--open:hover {
-        transform: none;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 
 <body>
 
- <header class="masthead">
-  <div class="shell masthead-inner">
+<div class="wrap">
 
-    <a class="brand" href="index.html">
+  <span class="brand-label">
+    Advanced Booster
+  </span>
 
-      <img
-        class="brand-logo"
-        src="brooklyn-bridge-icon.png"
-        alt="Brooklyn School of English bridge logo"
+  <div class="hero">
+
+    <div>
+
+      <h1>
+        My CAE Progress
+      </h1>
+
+      <div class="subtitle">
+        Track every exam part you practise, record your scores, and see how your performance changes over time.
+      </div>
+
+    </div>
+
+    <div class="namebox">
+
+      <label for="studentName">
+        Student name
+      </label>
+
+      <input
+        id="studentName"
+        type="text"
+        placeholder="Your name"
+        maxlength="60"
       />
 
-      <span class="brand-text">
-        <span class="wordmark">
-          Brooklyn School of English
-        </span>
-
-        <span class="brand-sub">
-          New York
-        </span>
-      </span>
-
-    </a>
-
-    <span class="masthead-note">
-      Advanced English
-    </span>
+    </div>
 
   </div>
-</header>
 
 
-  <main class="shell">
-
-    <h1 class="prompt">
-      Where do you want your English to
-      <em>take you?</em>
-    </h1>
+  <div
+    class="topgrid"
+    id="stats">
+  </div>
 
 
-    <div class="stack">
+  <div class="actions">
+
+    <button
+      class="btn"
+      id="copySummary"
+      type="button">
+      Copy progress summary
+    </button>
+
+    <button
+      class="btn secondary"
+      id="downloadSummary"
+      type="button">
+      Download summary
+    </button>
+
+    <button
+      class="btn secondary"
+      id="expandAll"
+      type="button">
+      Expand all
+    </button>
+
+    <button
+      class="btn secondary"
+      id="collapseAll"
+      type="button">
+      Collapse all
+    </button>
+
+  </div>
 
 
-      <!-- NEW YORK COURSE -->
-
-      <a
-        class="panel panel--open"
-        href="dashboard.html"
-      >
-
-        <svg
-          class="panel-art"
-          viewBox="0 0 300 90"
-          fill="currentColor"
-          aria-hidden="true"
-          focusable="false"
-        >
-
-          <path
-            d="
-            M0 90V62h14v28z
-            M18 90V44h20v46z
-            M42 90V52h12v38z
-            M58 90V26h10v64z
-            M72 90V38h16v52z
-            M92 90V14h8v76z
-            M104 90V46h18v44z
-            M126 90V30h12v60z
-            M142 90V58h14v32z
-            M160 90V20h9v70z
-            M173 90V48h20v42z
-            M197 90V34h11v56z
-            M212 90V60h16v30z
-            M232 90V24h10v66z
-            M246 90V50h18v40z
-            M268 90V40h12v50z
-            M284 90V64h16v26z
-            "
-          />
-
-        </svg>
+  <div id="papers"></div>
 
 
-        <span class="panel-index">
-          01
-        </span>
+  <div class="summarybox">
+
+    <h3>
+      How to use this tracker
+    </h3>
+
+    <p>
+      Add an attempt every time you practise an exam part.
+      Enter the date, your score, the maximum score, and a short note about what you want to improve.
+      Your data is saved automatically in this browser.
+    </p>
+
+    <div
+      class="toast"
+      id="toast"
+      aria-live="polite">
+    </div>
+
+  </div>
 
 
-        <span>
+  <div class="danger-zone">
 
-          <h2 class="panel-title">
-            Live in New York
-          </h2>
+    <button
+      class="btn ghost"
+      id="resetAll"
+      type="button">
+      Reset all my data
+    </button>
 
-          <p class="panel-sub">
-            Four lessons following Maria through the city —
-            audio, vocabulary, and speaking practice.
-          </p>
+  </div>
 
-        </span>
-
-
-        <span
-          class="panel-mark"
-          aria-hidden="true"
-        >
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.7"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-
-            <path d="M5 12h14M13 6l6 6-6 6" />
-
-          </svg>
-
-        </span>
-
-      </a>
+</div>
 
 
-      <!-- STUDY IN THE US -->
+<script>
 
-      <
-        <a class="panel panel--open" href="study-in-the-us.html">
-      
+(() => {
 
-        <span class="panel-index">
-          02
-        </span>
+  const STORAGE_KEY = 'cae-progress-tracker-v1';
 
 
-        <span>
+  const papers = [
 
-          <h2 class="panel-title">
-            Study in the US
-          </h2>
+    {
+      name:'Reading & Use of English',
 
-          <span class="tag">
-            Explore
+      parts:[
+
+        ['Part 1','Multiple-choice cloze'],
+        ['Part 2','Open cloze'],
+        ['Part 3','Word formation'],
+        ['Part 4','Key word transformations'],
+        ['Part 5','Multiple-choice reading'],
+        ['Part 6','Cross-text multiple matching'],
+        ['Part 7','Gapped text'],
+        ['Part 8','Multiple matching']
+
+      ]
+    },
+
+
+    {
+      name:'Writing',
+
+      parts:[
+
+        ['Part 1','Essay'],
+
+        [
+          'Part 2',
+          'Choice task: letter/email, proposal, report or review'
+        ]
+
+      ]
+    },
+
+
+    {
+      name:'Listening',
+
+      parts:[
+
+        ['Part 1','Three short extracts · multiple choice'],
+        ['Part 2','Sentence completion'],
+        ['Part 3','Extended conversation · multiple choice'],
+        ['Part 4','Multiple matching']
+
+      ]
+    },
+
+
+    {
+      name:'Speaking',
+
+      parts:[
+
+        ['Part 1','Interview'],
+        ['Part 2','Long turn: compare photographs'],
+        ['Part 3','Collaborative task'],
+        ['Part 4','Discussion']
+
+      ]
+    }
+
+  ];
+
+
+  const ids = [];
+
+
+  papers.forEach(
+
+    (p,pi) =>
+      p.parts.forEach(
+
+        (_,i) =>
+          ids.push(`p${pi}-${i}`)
+
+      )
+
+  );
+
+
+  const emptyState = () => ({
+    studentName:'',
+    attempts:{},
+    open:{}
+  });
+
+
+  let state = load();
+
+
+  ids.forEach(k => {
+
+    if(!state.attempts[k]) {
+      state.attempts[k] = [];
+    }
+
+  });
+
+
+  const nameInput =
+    document.getElementById('studentName');
+
+
+  nameInput.value =
+    state.studentName || '';
+
+
+  nameInput.addEventListener(
+    'input',
+    () => {
+
+      state.studentName =
+        nameInput.value;
+
+      save();
+
+    }
+  );
+
+
+  function load(){
+
+    try{
+
+      const raw =
+        localStorage.getItem(
+          STORAGE_KEY
+        );
+
+      return raw
+        ? Object.assign(
+            emptyState(),
+            JSON.parse(raw)
+          )
+        : emptyState();
+
+    }
+
+    catch(e){
+
+      return emptyState();
+
+    }
+
+  }
+
+
+  function save(){
+
+    try{
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(state)
+      );
+
+    }
+
+    catch(e){
+
+      toast(
+        'Your browser blocked saving. Please keep this page open or download your summary.'
+      );
+
+    }
+
+  }
+
+
+  function partId(pi,i){
+
+    return `p${pi}-${i}`;
+
+  }
+
+
+  function percent(a){
+
+    const s =
+      Number(a.score);
+
+    const m =
+      Number(a.max);
+
+
+    if(
+      !Number.isFinite(s) ||
+      !Number.isFinite(m) ||
+      m <= 0
+    ){
+
+      return null;
+
+    }
+
+
+    return Math.round(
+      (s / m) * 100
+    );
+
+  }
+
+
+  function statsFor(id){
+
+    const arr =
+      state.attempts[id] || [];
+
+
+    const valid =
+      arr
+        .map(a => percent(a))
+        .filter(v => v !== null);
+
+
+    return {
+
+      count:
+        arr.length,
+
+      latest:
+        valid.length
+          ? valid[valid.length - 1]
+          : null,
+
+      best:
+        valid.length
+          ? Math.max(...valid)
+          : null
+
+    };
+
+  }
+
+
+  function esc(s){
+
+    return String(
+      s ?? ''
+    ).replace(
+
+      /[&<>"']/g,
+
+      c => ({
+
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#39;'
+
+      }[c])
+
+    );
+
+  }
+
+
+  function badge(label,val){
+
+    return `
+      <span>
+        ${label}:
+        <strong>
+          ${val === null ? '—' : val + '%'}
+        </strong>
+      </span>
+    `;
+
+  }
+
+
+  function render(){
+
+    renderStats();
+
+
+    const host =
+      document.getElementById('papers');
+
+
+    host.innerHTML =
+
+      papers.map(
+
+        (paper,pi) => {
+
+          const practised =
+
+            paper.parts.filter(
+
+              (_,i) =>
+                state.attempts[
+                  partId(pi,i)
+                ].length > 0
+
+            ).length;
+
+
+          return `
+
+            <section class="paper">
+
+              <div class="paper-head">
+
+                <div>
+
+                  <h2>
+                    ${paper.name}
+                  </h2>
+
+                  <div class="paper-meta">
+                    ${practised} of ${paper.parts.length} parts practised
+                  </div>
+
+                </div>
+
+              </div>
+
+              ${
+
+                paper.parts
+
+                  .map(
+                    (part,i) =>
+                      renderPart(
+                        pi,
+                        i,
+                        part
+                      )
+                  )
+
+                  .join('')
+
+              }
+
+            </section>
+
+          `;
+
+        }
+
+      ).join('');
+
+
+    bindDynamic();
+
+  }
+
+
+  function renderStats(){
+
+    const allAttempts =
+
+      ids.flatMap(
+        id =>
+          state.attempts[id]
+      );
+
+
+    const practised =
+
+      ids.filter(
+        id =>
+          state.attempts[id].length > 0
+      ).length;
+
+
+    const percentages =
+
+      allAttempts
+
+        .map(percent)
+
+        .filter(
+          v =>
+            v !== null
+        );
+
+
+    const average =
+
+      percentages.length
+
+        ? Math.round(
+
+            percentages.reduce(
+              (a,b) =>
+                a + b,
+              0
+            ) /
+            percentages.length
+
+          )
+
+        : null;
+
+
+    const best =
+
+      percentages.length
+
+        ? Math.max(
+            ...percentages
+          )
+
+        : null;
+
+
+    const coverage =
+
+      Math.round(
+        (practised / ids.length) * 100
+      );
+
+
+    document
+      .getElementById('stats')
+      .innerHTML = `
+
+        <div class="stat">
+
+          <div class="small">
+            Exam coverage
+          </div>
+
+          <div class="big">
+            ${practised}/${ids.length}
+          </div>
+
+          <div class="progress">
+            <div
+              style="width:${coverage}%">
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="small">
+            Total attempts
+          </div>
+
+          <div class="big">
+            ${allAttempts.length}
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="small">
+            Average result
+          </div>
+
+          <div class="big">
+            ${average === null ? '—' : average + '%'}
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="small">
+            Best result
+          </div>
+
+          <div class="big">
+            ${best === null ? '—' : best + '%'}
+          </div>
+
+        </div>
+
+      `;
+
+  }
+
+
+  function renderPart(
+    pi,
+    i,
+    part
+  ){
+
+    const id =
+      partId(pi,i);
+
+
+    const s =
+      statsFor(id);
+
+
+    const open =
+      !!state.open[id];
+
+
+    const attempts =
+      state.attempts[id];
+
+
+    return `
+
+      <article class="part">
+
+        <button
+          class="part-toggle"
+          type="button"
+          data-toggle="${id}"
+          aria-expanded="${open}">
+
+          <span class="part-title">
+
+            <span class="badge">
+              ${part[0]}
+            </span>
+
+            <span>
+
+              <span class="part-name">
+                ${part[1]}
+              </span>
+
+              <span
+                class="paper-meta"
+                style="display:block;margin-top:3px">
+
+                ${s.count}
+                ${s.count === 1 ? 'attempt' : 'attempts'}
+
+              </span>
+
+            </span>
+
           </span>
 
-        </span>
 
+          <span class="part-stats">
 
-        <span
-          class="panel-mark"
-          aria-hidden="true"
-        >
+            ${badge(
+              'Latest',
+              s.latest
+            )}
 
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.7"
-            stroke-linecap="round"
-          >
+            ${badge(
+              'Best',
+              s.best
+            )}
 
-            <path d="M12 7v5l3 2" />
-
-            <circle
-              cx="12"
-              cy="12"
-              r="8"
-            />
-
-          </svg>
-
-        </span>
-
-      </a>
-
-
-      <!-- TRAVEL -->
-
-      <div
-        class="panel panel--pending"
-        aria-disabled="true"
-      >
-
-        <span class="panel-index">
-          03
-        </span>
-
-
-        <span>
-
-          <h2 class="panel-title">
-            Travel the world
-          </h2>
-
-          <span class="tag">
-            In preparation
           </span>
 
-        </span>
+        </button>
 
 
-        <span
-          class="panel-mark"
-          aria-hidden="true"
-        >
+        <div
+          class="panel ${open ? '' : 'hidden'}">
 
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.7"
-            stroke-linecap="round"
-          >
+          ${
+            attempts.length
+              ? renderTable(
+                  id,
+                  attempts
+                )
+              : '<div class="empty">No attempts yet.</div>'
+          }
 
-            <path d="M12 7v5l3 2" />
 
-            <circle
-              cx="12"
-              cy="12"
-              r="8"
-            />
+          <form
+            class="attempt-form"
+            data-form="${id}">
 
-          </svg>
 
-        </span>
+            <div class="field">
+
+              <label>
+                Date
+              </label>
+
+              <input
+                type="date"
+                name="date">
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                Score
+              </label>
+
+              <input
+                type="number"
+                name="score"
+                min="0"
+                step="0.5"
+                placeholder="e.g. 6"
+                required>
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                Out of
+              </label>
+
+              <input
+                type="number"
+                name="max"
+                min="0.5"
+                step="0.5"
+                placeholder="e.g. 8"
+                required>
+
+            </div>
+
+
+            <div class="field notes">
+
+              <label>
+                What should I remember?
+              </label>
+
+              <input
+                type="text"
+                name="note"
+                maxlength="180"
+                placeholder="e.g. Watch collocations / don't rush distractors">
+
+            </div>
+
+
+            <button
+              class="btn"
+              type="submit">
+
+              Add attempt
+
+            </button>
+
+          </form>
+
+
+          <div class="hint">
+
+            Tip: use the same scoring method each time you practise this part so your results are easier to compare.
+
+          </div>
+
+        </div>
+
+      </article>
+
+    `;
+
+  }
+
+
+  function renderTable(
+    id,
+    attempts
+  ){
+
+    return `
+
+      <div class="tablewrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>#</th>
+              <th>Date</th>
+              <th>Score</th>
+              <th>%</th>
+              <th>Notes</th>
+              <th></th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            ${
+
+              attempts.map(
+
+                (a,idx) => {
+
+                  const p =
+                    percent(a);
+
+
+                  return `
+
+                    <tr>
+
+                      <td>
+                        ${idx + 1}
+                      </td>
+
+                      <td>
+                        ${esc(a.date) || '—'}
+                      </td>
+
+                      <td>
+                        ${esc(a.score)} / ${esc(a.max)}
+                      </td>
+
+                      <td>
+
+                        <strong>
+                          ${p === null ? '—' : p + '%'}
+                        </strong>
+
+                      </td>
+
+                      <td class="note">
+                        ${esc(a.note) || '—'}
+                      </td>
+
+                      <td>
+
+                        <button
+                          class="delete"
+                          type="button"
+                          data-delete="${id}"
+                          data-index="${idx}">
+
+                          Delete
+
+                        </button>
+
+                      </td>
+
+                    </tr>
+
+                  `;
+
+                }
+
+              ).join('')
+
+            }
+
+          </tbody>
+
+        </table>
 
       </div>
 
+    `;
 
-    </div>
-
-  </main>
+  }
 
 
-  <footer class="shell">
+  function bindDynamic(){
 
-    <div class="footer-inner">
+    document
+      .querySelectorAll(
+        '[data-toggle]'
+      )
+      .forEach(
 
-      <span>
-        &copy; 2026 Brooklyn School of English
-      </span>
+        btn =>
 
-      <span>
-        New York
-      </span>
+          btn.addEventListener(
+            'click',
+            () => {
 
-    </div>
+              const id =
+                btn.dataset.toggle;
 
-  </footer>
 
+              state.open[id] =
+                !state.open[id];
+
+
+              save();
+
+              render();
+
+            }
+          )
+
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-form]'
+      )
+      .forEach(
+
+        form =>
+
+          form.addEventListener(
+            'submit',
+            e => {
+
+              e.preventDefault();
+
+
+              const id =
+                form.dataset.form;
+
+
+              const fd =
+                new FormData(form);
+
+
+              const score =
+                Number(
+                  fd.get('score')
+                );
+
+
+              const max =
+                Number(
+                  fd.get('max')
+                );
+
+
+              if(
+                !Number.isFinite(score) ||
+                !Number.isFinite(max) ||
+                score < 0 ||
+                max <= 0 ||
+                score > max
+              ){
+
+                toast(
+                  'Please check the score and maximum score.'
+                );
+
+                return;
+
+              }
+
+
+              state.attempts[id].push({
+
+                date:
+                  String(
+                    fd.get('date') || ''
+                  ),
+
+                score:
+                  String(
+                    fd.get('score')
+                  ),
+
+                max:
+                  String(
+                    fd.get('max')
+                  ),
+
+                note:
+                  String(
+                    fd.get('note') || ''
+                  ).trim()
+
+              });
+
+
+              state.open[id] =
+                true;
+
+
+              save();
+
+              render();
+
+              toast(
+                'Attempt saved.'
+              );
+
+            }
+          )
+
+      );
+
+
+    document
+      .querySelectorAll(
+        '[data-delete]'
+      )
+      .forEach(
+
+        btn =>
+
+          btn.addEventListener(
+            'click',
+            () => {
+
+              const id =
+                btn.dataset.delete;
+
+
+              const idx =
+                Number(
+                  btn.dataset.index
+                );
+
+
+              state
+                .attempts[id]
+                .splice(
+                  idx,
+                  1
+                );
+
+
+              save();
+
+              render();
+
+            }
+          )
+
+      );
+
+  }
+
+
+  function makeSummary(){
+
+    const lines = [];
+
+
+    lines.push(
+      'CAE PROGRESS SUMMARY'
+    );
+
+
+    lines.push(
+      `Student: ${state.studentName.trim() || 'Not specified'}`
+    );
+
+
+    lines.push(
+      `Generated: ${new Date().toLocaleDateString()}`
+    );
+
+
+    lines.push('');
+
+
+    papers.forEach(
+
+      (paper,pi) => {
+
+        lines.push(
+          paper.name.toUpperCase()
+        );
+
+
+        paper.parts.forEach(
+
+          (part,i) => {
+
+            const id =
+              partId(pi,i);
+
+
+            const s =
+              statsFor(id);
+
+
+            const a =
+              state.attempts[id];
+
+
+            lines.push(
+              `${part[0]} — ${part[1]}`
+            );
+
+
+            if(!a.length){
+
+              lines.push(
+                '  No attempts yet.'
+              );
+
+            }
+
+            else{
+
+              lines.push(
+                `  Attempts: ${s.count} | Latest: ${s.latest === null ? '—' : s.latest + '%'} | Best: ${s.best === null ? '—' : s.best + '%'}`
+              );
+
+
+              a.forEach(
+
+                (x,idx) =>
+
+                  lines.push(
+
+                    `  ${idx + 1}. ${x.date || 'No date'} — ${x.score}/${x.max} (${percent(x)}%)${x.note ? ' — ' + x.note : ''}`
+
+                  )
+
+              );
+
+            }
+
+
+            lines.push('');
+
+          }
+
+        );
+
+      }
+
+    );
+
+
+    return lines.join('\n');
+
+  }
+
+
+  async function copySummary(){
+
+    const txt =
+      makeSummary();
+
+
+    try{
+
+      await navigator
+        .clipboard
+        .writeText(txt);
+
+
+      toast(
+        'Progress summary copied. You can paste it into a message to your teacher.'
+      );
+
+    }
+
+    catch(e){
+
+      const ta =
+        document.createElement(
+          'textarea'
+        );
+
+
+      ta.value =
+        txt;
+
+
+      ta.style.position =
+        'fixed';
+
+
+      ta.style.opacity =
+        '0';
+
+
+      document
+        .body
+        .appendChild(ta);
+
+
+      ta.select();
+
+
+      try{
+
+        document.execCommand(
+          'copy'
+        );
+
+
+        toast(
+          'Progress summary copied.'
+        );
+
+      }
+
+      catch(err){
+
+        toast(
+          'Copy was blocked. Use Download summary instead.'
+        );
+
+      }
+
+
+      ta.remove();
+
+    }
+
+  }
+
+
+  function downloadSummary(){
+
+    const txt =
+      makeSummary();
+
+
+    const blob =
+      new Blob(
+        [txt],
+        {
+          type:'text/plain;charset=utf-8'
+        }
+      );
+
+
+    const a =
+      document.createElement(
+        'a'
+      );
+
+
+    a.href =
+      URL.createObjectURL(
+        blob
+      );
+
+
+    const safe =
+
+      (
+        state.studentName.trim() ||
+        'student'
+      ).replace(
+        /[^a-z0-9_-]+/gi,
+        '_'
+      );
+
+
+    a.download =
+      `CAE_progress_${safe}.txt`;
+
+
+    document
+      .body
+      .appendChild(a);
+
+
+    a.click();
+
+    a.remove();
+
+
+    setTimeout(
+
+      () =>
+        URL.revokeObjectURL(
+          a.href
+        ),
+
+      1000
+
+    );
+
+
+    toast(
+      'Summary downloaded.'
+    );
+
+  }
+
+
+  function toast(msg){
+
+    const el =
+      document.getElementById(
+        'toast'
+      );
+
+
+    el.textContent =
+      msg;
+
+
+    clearTimeout(
+      toast.t
+    );
+
+
+    toast.t =
+      setTimeout(
+
+        () =>
+          el.textContent = '',
+
+        3500
+
+      );
+
+  }
+
+
+  document
+    .getElementById(
+      'copySummary'
+    )
+    .addEventListener(
+      'click',
+      copySummary
+    );
+
+
+  document
+    .getElementById(
+      'downloadSummary'
+    )
+    .addEventListener(
+      'click',
+      downloadSummary
+    );
+
+
+  document
+    .getElementById(
+      'expandAll'
+    )
+    .addEventListener(
+      'click',
+      () => {
+
+        ids.forEach(
+          id =>
+            state.open[id] = true
+        );
+
+        save();
+
+        render();
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      'collapseAll'
+    )
+    .addEventListener(
+      'click',
+      () => {
+
+        ids.forEach(
+          id =>
+            state.open[id] = false
+        );
+
+        save();
+
+        render();
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      'resetAll'
+    )
+    .addEventListener(
+      'click',
+      () => {
+
+        if(
+          confirm(
+            'Delete all saved CAE progress from this browser?'
+          )
+        ){
+
+          state =
+            emptyState();
+
+
+          ids.forEach(
+            k =>
+              state.attempts[k] = []
+          );
+
+
+          save();
+
+
+          nameInput.value =
+            '';
+
+
+          render();
+
+
+          toast(
+            'All data cleared.'
+          );
+
+        }
+
+      }
+    );
+
+
+  render();
+
+})();
+
+</script>
 
 </body>
 </html>
