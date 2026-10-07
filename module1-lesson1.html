@@ -3,119 +3,269 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Getting There — Listening + Exercises</title>
+<title>JFK to Greenpoint | Maria and the City | Brooklyn School of English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
 <style>
-  body{
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    line-height: 1.5;
-    margin: 0;
-    background: #fff;
+  .lesson-page{
+    padding-top:28px;
+    padding-bottom:80px;
   }
+
+  .lesson-intro{
+    max-width:760px;
+    margin:34px auto 42px;
+    text-align:center;
+  }
+
+  .lesson-intro .eyebrow{
+    display:block;
+    margin-bottom:10px;
+    color:var(--orange);
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
+
+  .lesson-intro h1{
+    margin:0 0 14px;
+    font-family:var(--display);
+    font-size:clamp(2.7rem,6vw,4.8rem);
+    font-weight:400;
+    line-height:1;
+    color:var(--blue);
+  }
+
+  .lesson-intro p{
+    max-width:640px;
+    margin:0 auto;
+    color:var(--ink-soft);
+    font-size:1.05rem;
+    line-height:1.65;
+  }
+
   .app{
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 18px;
+    max-width:820px;
+    margin:0 auto;
   }
+
   .card{
-    border: 1px solid #e3e3e3;
-    border-radius: 16px;
-    padding: 18px;
-    margin: 14px 0;
+    border:1px solid var(--rule);
+    background:rgba(255,255,255,.58);
+    padding:24px;
+    margin:18px 0;
   }
-  h1{ margin: 0 0 6px; font-size: 26px; }
-  .sub{ margin: 0 0 14px; opacity: .75; }
 
-  /* Audio */
-  audio{ width: 100%; margin: 10px 0 6px; }
+  .card h2{
+    color:var(--blue);
+    font-family:var(--display);
+    font-weight:500;
+  }
 
-  /* Buttons */
-  .controls{ display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 12px; align-items:center; }
+  audio{
+    width:100%;
+    margin:12px 0 8px;
+  }
+
+  .controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:12px 0;
+    align-items:center;
+  }
+
   button{
-    padding: 10px 14px;
-    font-size: 14px;
-    border-radius: 10px;
-    border: 1px solid #bbb;
-    background: #fff;
-    cursor: pointer;
+    padding:10px 15px;
+    font:inherit;
+    font-size:14px;
+    font-weight:600;
+    border:1px solid var(--blue);
+    background:var(--blue);
+    color:#fff;
+    cursor:pointer;
+    transition:transform .2s ease,background .2s ease,color .2s ease;
   }
-  button:hover{ background: #f6f6f6; }
-  .hidden{ display:none; }
 
-  /* Transcript */
-  .dialogueArea{ margin-top: 8px; }
+  button:hover{
+    transform:translateY(-1px);
+    background:var(--orange);
+    border-color:var(--orange);
+  }
+
+  .hidden{display:none;}
+
+  .dialogueArea{margin-top:14px;}
+
   .line{
-    opacity: 0;
-    transform: translateY(4px);
-    transition: opacity 200ms ease, transform 200ms ease;
-    margin: 4px 0;
-    padding: 0;
-    background: transparent;
-    border: none;
-    box-shadow: none;
+    opacity:0;
+    transform:translateY(4px);
+    transition:opacity 200ms ease,transform 200ms ease;
+    margin:7px 0;
+    padding:0;
+    background:transparent;
+    border:none;
+    box-shadow:none;
+    cursor:pointer;
   }
-  .line.visible{ opacity: 1; transform: translateY(0); }
-  .line.past{ opacity: 0.6; }
+
+  .line.visible{opacity:1;transform:translateY(0);}
+  .line.past{opacity:.58;}
+
   .line.current{
-    opacity: 1;
-    padding-left: 10px;
-    border-left: 3px solid #ddd;
+    opacity:1;
+    padding-left:12px;
+    border-left:3px solid var(--orange);
   }
-  .speaker{ font-weight: 800; margin-right: 6px; }
-  .maria .speaker{ color: #1f4e79; }
-  .ali .speaker{ color: #6a1b9a; }
 
-  /* Kill “thin lines” inside transcript */
-  .dialogueArea, .dialogueArea *{
-    border-top: none !important;
-    border-bottom: none !important;
-    box-shadow: none !important;
-    background-image: none !important;
+  .speaker{font-weight:700;margin-right:6px;}
+  .maria .speaker{color:var(--blue);}
+  .ali .speaker{color:#7a4f89;}
+
+  .dialogueArea,.dialogueArea *{
+    border-top:none !important;
+    border-bottom:none !important;
+    box-shadow:none !important;
+    background-image:none !important;
   }
-  .dialogueArea hr{ display:none !important; }
 
-  .note{ margin-top: 10px; font-size: 14px; opacity: .8; }
+  .dialogueArea hr{display:none !important;}
 
-  /* Exercises */
-  .prompt{ margin: 6px 0 12px; font-size: 16px; }
-  .options{ display:grid; gap:8px; margin-top:8px; }
-  label{ display:flex; gap:8px; align-items:flex-start; cursor:pointer; }
-
-  input[type="text"]{
-    width: 240px;
-    padding: 8px 10px;
-    border: 1px solid #bbb;
-    border-radius: 10px;
-    font-size: 15px;
+  .note{
+    margin-top:10px;
+    font-size:14px;
+    color:var(--ink-soft);
   }
-  .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+
+  .prompt{
+    margin:6px 0 14px;
+    font-size:16px;
+    color:var(--ink);
+  }
+
+  .options{
+    display:grid;
+    gap:10px;
+    margin-top:10px;
+  }
+
+  label{
+    display:flex;
+    gap:9px;
+    align-items:flex-start;
+    cursor:pointer;
+  }
+
+  input[type="text"],
+  .row input,
+  .gap{
+    padding:9px 11px;
+    border:1px solid var(--rule);
+    background:#fff;
+    font:inherit;
+    font-size:15px;
+  }
+
+  input[type="text"]{width:240px;}
+
+  .row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
 
   .gap{
-    width: 160px;
-    padding: 8px 10px;
-    border: 1px solid #bbb;
-    border-radius: 10px;
-    font-size: 16px;
-    vertical-align: middle;
+    width:160px;
+    font-size:16px;
+    vertical-align:middle;
   }
 
   .feedback{
-    margin-top: 12px;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    display: none;
+    margin-top:14px;
+    padding:13px 14px;
+    border:1px solid var(--rule);
+    background:rgba(255,255,255,.7);
+    display:none;
   }
-  .feedback.good{ border-color: #7cc47c; }
-  .feedback.bad{ border-color: #e07a7a; }
 
-  hr.sep{ border:none; border-top:1px dashed #eee; margin: 14px 0; }
+  .feedback.good{border-left:4px solid #5f9b68;}
+  .feedback.bad{border-left:4px solid #c8655c;}
 
-  .answers{ margin-top: 10px; font-size: 14px; }
-  .answers p{ margin: 6px 0; }
+  hr.sep{
+    border:none;
+    border-top:1px solid var(--rule);
+    margin:18px 0;
+  }
+
+  .answers{
+    margin-top:10px;
+    font-size:14px;
+  }
+
+  .answers p{margin:6px 0;}
+
+  @media (max-width:650px){
+    .lesson-page{padding-top:18px;}
+    .lesson-intro{margin:26px auto 32px;text-align:left;}
+    .card{padding:20px 18px;}
+    input[type="text"],.gap{
+      width:100%;
+      max-width:100%;
+      box-sizing:border-box;
+    }
+    .row input{
+      flex:1 1 150px;
+      min-width:0;
+    }
+  }
 </style>
 </head>
 <body>
-<div class="app" id="app"></div>
+
+<header class="masthead">
+  <div class="shell masthead-inner">
+    <a class="brand" href="bse.html">
+      <img class="brand-logo" src="brooklyn-bridge-icon.png" alt="Brooklyn School of English logo" />
+      <span class="brand-text">
+        <span class="wordmark">Brooklyn School of English</span>
+        <span class="brand-sub">New York</span>
+      </span>
+    </a>
+
+    <span class="masthead-note">Maria and the City</span>
+  </div>
+</header>
+
+<main class="shell lesson-page">
+
+  <a class="back-link" href="maria-and-the-city.html">
+    ← Maria and the City
+  </a>
+
+  <section class="lesson-intro">
+    <span class="eyebrow">Story 01</span>
+    <h1>JFK to Greenpoint</h1>
+    <p>
+      Maria has just arrived in New York. On her ride from JFK, she discovers
+      that her new address is not quite where she thought it was.
+    </p>
+  </section>
+
+  <div class="app" id="app"></div>
+
+</main>
+
+<footer>
+  <div class="shell footer-inner">
+    <span>© 2026 Brooklyn School of English</span>
+    <span>New York</span>
+  </div>
+</footer>
 
 <script>
 (() => {
@@ -143,9 +293,6 @@
 
   const el = document.getElementById("app");
   el.innerHTML = `
-    <h1>Getting There — Listening + Exercises</h1>
-    <p class="sub">Audio first, then optional transcript + quick checks.</p>
-
     <!-- AUDIO + DIALOGUE -->
     <div class="card">
       <h2 style="margin:0 0 8px; font-size:18px;">1) Listening</h2>
