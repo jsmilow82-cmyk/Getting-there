@@ -1,1 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NYC Vocab | Brooklyn School of English</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+  .vocab-page{
+    padding-top:28px;
+    padding-bottom:90px;
+  }
+
+  .vocab-intro{
+    max-width:780px;
+    margin:34px auto 44px;
+    text-align:center;
+  }
+
+  .vocab-intro .eyebrow{
+    display:block;
+    margin-bottom:10px;
+    color:var(--orange);
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
+
+  .vocab-intro h1{
+    margin:0 0 14px;
+    font-family:var(--display);
+    font-size:clamp(2.8rem,6vw,4.8rem);
+    font-weight:400;
+    line-height:1;
+    color:var(--blue);
+  }
+
+  .vocab-intro p{
+    max-width:680px;
+    margin:0 auto;
+    color:var(--ink-soft);
+    font-size:1.05rem;
+    line-height:1.65;
+  }
+
+  .lesson-grid{
+    width:min(900px,100%);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+
+  .lesson-panel{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    min-height:215px;
+    padding:26px 28px;
+    border:1px solid var(--rule);
+    background:rgba(255,255,255,.56);
+    text-decoration:none;
+    color:inherit;
+    transition:
+      transform .22s ease,
+      border-color .22s ease,
+      background .22s ease,
+      box-shadow .22s ease;
+  }
+
+  a.lesson-panel:hover{
+    transform:translateY(-3px);
+    border-color:var(--blue);
+    background:rgba(255,255,255,.84);
+    box-shadow:0 12px 30px rgba(16,43,70,.07);
+  }
+
+  .lesson-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+    margin-bottom:26px;
+  }
+
+  .lesson-number{
+    color:var(--orange);
+    font-size:.7rem;
+    font-weight:600;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+  }
+
+  .lesson-status{
+    padding:4px 8px;
+    border:1px solid var(--rule);
+    font-size:.68rem;
+    font-weight:600;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    background:rgba(255,255,255,.6);
+  }
+
+  .lesson-status.available{
+    color:var(--blue);
+    border-color:rgba(18,61,102,.35);
+  }
+
+  .lesson-panel h2{
+    margin:0 0 10px;
+    font-family:var(--display);
+    font-size:clamp(1.7rem,3vw,2.3rem);
+    font-weight:400;
+    line-height:1.08;
+    color:var(--blue);
+  }
+
+  .lesson-panel p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:.96rem;
+    line-height:1.55;
+  }
+
+  .lesson-footer{
+    margin-top:auto;
+    padding-top:22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    color:var(--ink-faint);
+    font-size:.8rem;
+  }
+
+  .lesson-arrow{
+    color:var(--orange);
+    font-size:1.5rem;
+    line-height:1;
+    transition:transform .22s ease;
+  }
+
+  a.lesson-panel:hover .lesson-arrow{
+    transform:translateX(5px);
+  }
+
+  .lesson-panel.coming-soon{
+    opacity:.68;
+  }
+
+  .lesson-panel.coming-soon .lesson-arrow{
+    color:var(--rule);
+  }
+
+  @media(max-width:760px){
+    .lesson-grid{
+      grid-template-columns:1fr;
+    }
+
+    .lesson-panel{
+      min-height:190px;
+    }
+  }
+
+  @media(max-width:520px){
+    .vocab-intro{
+      text-align:left;
+      margin-top:26px;
+    }
+
+    .lesson-panel{
+      padding:22px 20px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="shell masthead-inner">
+
+    <a class="brand" href="bse.html">
+      <img
+        class="brand-logo"
+        src="brooklyn-bridge-icon.png"
+        alt="Brooklyn School of English logo"
+      />
+
+      <span class="brand-text">
+        <span class="wordmark">Brooklyn School of English</span>
+        <span class="brand-sub">New York</span>
+      </span>
+    </a>
+
+    <span class="masthead-note">NYC Vocab</span>
+
+  </div>
+</header>
+
+<main class="shell vocab-page">
+
+  <a class="back-link" href="dashboard.html">
+    ← Live in New York
+  </a>
+
+  <section class="vocab-intro">
+    <span class="eyebrow">Vocabulary Series</span>
+    <h1>NYC Vocab</h1>
+    <p>
+      Ten short vocabulary lessons built around everyday life in New York.
+      Each lesson introduces useful language in context and ends with productive writing and speaking.
+    </p>
+  </section>
+
+  <section class="lesson-grid">
+
+    <a class="lesson-panel" href="nyc-vocab-lesson-01.html">
+      <div class="lesson-top">
+        <span class="lesson-number">Lesson 01</span>
+        <span class="lesson-status available">Available</span>
+      </div>
+
+      <h2>Finding Your Way Around</h2>
+      <p>
+        Homes, neighborhoods, commuting, subway directions, and useful NYC location language.
+      </p>
+
+      <div class="lesson-footer">
+        <span>B2 · 8 items · ≈15 min</span>
+        <span class="lesson-arrow">→</span>
+      </div>
+    </a>
+
+    <div class="lesson-panel coming-soon">
+      <div class="lesson-top">
+        <span class="lesson-number">Lesson 02</span>
+        <span class="lesson-status">Coming soon</span>
+      </div>
+
+      <h2>Apartment Hunting</h2>
+      <p>
+        Language for rents, listings, space, building features, and choosing where to live.
+      </p>
+
+      <div class="lesson-footer">
+        <span>B2 · 8 items · ≈15 min</span>
+        <span class="lesson-arrow">→</span>
+      </div>
+    </div>
+
+    <div class="lesson-panel coming-soon">
+      <div class="lesson-top">
+        <span class="lesson-number">Lesson 03</span>
+        <span class="lesson-status">Coming soon</span>
+      </div>
+
+      <h2>Getting Around the City</h2>
+      <p>
+        Useful language for subway problems, delays, routes, buses, and changing travel plans.
+      </p>
+
+      <div class="lesson-footer">
+        <span>B2 · 8 items · ≈15 min</span>
+        <span class="lesson-arrow">→</span>
+      </div>
+    </div>
+
+    <div class="lesson-panel coming-soon">
+      <div class="lesson-top">
+        <span class="lesson-number">Lesson 04</span>
+        <span class="lesson-status">Coming soon</span>
+      </div>
+
+      <h2>Eating Like a New Yorker</h2>
+      <p>
+        Ordering, takeout, neighborhood food spots, casual restaurant language, and NYC food culture.
+      </p>
+
+      <div class="lesson-footer">
+        <span>B2 · 8 items · ≈15 min</span>
+        <span class="lesson-arrow">→</span>
+      </div>
+    </div>
+
+    <div class="lesson-panel coming-soon">
+      <div class="lesson-top">
+        <span class="lesson-number">Lesson 05</span>
+        <span class="lesson-status">Coming soon</span>
+      </div>
+
+      <h2>Neighbors & Building Life</h2>
+      <p>
+        Talking about noise, shared spaces, repairs, neighbors, supers, and everyday building problems.
+      </p>
+
+      <div class="lesson-footer">
+        <span>B2 · 8 items · ≈15 min</span>
+        <span class="lesson-arrow">→</span>
+      </div>
+    </div>
+
+    <div class="lesson-panel coming-soon">
+      <div class="lesson-top">
+        <span class="lesson-number">Lesson 06</span>
+        <span class="lesson-status">Coming soon</span>
+      </div>
+
+      <h2>Shopping & Errands</h2>
+      <p>
+        Everyday language for pharmacies, laundromats, convenience stores, returns, and running errands.
+      </p>
+
+      <div class="lesson-footer">
+        <span>B2 · 8 items · ≈15 min</span>
+        <span class="lesson-arrow">→</span>
+      </div>
+    </div>
+
+    <div class="lesson-panel coming-soon">
+      <div class="lesson-top">
+        <span class="lesson-number">Lesson 07</span>
+        <span class="lesson-status">Coming soon</span>
+      </div>
+
+      <h2>Street Life & Public Space</h2>
+      <p>
+        Describing crowded sidewalks, parks, street activity, public behavior, and city atmosphere.
+      </p>
+
+      <div class="lesson-footer">
+        <span>B2 · 8 items · ≈15 min</span>
+        <span class="lesson-arrow">→</span>
+      </div>
+    </div>
+
+    <div class="lesson-panel coming-soon">
+      <div class="lesson-top">
+        <span class="lesson-number">Lesson 08</span>
+        <span class="lesson-status">Coming soon</span>
+      </div>
+
+      <h2>Work & the Daily Grind</h2>
+      <p>
+        Talking about schedules, commuting stress, lunch breaks, hybrid work, and fast-paced city routines.
+      </p>
+
+      <div class="lesson-footer">
+        <span>B2 · 8 items · ≈15 min</span>
+        <span class="lesson-arrow">→</span>
+      </div>
+    </div>
+
+    <div class="lesson-panel coming-soon">
+      <div class="lesson-top">
+        <span class="lesson-number">Lesson 09</span>
+        <span class="lesson-status">Coming soon</span>
+      </div>
+
+      <h2>Going Out</h2>
+      <p>
+        Making plans, choosing places, meeting up, nightlife, last-minute changes, and getting home.
+      </p>
+
+      <div class="lesson-footer">
+        <span>B2 · 8 items · ≈15 min</span>
+        <span class="lesson-arrow">→</span>
+      </div>
+    </div>
+
+    <div class="lesson-panel coming-soon">
+      <div class="lesson-top">
+        <span class="lesson-number">Lesson 10</span>
+        <span class="lesson-status">Coming soon</span>
+      </div>
+
+      <h2>Living in NYC</h2>
+      <p>
+        A final mixed lesson for describing the realities, advantages, frustrations, and rhythms of city life.
+      </p>
+
+      <div class="lesson-footer">
+        <span>B2 · 8 items · ≈15 min</span>
+        <span class="lesson-arrow">→</span>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <div class="shell footer-inner">
+    <span>© 2026 Brooklyn School of English</span>
+    <span>New York</span>
+  </div>
+</footer>
+
+</body>
+</html>
