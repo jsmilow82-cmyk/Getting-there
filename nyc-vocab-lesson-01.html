@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NYC Vocab 01 | Brooklyn School of English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.lesson-page{padding-top:28px;padding-bottom:80px}
+.lesson-intro{max-width:780px;margin:34px auto 34px;text-align:center}
+.lesson-intro .eyebrow{display:block;margin-bottom:10px;color:var(--orange);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.lesson-intro h1{margin:0 0 14px;font-family:var(--display);font-size:clamp(2.7rem,6vw,4.6rem);font-weight:400;line-height:1;color:var(--blue)}
+.lesson-intro p{max-width:680px;margin:0 auto;color:var(--ink-soft);font-size:1.05rem;line-height:1.65}
+.lesson-meta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+.meta-pill{border:1px solid var(--rule);padding:6px 10px;font-size:.82rem;color:var(--ink-soft);background:rgba(255,255,255,.55)}
+.progress-wrap{max-width:820px;margin:0 auto 24px}
+.progress-label{display:flex;justify-content:space-between;gap:12px;font-size:.82rem;color:var(--ink-soft);margin-bottom:7px}
+.progress-track{height:7px;background:var(--paper-deep);overflow:hidden}
+.progress-bar{height:100%;width:0;background:var(--orange);transition:width .3s ease}
+.lesson{max-width:820px;margin:0 auto}
+.card{border:1px solid var(--rule);background:rgba(255,255,255,.58);padding:26px;margin:18px 0}
+.card h2{margin:0 0 8px;color:var(--blue);font-family:var(--display);font-size:1.8rem;font-weight:500}
+.task-label{display:inline-block;margin-bottom:10px;color:var(--orange);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.instruction{margin:0 0 18px;color:var(--ink-soft);line-height:1.55}
+.visual-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.visual-card{border:1px solid var(--rule);background:#fff;min-height:128px;padding:16px;display:flex;flex-direction:column;justify-content:space-between}
+.visual-icon{font-size:2.2rem;line-height:1}
+.visual-clue{margin-top:14px;font-size:.92rem;line-height:1.35;color:var(--ink)}
+.visual-card select{width:100%;margin-top:12px}
+select,input[type=text],textarea{border:1px solid var(--rule);background:#fff;padding:10px 11px;font:inherit;color:var(--ink)}
+textarea{width:100%;min-height:120px;box-sizing:border-box;resize:vertical;line-height:1.5}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+button{padding:10px 15px;font:inherit;font-size:14px;font-weight:600;border:1px solid var(--blue);background:var(--blue);color:#fff;cursor:pointer}
+button:hover{background:var(--orange);border-color:var(--orange)}
+button.secondary{background:#fff;color:var(--blue)}
+.feedback{display:none;margin-top:14px;padding:13px 14px;border:1px solid var(--rule);background:rgba(255,255,255,.72)}
+.feedback.good{border-left:4px solid #5f9b68}.feedback.bad{border-left:4px solid #c8655c}
+.dialogue{display:grid;gap:10px}
+.bubble{max-width:85%;padding:13px 15px;border:1px solid var(--rule);background:#fff;line-height:1.5}
+.bubble.right{margin-left:auto;background:rgba(237,122,58,.08)}
+.blank{min-width:130px;display:inline-block;margin:0 4px}
+.drag-bank{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px}
+.chip{border:1px solid var(--blue);background:#fff;color:var(--blue);padding:8px 11px;font-weight:600;cursor:grab;user-select:none}
+.chip.selected{background:var(--blue);color:#fff}
+.drop-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dropzone{min-height:78px;border:1px dashed var(--rule);background:rgba(255,255,255,.55);padding:12px;display:flex;align-items:center;gap:10px}
+.dropzone.over{border-color:var(--orange);background:rgba(237,122,58,.08)}
+.drop-num{flex:0 0 auto;width:27px;height:27px;border:1px solid var(--rule);display:grid;place-items:center;font-size:.8rem;color:var(--ink-soft)}
+.drop-text{flex:1;line-height:1.4}.drop-answer{min-width:120px;text-align:right;font-weight:600;color:var(--blue)}
+.builder-list{display:grid;gap:13px}
+.builder-row{display:grid;grid-template-columns:minmax(180px,1fr) minmax(180px,1fr);gap:12px;align-items:center}
+.builder-row input{width:100%;box-sizing:border-box}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+.word-tag{padding:6px 9px;border:1px solid var(--rule);background:#fff;font-size:.9rem}
+.speaking-box{border-left:4px solid var(--orange);padding:14px 16px;background:rgba(237,122,58,.07);line-height:1.55}
+.self-check{display:grid;gap:8px;margin-top:16px}
+.self-check label{display:flex;gap:9px;align-items:flex-start}
+.complete{margin-top:24px;text-align:center;padding:20px;border:1px solid var(--rule);background:rgba(255,255,255,.55)}
+@media(max-width:760px){.visual-grid{grid-template-columns:1fr 1fr}.drop-grid{grid-template-columns:1fr}.builder-row{grid-template-columns:1fr}}
+@media(max-width:520px){.lesson-intro{text-align:left}.visual-grid{grid-template-columns:1fr}.card{padding:20px 17px}}
+</style>
+</head>
+<body>
+<header class="masthead"><div class="shell masthead-inner">
+<a class="brand" href="bse.html"><img class="brand-logo" src="brooklyn-bridge-icon.png" alt="Brooklyn School of English logo"><span class="brand-text"><span class="wordmark">Brooklyn School of English</span><span class="brand-sub">New York</span></span></a>
+<span class="masthead-note">NYC Vocab</span>
+</div></header>
+
+<main class="shell lesson-page">
+<a class="back-link" href="dashboard.html">← Live in New York</a>
+
+<section class="lesson-intro">
+<span class="eyebrow">NYC Vocab 01</span>
+<h1>Finding Your Way Around</h1>
+<p>Learn eight useful words and phrases for talking about everyday city life in New York, then use them in your own writing and speaking.</p>
+<div class="lesson-meta"><span class="meta-pill">B2</span><span class="meta-pill">8 items</span><span class="meta-pill">≈ 15 minutes</span></div>
+</section>
+
+<div class="progress-wrap">
+<div class="progress-label"><span>Your progress</span><span id="progressText">0 / 5 tasks</span></div>
+<div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+</div>
+
+<div class="lesson">
+<section class="card" data-task="1">
+<span class="task-label">1 · Notice from context</span>
+<h2>What are we talking about?</h2>
+<p class="instruction">Look at the mini-scenes. Choose the word or phrase that best matches each one.</p>
+<div class="visual-grid">
+<div class="visual-card"><div><div class="visual-icon">🏠⬆️</div><div class="visual-clue">A fourth-floor apartment in a building with no elevator.</div></div><select data-answer="walk-up"><option value="">Choose…</option><option>walk-up</option><option>brownstone</option><option>stoop</option><option>rush hour</option></select></div>
+<div class="visual-card"><div><div class="visual-icon">🧱🏘️</div><div class="visual-clue">A classic row house with a reddish-brown stone front.</div></div><select data-answer="brownstone"><option value="">Choose…</option><option>stoop</option><option>brownstone</option><option>commute</option><option>transfer</option></select></div>
+<div class="visual-card"><div><div class="visual-icon">🚪🪜</div><div class="visual-clue">The steps in front of a city building where people sometimes sit.</div></div><select data-answer="stoop"><option value="">Choose…</option><option>a block away</option><option>stoop</option><option>walk-up</option><option>downtown</option></select></div>
+<div class="visual-card"><div><div class="visual-icon">🚇👥👥</div><div class="visual-clue">The subway at 8:15 a.m., when almost everyone is going to work.</div></div><select data-answer="rush hour"><option value="">Choose…</option><option>commute</option><option>transfer</option><option>rush hour</option><option>uptown</option></select></div>
+</div>
+<div class="actions"><button type="button" class="check-visual">Check</button></div>
+<div class="feedback"></div>
+</section>
+
+<section class="card" data-task="2">
+<span class="task-label">2 · Learn through dialogue</span>
+<h2>A New Yorker gives directions</h2>
+<p class="instruction">Complete the dialogue. Notice how the phrases are used naturally.</p>
+<div class="dialogue">
+<div class="bubble"><strong>Leo:</strong> How long is your <select class="blank" data-answer="commute"><option value="">Choose…</option><option>commute</option><option>stoop</option><option>walk-up</option></select> from Brooklyn to work?</div>
+<div class="bubble right"><strong>Nina:</strong> About 45 minutes. I take the G, then <select class="blank" data-answer="transfer"><option value="">Choose…</option><option>transfer</option><option>rush hour</option><option>brownstone</option></select> to the 7.</div>
+<div class="bubble"><strong>Leo:</strong> And your office is <select class="blank" data-answer="uptown"><option value="">Choose…</option><option>uptown</option><option>walk-up</option><option>stoop</option></select> or downtown?</div>
+<div class="bubble right"><strong>Nina:</strong> Midtown, actually. The station is only <select class="blank" data-answer="a block away"><option value="">Choose…</option><option>a block away</option><option>rush hour</option><option>a brownstone</option></select> from my office.</div>
+</div>
+<div class="actions"><button type="button" class="check-dialogue">Check</button></div>
+<div class="feedback"></div>
+</section>
+
+<section class="card" data-task="3">
+<span class="task-label">3 · Drag & drop</span>
+<h2>Match the language to the meaning</h2>
+<p class="instruction">Drag each item to the correct definition. On a phone, tap a word and then tap a definition.</p>
+<div class="drag-bank">
+<div class="chip" draggable="true" data-word="walk-up">walk-up</div><div class="chip" draggable="true" data-word="brownstone">brownstone</div><div class="chip" draggable="true" data-word="stoop">stoop</div><div class="chip" draggable="true" data-word="rush hour">rush hour</div><div class="chip" draggable="true" data-word="commute">commute</div><div class="chip" draggable="true" data-word="transfer">transfer</div><div class="chip" draggable="true" data-word="uptown / downtown">uptown / downtown</div><div class="chip" draggable="true" data-word="a block away">a block away</div>
+</div>
+<div class="drop-grid">
+<div class="dropzone" data-answer="commute"><span class="drop-num">1</span><span class="drop-text">the regular journey between home and work or school</span><span class="drop-answer"></span></div>
+<div class="dropzone" data-answer="stoop"><span class="drop-num">2</span><span class="drop-text">the steps leading up to the entrance of a city building</span><span class="drop-answer"></span></div>
+<div class="dropzone" data-answer="transfer"><span class="drop-num">3</span><span class="drop-text">change from one subway or bus line to another</span><span class="drop-answer"></span></div>
+<div class="dropzone" data-answer="walk-up"><span class="drop-num">4</span><span class="drop-text">an apartment or building with no elevator</span><span class="drop-answer"></span></div>
+<div class="dropzone" data-answer="brownstone"><span class="drop-num">5</span><span class="drop-text">a traditional townhouse faced with brown or reddish stone</span><span class="drop-answer"></span></div>
+<div class="dropzone" data-answer="rush hour"><span class="drop-num">6</span><span class="drop-text">the busiest travel period before or after the workday</span><span class="drop-answer"></span></div>
+<div class="dropzone" data-answer="uptown / downtown"><span class="drop-num">7</span><span class="drop-text">directions used in Manhattan for going north or south</span><span class="drop-answer"></span></div>
+<div class="dropzone" data-answer="a block away"><span class="drop-num">8</span><span class="drop-text">very nearby: roughly one street section from here</span><span class="drop-answer"></span></div>
+</div>
+<div class="actions"><button type="button" class="check-drag">Check</button><button type="button" class="secondary reset-drag">Reset</button></div>
+<div class="feedback"></div>
+</section>
+
+<section class="card" data-task="4">
+<span class="task-label">4 · Build useful chunks</span>
+<h2>Complete the collocations</h2>
+<p class="instruction">Add the missing word to make a natural phrase.</p>
+<div class="builder-list">
+<div class="builder-row"><span>have a long ______</span><input type="text" data-builder="commute" placeholder="Type a word"></div>
+<div class="builder-row"><span>______ at Times Square</span><input type="text" data-builder="transfer" placeholder="Type a verb"></div>
+<div class="builder-row"><span>live in a five-floor ______</span><input type="text" data-builder="walk-up" placeholder="Type a noun"></div>
+<div class="builder-row"><span>sit on the ______</span><input type="text" data-builder="stoop" placeholder="Type a noun"></div>
+</div>
+<div class="actions"><button type="button" class="check-builder">Check</button></div>
+<div class="feedback"></div>
+</section>
+
+<section class="card" data-task="5">
+<span class="task-label">5 · Use it yourself</span>
+<h2>Write, then speak</h2>
+<p class="instruction">Imagine a friend is moving to your neighborhood. Write 3–5 sentences describing where you live and how easy or difficult it is to get around. Use at least <strong>4</strong> target items.</p>
+<div class="word-bank"><span class="word-tag">walk-up</span><span class="word-tag">brownstone</span><span class="word-tag">stoop</span><span class="word-tag">rush hour</span><span class="word-tag">commute</span><span class="word-tag">transfer</span><span class="word-tag">uptown / downtown</span><span class="word-tag">a block away</span></div>
+<textarea id="writing" placeholder="My neighborhood is..."></textarea>
+<div class="speaking-box"><strong>Speaking:</strong> Put the text away and speak for 60–90 seconds. Tell your friend what your neighborhood is like, where you live, and how you usually get around. Try to use at least four target items without reading.</div>
+<div class="self-check">
+<label><input type="checkbox" id="check1"> I used at least 4 target items in writing.</label>
+<label><input type="checkbox" id="check2"> I spoke for at least 60 seconds.</label>
+<label><input type="checkbox" id="check3"> I used the vocabulary without reading every sentence.</label>
+</div>
+<div class="actions"><button type="button" class="finish-task">Finish lesson</button></div>
+<div class="feedback"></div>
+</section>
+
+<div class="complete" id="completeBox" hidden><strong>NYC Vocab 01 complete.</strong><br>You’ve moved from noticing the language to using it yourself.</div>
+</div>
+</main>
+
+<footer><div class="shell footer-inner"><span>© 2026 Brooklyn School of English</span><span>New York</span></div></footer>
+
+<script>
+(() => {
+const completed=new Set(), totalTasks=5;
+const progressBar=document.getElementById('progressBar'), progressText=document.getElementById('progressText');
+function markDone(n){completed.add(n);progressBar.style.width=((completed.size/totalTasks)*100)+'%';progressText.textContent=`${completed.size} / ${totalTasks} tasks`}
+function fb(section,ok,html){const el=section.querySelector('.feedback');el.style.display='block';el.className='feedback '+(ok?'good':'bad');el.innerHTML=html}
+
+document.querySelector('.check-visual').addEventListener('click',()=>{
+const s=document.querySelector('[data-task="1"]'), sels=[...s.querySelectorAll('select[data-answer]')];let c=0;
+sels.forEach(x=>{const ok=x.value===x.dataset.answer;x.style.borderColor=ok?'#5f9b68':'#c8655c';if(ok)c++});
+const ok=c===sels.length;fb(s,ok,ok?'✅ Great — all four are correct.':`You got <strong>${c}/4</strong>. Try again.`);if(ok)markDone(1)
+});
+
+document.querySelector('.check-dialogue').addEventListener('click',()=>{
+const s=document.querySelector('[data-task="2"]'), sels=[...s.querySelectorAll('select[data-answer]')];let c=0;
+sels.forEach(x=>{const ok=x.value===x.dataset.answer;x.style.borderColor=ok?'#5f9b68':'#c8655c';if(ok)c++});
+const ok=c===sels.length;fb(s,ok,ok?'✅ Correct. Notice the chunks: <strong>my commute</strong>, <strong>transfer to</strong>, <strong>uptown</strong>, <strong>a block away</strong>.':`You got <strong>${c}/4</strong>. Try again.`);if(ok)markDone(2)
+});
+
+let dragged=null,selected=null;const chips=[...document.querySelectorAll('.chip')],zones=[...document.querySelectorAll('.dropzone')];
+function place(zone,word){const current=zone.dataset.word;if(current){const old=chips.find(c=>c.dataset.word===current);if(old)old.style.display=''}zones.forEach(z=>{if(z!==zone&&z.dataset.word===word){z.dataset.word='';z.querySelector('.drop-answer').textContent=''}});const chip=chips.find(c=>c.dataset.word===word);if(chip)chip.style.display='none';zone.dataset.word=word;zone.querySelector('.drop-answer').textContent=word}
+chips.forEach(chip=>{chip.addEventListener('dragstart',()=>dragged=chip.dataset.word);chip.addEventListener('click',()=>{chips.forEach(c=>c.classList.remove('selected'));if(selected===chip){selected=null;return}selected=chip;chip.classList.add('selected')})});
+zones.forEach(zone=>{zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('over')});zone.addEventListener('dragleave',()=>zone.classList.remove('over'));zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('over');if(dragged)place(zone,dragged);dragged=null});zone.addEventListener('click',()=>{if(selected){place(zone,selected.dataset.word);selected.classList.remove('selected');selected=null}})});
+document.querySelector('.check-drag').addEventListener('click',()=>{const s=document.querySelector('[data-task="3"]');let c=0;zones.forEach(z=>{const ok=z.dataset.word===z.dataset.answer;z.style.borderColor=ok?'#5f9b68':'#c8655c';if(ok)c++});const ok=c===zones.length;fb(s,ok,ok?'✅ Perfect — all eight matched correctly.':`You got <strong>${c}/8</strong>. Move the ones that do not match.`);if(ok)markDone(3)});
+document.querySelector('.reset-drag').addEventListener('click',()=>{chips.forEach(c=>{c.style.display='';c.classList.remove('selected')});zones.forEach(z=>{z.dataset.word='';z.querySelector('.drop-answer').textContent='';z.style.borderColor=''});selected=null;dragged=null});
+
+document.querySelector('.check-builder').addEventListener('click',()=>{
+const s=document.querySelector('[data-task="4"]'),answers={commute:['commute'],transfer:['transfer'], 'walk-up':['walk-up','walkup'],stoop:['stoop']};let c=0;
+s.querySelectorAll('input[data-builder]').forEach(inp=>{const ok=answers[inp.dataset.builder].includes(inp.value.trim().toLowerCase());inp.style.borderColor=ok?'#5f9b68':'#c8655c';if(ok)c++});
+const ok=c===4;fb(s,ok,ok?'✅ Nice. These are useful chunks to learn as whole phrases.':`You got <strong>${c}/4</strong>. Try again.`);if(ok)markDone(4)
+});
+
+document.querySelector('.finish-task').addEventListener('click',()=>{
+const s=document.querySelector('[data-task="5"]'),t=document.getElementById('writing').value.trim(),checks=['check1','check2','check3'].every(id=>document.getElementById(id).checked);
+if(t.length<60){fb(s,false,'Write a little more first — aim for about 3–5 sentences.');return}
+if(!checks){fb(s,false,'Complete the speaking step and tick the three self-check boxes.');return}
+fb(s,true,'✅ Finished. You’ve used the vocabulary productively in both writing and speaking.');markDone(5);document.getElementById('completeBox').hidden=false
+});
+})();
+</script>
+</body>
+</html>
