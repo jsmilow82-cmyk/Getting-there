@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Booster — Round 20.10.25 – 16.11.25 · Modern Travel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .round-badge { margin-left: auto; background: var(--coral); color: #fff; padding: 8px 18px; border-radius: 999px; font-weight: 800; font-size: 13.5px; letter-spacing: 0.03em; white-space: nowrap; box-shadow: 0 4px 14px rgba(232,112,95,0.3); }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 24px; }
+
+  .hero { margin: 26px 0 34px; background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 55%, var(--teal-dark) 130%); border-radius: 28px; padding: 44px 40px; color: #fff; text-align: center; position: relative; overflow: hidden; box-shadow: 0 18px 48px rgba(95,79,161,0.28); }
+  .hero::before { content: ''; position: absolute; inset: 0; background:
+    radial-gradient(circle at 12% 20%, rgba(255,255,255,0.14) 0, transparent 34%),
+    radial-gradient(circle at 88% 78%, rgba(232,112,95,0.25) 0, transparent 40%),
+    radial-gradient(circle at 70% 12%, rgba(63,157,154,0.30) 0, transparent 36%); pointer-events: none; }
+  .hero-brand { position: relative; display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal-light); margin-bottom: 14px; }
+  .hero h1 { position: relative; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; margin-bottom: 10px; }
+  .hero-round { position: relative; display: inline-block; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.35); padding: 8px 22px; border-radius: 999px; font-weight: 800; font-size: 17px; letter-spacing: 0.04em; margin-bottom: 14px; backdrop-filter: blur(6px); }
+  .hero p.sub { position: relative; max-width: 640px; margin: 0 auto; font-size: 16px; font-weight: 500; color: rgba(255,255,255,0.85); }
+
+  .lessons-title { display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 800; color: var(--purple); letter-spacing: -0.02em; margin: 0 0 22px; }
+  .lessons-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+
+  .lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 760px){ .lessons-grid { grid-template-columns: 1fr; } }
+
+  .lesson-card { --acc: var(--purple); --acc-soft: var(--purple-light);
+    position: relative; display: flex; flex-direction: column; gap: 12px; background: #fff; border: 1px solid rgba(124,107,184,0.08); border-top: 6px solid var(--acc); border-radius: 20px; padding: 22px 22px 20px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); text-decoration: none; color: var(--ink); transition: all 0.25s ease; }
+  .lesson-card:hover { transform: translateY(-5px); box-shadow: 0 16px 38px rgba(124,107,184,0.18); }
+  .lesson-card.a2 { --acc: var(--teal); --acc-soft: var(--teal-light); }
+  .lesson-card.a3 { --acc: var(--coral); --acc-soft: var(--coral-light); }
+  .lesson-card.a4 { --acc: var(--purple-dark); --acc-soft: var(--purple-light); }
+  .lesson-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .lesson-ico { width: 48px; height: 48px; border-radius: 14px; background: var(--acc-soft); display: flex; align-items: center; justify-content: center; font-size: 23px; flex-shrink: 0; }
+  .lesson-num { font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--acc); }
+  .lesson-card h3 { font-size: 20px; font-weight: 800; line-height: 1.3; color: var(--ink); letter-spacing: -0.01em; }
+  .lesson-tag { font-size: 14px; color: #6b7280; font-weight: 500; }
+  .lesson-open { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; color: #fff; background: var(--acc); padding: 9px 18px; border-radius: 999px; font-weight: 700; font-size: 13.5px; width: max-content; transition: gap 0.2s ease; }
+  .lesson-card:hover .lesson-open { gap: 13px; }
+
+  .footer { text-align: center; padding: 40px 24px 46px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (max-width: 760px){
+    .header { padding: 10px 14px; }
+    .brand .brand-text span { display: none; }
+    .round-badge { font-size: 11.5px; padding: 6px 12px; }
+    .hero { padding: 34px 22px; }
+    .hero h1 { font-size: 30px; }
+    .hero-round { font-size: 14px; padding: 6px 16px; }
+    .hero p.sub { font-size: 14px; }
+    .lessons-title { font-size: 21px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <div class="round-badge">Round 20.10.25 – 16.11.25</div>
+</header>
+
+<div class="container">
+
+  <section class="hero">
+    <span class="hero-brand">Advanced Booster · by Daria Talanova</span>
+    <h1>Modern Travel</h1>
+    <div class="hero-round">Round 20.10.25 – 16.11.25</div>
+    <p class="sub">Four lessons about AI-powered journeys, slow escapes, strange destinations and the art of traveling alone — pick a topic and dive in.</p>
+  </section>
+
+  <h2 class="lessons-title"><span class="num">📚</span> Lessons of the round</h2>
+
+  <div class="lessons-grid">
+
+    <!-- ✂️ Вставьте ссылку на страницу урока вместо href="#" -->
+    <a class="lesson-card a1" href="https://dariaenglishschool.com/advanced-booster/2025/1_20-10_16-11/01-how-ai-is-changing-travel">
+      <div class="lesson-top">
+        <span class="lesson-ico">🤖</span>
+        <span class="lesson-num">Lesson 1 · Week 1</span>
+      </div>
+      <h3>How AI Is Changing Travel</h3>
+      <p class="lesson-tag">How algorithms, chatbots and smart apps are rewriting the rules of travel.</p>
+      <span class="lesson-open">Open lesson →</span>
+    </a>
+
+    <!-- ✂️ Вставьте ссылку на страницу урока вместо href="#" -->
+    <a class="lesson-card a2" href="https://dariaenglishschool.com/advanced-booster/2025/1_20-10_16-11/02-soft-travel">
+      <div class="lesson-top">
+        <span class="lesson-ico">🌿</span>
+        <span class="lesson-num">Lesson 2 · Week 2</span>
+      </div>
+      <h3>Soft Travel</h3>
+      <p class="lesson-tag">The rise of slow, mindful journeys — and why doing less is the new luxury.</p>
+      <span class="lesson-open">Open lesson →</span>
+    </a>
+
+    <!-- ✂️ Вставьте ссылку на страницу урока вместо href="#" -->
+    <a class="lesson-card a3" href="https://dariaenglishschool.com/advanced-booster/2025/1_20-10_16-11/03-weird-travel-destinations">
+      <div class="lesson-top">
+        <span class="lesson-ico">🗺️</span>
+        <span class="lesson-num">Lesson 3 · Week 3</span>
+      </div>
+      <h3>The Weirdest Places to Visit</h3>
+      <p class="lesson-tag">From underwater museums to ghost towns — the strangest destinations on Earth.</p>
+      <span class="lesson-open">Open lesson →</span>
+    </a>
+
+    <!-- ✂️ Вставьте ссылку на страницу урока вместо href="#" -->
+    <a class="lesson-card a4" href="https://dariaenglishschool.com/advanced-booster/2025/1_20-10_16-11/04-solo-travel">
+      <div class="lesson-top">
+        <span class="lesson-ico">🎒</span>
+        <span class="lesson-num">Lesson 4 · Week 4</span>
+      </div>
+      <h3>Solo Travel Mistakes</h3>
+      <p class="lesson-tag">Common pitfalls when traveling alone — and how to avoid them.</p>
+      <span class="lesson-open">Open lesson →</span>
+    </a>
+
+  </div>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+</body>
+</html>
