@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Gossip Undermines Trust — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,107,184,0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
+  .cover-img { height: 62%; background: #cfc9ec; flex: 0 0 62%; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 34px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em; }
+  .section-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500; }
+
+  .card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); margin-bottom: 24px; border: 1px solid rgba(124,107,184,0.08); }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92,184,92,0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217,83,79,0.1); }
+  .card-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(124,107,184,0.2); flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124,107,184,0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63,157,154,0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+
+  .submit-steps { background: var(--soft); border-radius: 12px; padding: 14px 18px; margin: 16px 0 14px; display: flex; gap: 18px; flex-wrap: wrap; font-size: 13.5px; color: var(--ink); }
+  .submit-step { display: flex; align-items: flex-start; gap: 8px; flex: 1 1 180px; min-width: 180px; }
+  .submit-step .step-num { background: var(--purple); color: #fff; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
+  .submit-step .step-text { font-weight: 500; line-height: 1.4; }
+  .submit-step .step-text b { color: var(--purple-dark); font-weight: 700; }
+
+  .submit-wrap { margin-top: 14px; display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+  .submit-btn { padding: 12px 22px !important; font-size: 15px !important; border-radius: 12px; background: var(--purple); color: #fff; font-weight: 600; border: none; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(124,107,184,0.3); transition: all 0.2s ease; white-space: nowrap; }
+  .submit-btn:hover:not(:disabled) { background: var(--purple-dark); transform: translateY(-2px); }
+  .submit-btn:disabled { background: #cbd5e0 !important; color: #8a8a8a !important; cursor: not-allowed; box-shadow: none !important; transform: none !important; white-space: normal; }
+  .stream-info { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 10px 16px; border-radius: 10px; flex: 1; min-width: 240px; transition: all 0.3s ease; }
+  .stream-info-inner { color: var(--teal-dark); font-size: 13.5px; font-weight: 600; line-height: 1.5; }
+  .stream-info-inner .dates { font-weight: 500; color: var(--ink); }
+  .stream-info.ended { background: var(--coral-light); border-left-color: var(--coral); }
+  .stream-info.ended .stream-info-inner { color: var(--coral-dark); }
+
+  .toast { position: fixed; bottom: 110px; right: 24px; background: #fff; border-left: 5px solid var(--success); border-radius: 12px; padding: 14px 18px 14px 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.18); display: flex; align-items: flex-start; gap: 12px; max-width: 360px; z-index: 200; transform: translateX(calc(100% + 40px)); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .toast.show { transform: translateX(0); }
+  .toast.error { border-left-color: var(--error); }
+  .toast .toast-icon { width: 28px; height: 28px; flex-shrink: 0; background: var(--success); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+  .toast.error .toast-icon { background: var(--error); }
+  .toast .toast-body { flex: 1; }
+  .toast .toast-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+  .toast .toast-msg { font-size: 13px; color: #555; line-height: 1.45; }
+
+  .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected { outline: 3px solid var(--coral); outline-offset: 2px; transform: scale(1.05); box-shadow: 0 4px 12px rgba(232,112,95,0.3); }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; overflow-wrap: break-word; }
+  .dz { display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+  .dz.dz-radio { display: none; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .option { background: #fff; border: 1.5px solid rgba(124,107,184,0.15); padding: 12px 18px; border-radius: 12px; cursor: pointer; font-weight: 500; font-size: 15px; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; position: relative; }
+  .option::before { content: ''; display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(124,107,184,0.3); border-radius: 50%; flex-shrink: 0; transition: all 0.2s; }
+  .option:hover { border-color: var(--purple); background: var(--purple-light); }
+  .option.selected { background: var(--purple-light); border-color: var(--purple); }
+  .option.selected::before { border-color: var(--purple); background: var(--purple); box-shadow: inset 0 0 0 4px #fff; }
+  .option.correct { background: #e8f5e8; border-color: var(--success); }
+  .option.correct::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+  .option.incorrect { background: #fbe9e7; border-color: var(--error); }
+  .option.incorrect::before { border-color: var(--error); background: var(--error); box-shadow: inset 0 0 0 4px #fff; }
+  .option.answer-revealed { background: #e8f5e8; border-color: var(--success); }
+  .option.answer-revealed::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+
+  .answer-key { display: inline-block; margin-left: 6px; background: var(--success); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; vertical-align: middle; box-shadow: 0 2px 6px rgba(92,184,92,0.3); animation: popIn 0.25s ease; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; white-space: normal; text-align: right; }
+
+  .blank { width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; max-width: 100%; }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+
+  .post-img { width: 100%; max-width: 100%; display: block; margin: 4px 0 0; border-radius: 14px 14px 0 0; border: 1px solid rgba(124,107,184,0.15); border-bottom: none; background: #fff; }
+  .post-caption { text-align: center; font-size: 15.5px; line-height: 1.9; padding: 10px 16px 18px; background: var(--soft); border-radius: 0 0 14px 14px; margin: 0 0 18px; border: 1px solid rgba(124,107,184,0.08); border-top: none; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { background: #fff; border: 2px dashed rgba(124,107,184,0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  .hint-input { display: inline-flex; align-items: center; flex-wrap: wrap; max-width: calc(100% - 8px); margin: 0 4px; vertical-align: middle; }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
+  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; width: 130px; min-width: 60px; max-width: 100%; outline: none; transition: border-color 0.2s; }
+  .hint-input input:focus { border-color: var(--purple); }
+  .hint-input .answer-key { white-space: normal; }
+  .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
+  .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124,107,184,0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124,107,184,0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  details.text-details .sub { font-weight: 800; color: var(--ink); margin: 22px 0 10px; font-size: 16.5px; }
+  details.text-details .num-h { font-weight: 800; color: var(--ink); margin: 14px 0 6px; font-size: 15.5px; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124,107,184,0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124,107,184,0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .option { padding: 14px 18px; font-size: 15px; }
+    .blank { width: 120px; font-size: 16px; }
+    .hint-input input { width: 120px; min-width: 60px; font-size: 16px; }
+    .hint-input .first-letter { font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: auto; min-height: 320px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 22px; }
+    .cover-text p { font-size: 14px; }
+    .submit-btn { padding: 14px 22px !important; font-size: 15px !important; }
+    .submit-steps { font-size: 14px; }
+    .toast { bottom: 120px; right: 16px; left: 16px; max-width: none; }
+  }
+
+  @media (max-width: 760px){
+    .header { padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .submit-wrap { flex-direction: column; align-items: stretch; }
+    .submit-btn { width: 100%; justify-content: center; }
+    .stream-info { min-width: 0; }
+    .submit-steps { flex-direction: column; gap: 10px; padding: 14px 16px; margin: 14px 0 12px; }
+    .submit-step { flex: 0 0 auto; min-width: 0; gap: 10px; }
+    .submit-step .step-num { width: 22px; height: 22px; font-size: 12px; flex-shrink: 0; }
+    .submit-step .step-text { font-size: 15.5px; line-height: 1.5; }
+    .toast { bottom: 110px; }
+    .cover-card { height: auto; min-height: 340px; }
+    .cover-img { height: 210px; flex: 0 0 210px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .hint-input { max-width: calc(100% - 4px); }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav">
+    <a class="links-btn" href="#links">🔗 Links</a>
+    <a href="#text">Text</a>
+    <a href="#vocabulary">Vocabulary</a>
+    <a href="#vocabulary2">Vocabulary 2</a>
+    <a href="#revision">Revision</a>
+    <a href="#questions">Questions</a>
+  </nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><img src="img-cover.png" alt="How Gossip Undermines Trust — cover"></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>How Gossip Undermines Trust</h1>
+      <p>The hidden dangers of gossiping — and how to speak with integrity</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a class="pur" href="https://drive.google.com/file/d/1jawtqi9InnGwhfu8yBp5dbMqB-h0WOKR/view" target="_blank">📄 Vocabulary PDF</a>
+        <a class="alt" href="https://quizlet.com/ae/1226223233/how-gossip-undermines-trust-and-unity-flash-cards/?i=zxpms&x=1qqt" target="_blank">🃏 Quizlet</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="text">
+    <div class="section-title"><span class="num">1</span> Text</div>
+    <div class="card">
+      <h3>1.1 Read the text</h3>
+      <details class="text-details">
+        <summary>📖 The Hidden Dangers of Gossiping: Why We Should Think Before We Speak (click to expand)</summary>
+        <p>Gossiping is an age-old practice that has been a part of human interaction for centuries. While it may seem harmless and even entertaining at times, gossip can have significant negative consequences on both individuals and communities. We often gossip because it feels natural to talk about others and share stories or opinions. But while it might seem like a fun or <b class="v">lighthearted</b> activity, gossiping can have negative consequences that go far beyond just spreading information.</p>
+        <div class="sub">What is Gossip?</div>
+        <p>At its core, gossip is the act of discussing someone else's private life, actions, or behaviors — often without their knowledge or consent. It typically involves rumors, speculation, and hearsay rather than verified facts. It's talking about someone when they're not present, sharing information that may or may not be true, and passing judgment.</p>
+        <p>While gossip can sometimes take the form of <b class="v">lighthearted banter</b> or harmless chit-chat, it often <b class="v">crosses a line</b> into negative talk that damages reputations, spreads misinformation, and creates tension among individuals or groups.</p>
+        <div class="sub">Why Do We Gossip?</div>
+        <p>Before we <b class="v">delve into</b> the dangers, let's consider why gossiping is so <b class="v">prevalent</b>.</p>
+        <p><b>Social Bonding:</b> Gossip can sometimes serve as a way for people to bond. Sharing juicy details or funny stories about others can create a sense of connection and solidarity. It can make people feel closer, like they are <b class="v">"in the know"</b> or part of an exclusive group.</p>
+        <p><b>Validation:</b> Gossiping can be a way for people to seek validation or boost their own social status. Talking about others, especially if it's critical, can make someone feel superior or more important.</p>
+        <p><b>Entertainment:</b> Let's face it — sometimes gossip can simply be entertaining. When we hear about someone's misfortune or an unusual story, it can be a way to escape our own lives or feel a bit of excitement.</p>
+        <p><b>Emotional Release:</b> People may also gossip as a form of <b class="v">venting</b>. If someone is upset with a colleague, friend, or family member, gossiping about it can be a way to process emotions or frustrations.</p>
+        <p><b>Information Sharing:</b> Gossip can be a means of sharing information and staying informed about the activities and behaviors of others. This can be particularly true in <b class="v">tight-knit communities</b> or work places.</p>
+        <p><b>Power and Influence:</b> Gossiping can give individuals a sense of power and control. By having and sharing insider information, they may feel more influential and important.</p>
+        <p><b>Coping Mechanism:</b> Gossip can serve as a way for individuals to cope with their own insecurities and frustrations. It can provide temporary relief by shifting the focus away from their own issues.</p>
+        <p>But while gossip may seem harmless, the impact it can have on others (and even on ourselves) is <b class="v">far-reaching</b>.</p>
+        <div class="sub">The Negative Effects of Gossiping</div>
+        <p>While it's easy to <b class="v">brush off</b> gossip as just casual conversation, its consequences can be significant. Here are a few of the harmful effects gossip can have:</p>
+        <div class="num-h">1. Damage to Reputations</div>
+        <p>One of the most obvious negative effects of gossip is the potential harm to someone's reputation. Gossip, especially when it's negative or untrue, can create <b class="v">a false narrative</b> about a person. Once a rumor starts circulating, it can be hard to reverse the damage. Even if the gossip isn't entirely accurate, it can shape how others perceive the person being discussed.</p>
+        <div class="num-h">2. Broken Trust</div>
+        <p>Gossip can lead to broken trust in relationships, whether in friendships, families, or workplaces. When people realize that others are gossiping about them <b class="v">behind their backs</b>, it can create feelings of betrayal and hurt. People want to feel respected and valued, and gossiping <b class="v">undermines that trust, eroding the foundation</b> of healthy relationships.</p>
+        <div class="num-h">3. Spread of Misinformation</div>
+        <p>Many times, gossip involves sharing details that are only partial or entirely incorrect. The more a piece of gossip is passed along, the further it can get from the truth. This spreading of misinformation can lead to confusion, misunderstandings, and even conflict between individuals or groups.</p>
+        <div class="num-h">4. Toxic Environments</div>
+        <p>In workplaces or social circles, gossip can create a toxic environment. When people are constantly talking about others behind their backs, it fosters a sense of negativity and mistrust. It can make people feel anxious about what others are saying about them, <b class="v">stifling</b> collaboration and damaging team morale. Over time, this can lead to isolation and a lack of unity among the group.</p>
+        <div class="num-h">5. Weakened Self-Esteem</div>
+        <p>People who are the subject of gossip may experience damage to their self-esteem. Being the target of gossip can lead to feelings of humiliation, embarrassment, or insecurity. It can also make them <b class="v">feel alienated from</b> others, especially if they believe they are being unfairly judged or misrepresented.</p>
+        <div class="num-h">6. Perpetuates a Cycle of Negativity</div>
+        <p>Gossip often creates a cycle of negativity. Once people start gossiping about others, it encourages more gossip. It fosters an environment where talking behind someone's back becomes normalized, and it <b class="v">perpetuates</b> a culture of judgment and criticism. Instead of encouraging healthy communication and problem-solving, gossip fuels division and conflict.</p>
+        <div class="num-h">7. Emotional Distress</div>
+        <p>Being the subject of gossip can cause significant emotional distress. It can lead to feelings of humiliation, anxiety, and depression, affecting an individual's mental well-being.</p>
+        <div class="num-h">8. Hindrance to Personal Growth</div>
+        <p>Gossiping can prevent individuals from focusing on their own growth and development. It <b class="v">diverts attention away</b> from constructive activities and perpetuates a cycle of negativity.</p>
+        <div class="sub">How to Break the Habit of Gossiping</div>
+        <p><b>Breaking free from</b> the gossip trap requires conscious effort and a commitment to fostering a positive and supportive environment. If you've realized that gossiping has become a part of your routine, it's important to recognize that breaking the habit is not only possible, but necessary for healthier relationships and a more positive environment. Here are some steps to help you <b class="v">steer clear of</b> gossip:</p>
+        <div class="num-h">1. Pause Before Speaking</div>
+        <p>Take time to reflect on your own behavior and motivations for gossiping. Recognize the impact it has on others and make a conscious decision to change. Before discussing someone else, ask yourself, "Is this information necessary? Will it benefit the conversation? Am I being respectful?" If the answer is no, then it's a good idea to refrain from speaking. Pausing before speaking allows you to consider the impact of your words and prevents you from spreading negativity.</p>
+        <div class="num-h">2. Practice Empathy</div>
+        <p><b class="v">Put yourself in the shoes</b> of the person you're talking about. How would you feel if people were gossiping about you? Practicing empathy helps you consider the emotional consequences of your words and reminds you of the importance of treating others with kindness and respect.</p>
+        <div class="num-h">3. Focus on Positive Conversations</div>
+        <p>Instead of focusing on what's wrong with others, <b class="v">shift your focus to</b> the positive. Share compliments, celebrate accomplishments, and talk about ideas and solutions rather than problems and <b class="v">shortcomings</b>. Positive conversations not only strengthen relationships but also encourage a supportive atmosphere.</p>
+        <div class="num-h">4. Confront Gossip Directly</div>
+        <p>Politely decline to participate in gossip and set clear boundaries with others. If you find yourself in a conversation where gossip is taking place, speak up. You don't have to engage in the conversation, but you can redirect the topic or politely express that you're not comfortable participating in gossip. By doing so, you set boundaries and discourage the spread of harmful information.</p>
+        <div class="num-h">5. Build Trust and Transparency</div>
+        <p>To create an environment where gossip is less likely to thrive, focus on building trust and transparency with those around you. When people feel heard and understood, they're less likely to resort to gossip as a way of <b class="v">airing their grievances</b>.</p>
+        <div class="num-h">6. Seek Factual Information</div>
+        <p>Rely on verified facts and credible sources of information. Avoid spreading unverified rumors and speculation.</p>
+        <div class="num-h">7. Be Mindful of Your Words</div>
+        <p>Practice mindfulness and think before you speak. Consider the potential impact of your words on others and choose to communicate with kindness and respect.</p>
+        <div class="num-h">8. Support Those Affected by Gossip</div>
+        <p>Offer support and empathy to individuals who have been targeted by gossip. Stand up for them and help create a culture of trust and respect.</p>
+        <div class="sub">Speak with Integrity</div>
+        <p>While gossiping might seem like a harmless way to pass the time, it has far-reaching consequences for both individuals and relationships. By becoming more aware of the impact of our words, we can choose to speak with integrity, respect, and kindness. Instead of <b class="v">tearing others down</b>, we can uplift them, create healthier environments, and foster deeper, more trusting connections. Remember, the power of your words is immense; use them wisely to <b class="v">uplift</b> and inspire, rather than to tear down and divide.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">2</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"/>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(120,110)"><rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/><rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/><rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/></g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round"><path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/><path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/><line x1="110" y1="40" x2="110" y2="128"/></g>
+        <g transform="translate(640,80)"><rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/><path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/></g>
+        <g transform="translate(820,90)" fill="#7c6bb8"><path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/><path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+        <g transform="translate(1060,90)" fill="#3f9d9a"><circle cx="60" cy="52" r="44"/><rect x="52" y="92" width="16" height="34" rx="8"/><path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/></g>
+        <g transform="translate(1280,100)" fill="#e8705f"><path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/><path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/></g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>2.1 Study the vocabulary (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/1jawtqi9InnGwhfu8yBp5dbMqB-h0WOKR/view" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:20px">2.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/ae/1226223233/how-gossip-undermines-trust-and-unity-flash-cards/?i=zxpms&x=1qqt" target="_blank">Follow the link</a></div>
+    </div>
+
+    <div class="card" data-task="radio" data-id="v2-3">
+      <h3>2.3 Choose the correct phrase</h3>
+      <div class="instruction">💡 Click the correct option, then press Check.</div>
+      <div class="sentence">To ignore someone's concerns without taking them seriously: <span class="dz dz-radio" data-answer="brush off"></span>
+        <div class="options"><div class="option" data-value="brush off">brush off</div><div class="option" data-value="uplift">uplift</div><div class="option" data-value="air your grievances">air your grievances</div></div></div>
+      <div class="sentence">To express your complaints openly: <span class="dz dz-radio" data-answer="air your grievances"></span>
+        <div class="options"><div class="option" data-value="perpetuate">perpetuate</div><div class="option" data-value="air your grievances">air your grievances</div><div class="option" data-value="steer clear of">steer clear of</div></div></div>
+      <div class="sentence">To damage someone's confidence or reputation: <span class="dz dz-radio" data-answer="tear someone down"></span>
+        <div class="options"><div class="option" data-value="tear someone down">tear someone down</div><div class="option" data-value="put yourself in someone's shoes">put yourself in someone's shoes</div><div class="option" data-value="be in the know">be in the know</div></div></div>
+      <div class="sentence">To understand how another person might feel: <span class="dz dz-radio" data-answer="put yourself in someone's shoes"></span>
+        <div class="options"><div class="option" data-value="shift your focus to">shift your focus to</div><div class="option" data-value="put yourself in someone's shoes">put yourself in someone's shoes</div><div class="option" data-value="divert attention away from">divert attention away from</div></div></div>
+      <div class="sentence">To avoid someone or something deliberately: <span class="dz dz-radio" data-answer="steer clear of"></span>
+        <div class="options"><div class="option" data-value="break free from">break free from</div><div class="option" data-value="steer clear of">steer clear of</div><div class="option" data-value="speak with integrity">speak with integrity</div></div></div>
+      <div class="sentence">To make something continue, especially a harmful belief: <span class="dz dz-radio" data-answer="perpetuate"></span>
+        <div class="options"><div class="option" data-value="perpetuate">perpetuate</div><div class="option" data-value="uplift">uplift</div><div class="option" data-value="brush off">brush off</div></div></div>
+      <div class="sentence">To encourage someone and make them feel more positive: <span class="dz dz-radio" data-answer="uplift someone"></span>
+        <div class="options"><div class="option" data-value="stifle">stifle</div><div class="option" data-value="undermine trust">undermine trust</div><div class="option" data-value="uplift someone">uplift someone</div></div></div>
+      <div class="sentence">To act honestly and according to your principles: <span class="dz dz-radio" data-answer="speak with integrity"></span>
+        <div class="options"><div class="option" data-value="speak with integrity">speak with integrity</div><div class="option" data-value="seek validation">seek validation</div><div class="option" data-value="vent">vent</div></div></div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-3">↻ Reset</button>
+        <span class="card-score" data-score="v2-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v2-4">
+      <h3>2.4 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="seek validation">seek validation</div>
+        <div class="chip" data-word="far-reaching consequences">far-reaching consequences</div>
+        <div class="chip" data-word="cross a line">cross a line</div>
+        <div class="chip" data-word="undermine trust">undermine trust</div>
+        <div class="chip" data-word="behind my back">behind my back</div>
+        <div class="chip" data-word="a false narrative">a false narrative</div>
+        <div class="chip" data-word="vent">vent</div>
+        <div class="chip" data-word="in the know">in the know</div>
+        <div class="chip" data-word="tight-knit community">tight-knit community</div>
+        <div class="chip" data-word="brushed them off">brushed them off</div>
+        <div class="chip" data-word="erode the foundation">erode the foundation</div>
+        <div class="chip" data-word="prevalent">prevalent</div>
+        <div class="chip" data-word="lighthearted banter">lighthearted banter</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. We spent the evening exchanging <span class="dz" data-answer="lighthearted banter"></span> about our colleagues and funny things that had happened at work.</li>
+        <li class="sentence">2. I was hurt to discover that my friends had been discussing my personal problems <span class="dz" data-answer="behind my back"></span>.</li>
+        <li class="sentence">3. Gossip is particularly <span class="dz" data-answer="prevalent"></span> in workplaces where people don't communicate openly.</li>
+        <li class="sentence">4. I like to be <span class="dz" data-answer="in the know"></span> about what's happening in my team, but I don't need to know every little detail about everyone's personal life.</li>
+        <li class="sentence">5. A lack of honest communication can <span class="dz" data-answer="erode the foundation"></span> of even the strongest friendship.</li>
+        <li class="sentence">6. Whenever I feel stressed, I call my best friend to <span class="dz" data-answer="vent"></span> about everything that's been bothering me.</li>
+        <li class="sentence">7. Joking about someone's appearance might seem harmless, but sometimes you can <span class="dz" data-answer="cross a line"></span> and hurt their feelings.</li>
+        <li class="sentence">8. Living in a <span class="dz" data-answer="tight-knit community"></span> means that people often know each other well and are willing to help when someone needs support.</li>
+        <li class="sentence">9. Spreading rumours about a colleague can have <span class="dz" data-answer="far-reaching consequences"></span> for their career and personal life.</li>
+        <li class="sentence">10. Instead of listening to my concerns, my manager simply <span class="dz" data-answer="brushed them off"></span> and told me not to worry.</li>
+        <li class="sentence">11. Social media can create <span class="dz" data-answer="a false narrative"></span> about people's lives by showing only their happiest moments.</li>
+        <li class="sentence">12. Some people post every achievement on social media because they want to <span class="dz" data-answer="seek validation"></span> from others.</li>
+        <li class="sentence">13. Constantly breaking your promises can <span class="dz" data-answer="undermine trust"></span> in a relationship.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-4">↻ Reset</button>
+        <span class="card-score" data-score="v2-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v2-5">
+      <h3>2.5 Match the parts of collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching beginning (or tap the ending, then tap the beginning). Click the coral label to unmatch. For "to spread" both matching endings are accepted.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="negative consequences on"><span class="term">to have significant</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="unverified rumors|information" data-answertext="unverified rumors / information"><span class="term">to spread</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="validation"><span class="term">to seek</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="own insecurities and frustrations"><span class="term">to cope with your</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="circulating"><span class="term">a rumor starts</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="and mistrust"><span class="term">to foster a sense of negativity</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="boundaries"><span class="term">to set clear</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="unverified rumors|information" data-answertext="unverified rumors / information"><span class="term">to spread</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="unverified rumors">unverified rumors</div>
+            <div class="match-item" data-word="validation">validation</div>
+            <div class="match-item" data-word="negative consequences on">negative consequences on</div>
+            <div class="match-item" data-word="and mistrust">and mistrust</div>
+            <div class="match-item" data-word="circulating">circulating</div>
+            <div class="match-item" data-word="own insecurities and frustrations">own insecurities and frustrations</div>
+            <div class="match-item" data-word="boundaries">boundaries</div>
+            <div class="match-item" data-word="information">information</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-5">↻ Reset</button>
+        <span class="card-score" data-score="v2-5"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v2-6">
+      <h3>2.6 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="alienated">alienated</div>
+        <div class="chip" data-word="shortcomings">shortcomings</div>
+        <div class="chip" data-word="put yourself in their shoes">put yourself in their shoes</div>
+        <div class="chip" data-word="steer clear">steer clear</div>
+        <div class="chip" data-word="uplift">uplift</div>
+        <div class="chip" data-word="tear others down">tear others down</div>
+        <div class="chip" data-word="stifle creativity">stifle creativity</div>
+        <div class="chip" data-word="divert attention">divert attention</div>
+        <div class="chip" data-word="air their grievances">air their grievances</div>
+        <div class="chip" data-word="speak with integrity">speak with integrity</div>
+        <div class="chip" data-word="perpetuate">perpetuate</div>
+        <div class="chip" data-word="break free">break free</div>
+        <div class="chip" data-word="shift my focus">shift my focus</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. Even when it's uncomfortable, I believe it's important to <span class="dz" data-answer="speak with integrity"></span> and be honest about your intentions.</li>
+        <li class="sentence">2. After moving to a new country, I sometimes feel <span class="dz" data-answer="alienated"></span> from people because I don't understand their cultural references or social norms.</li>
+        <li class="sentence">3. Sharing stereotypes about certain groups of people can <span class="dz" data-answer="perpetuate"></span> harmful beliefs and prejudice.</li>
+        <li class="sentence">4. Instead of taking responsibility for the mistake, the company tried to <span class="dz" data-answer="divert attention"></span> away from the real problem.</li>
+        <li class="sentence">5. A good friend knows how to <span class="dz" data-answer="uplift"></span> someone when they're feeling discouraged and remind them of their strengths.</li>
+        <li class="sentence">6. I try to <span class="dz" data-answer="steer clear"></span> of people who constantly gossip about their friends and colleagues.</li>
+        <li class="sentence">7. Before judging someone's behaviour, try to <span class="dz" data-answer="put yourself in their shoes"></span> and understand what they might be going through.</li>
+        <li class="sentence">8. When I start comparing my life to other people's lives online, I try to <span class="dz" data-answer="shift my focus"></span> to my own goals and achievements.</li>
+        <li class="sentence">9. Everyone has <span class="dz" data-answer="shortcomings"></span>, but recognising them is the first step towards personal growth.</li>
+        <li class="sentence">10. It took me years to <span class="dz" data-answer="break free"></span> from the habit of comparing myself to others on social media.</li>
+        <li class="sentence">11. Instead of complaining about each other, the team decided to <span class="dz" data-answer="air their grievances"></span> openly during a meeting.</li>
+        <li class="sentence">12. Some people try to <span class="dz" data-answer="tear others down"></span> because they feel insecure about their own achievements.</li>
+        <li class="sentence">13. Strict rules and constant criticism can <span class="dz" data-answer="stifle creativity"></span> and prevent employees from sharing new ideas.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-6">↻ Reset</button>
+        <span class="card-score" data-score="v2-6"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>2.7 Write your own sentences using vocabulary you liked <i>(Optional)</i></h3>
+      <textarea class="idea-box" placeholder="Write your sentences here..."></textarea>
+      <div class="submit-steps">
+        <div class="submit-step"><span class="step-num">1</span><span class="step-text"><b>Write</b> your answer in the box above</span></div>
+        <div class="submit-step"><span class="step-num">2</span><span class="step-text">Click <b>Submit for feedback</b> — your answer will be copied automatically</span></div>
+        <div class="submit-step"><span class="step-num">3</span><span class="step-text">In the form that opens, <b>paste</b> (Ctrl+V / ⌘+V) into the "Your answer" field</span></div>
+      </div>
+      <div class="submit-wrap">
+        <button type="button" class="submit-btn" data-form-url="https://forms.gle/oyQgzmBLxSeKP96SA" data-task-label="2.7">
+          📤 Submit for feedback
+        </button>
+        <div class="stream-info">
+          <div class="stream-info-inner">
+            📅 <b>Submissions accepted during this round:</b><br>
+            <span class="dates">October 19 – November 15, 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary2">
+    <div class="section-title"><span class="num">3</span> Vocabulary 2</div>
+    <div class="card" data-task="typeblank" data-id="v3-1">
+      <h3>3.1 Complete the gaps</h3>
+      <div class="instruction">💡 Look at each post and type the hidden word(s) into the blanks below it.</div>
+
+      <img class="post-img" src="1.png" alt="Post 1 — vdo.psychology">
+      <div class="post-caption"><input class="blank" data-answer="cross" style="width:100px;"> a <input class="blank" data-answer="line" style="width:100px;"></div>
+
+      <img class="post-img" src="2.png" alt="Post 2 — itsloveleen_">
+      <div class="post-caption"><input class="blank" data-answer="tight" style="width:90px;">-<input class="blank" data-answer="knit" style="width:90px;"> <input class="blank" data-answer="community" style="width:130px;">!</div>
+
+      <img class="post-img" src="3.png" alt="Post 3 — authorhaille">
+      <div class="post-caption"><input class="blank" data-answer="air" style="width:90px;"> my <input class="blank" data-answer="grievances" style="width:130px;"></div>
+
+      <img class="post-img" src="4.png" alt="Post 4 — s.v.o.jp">
+      <div class="post-caption"><input class="blank" data-answer="steer" style="width:100px;"> <input class="blank" data-answer="clear" style="width:100px;"> of</div>
+
+      <img class="post-img" src="5.png" alt="Post 5 — simplydredmondsonochoa">
+      <div class="post-caption"><input class="blank" data-answer="undermine" style="width:120px;"> <input class="blank" data-answer="trust" style="width:100px;"></div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-1">↻ Reset</button>
+        <span class="card-score" data-score="v3-1"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="revision">
+    <div class="section-title"><span class="num">4</span> Revision</div>
+
+    <div class="card" data-task="typehint" data-id="r4-1">
+      <h3>4.1 Complete the gaps</h3>
+      <div class="instruction">💡 Type the complete word into each gap. The purple letter before the gap is just a hint — it is NOT part of your answer.</div>
+      <div class="sentence">1. We spent the evening exchanging <b>lighthearted</b> <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="banter"></span> about our funny experiences at work.</div>
+      <div class="sentence">2. Whenever I feel overwhelmed, I call my best friend to <span class="hint-input"><span class="first-letter">v</span><input type="text" data-answer="vent"></span> about my problems.</div>
+      <div class="sentence">3. Living in <b>a</b> <b>tight-</b><span class="hint-input"><span class="first-letter">k</span><input type="text" data-answer="knit"></span> <b>a</b> <b>community</b> means that people support each other and often know what's happening in one another's lives.</div>
+      <div class="sentence">4. Don't <b>brush</b> <span class="hint-input"><span class="first-letter">o</span><input type="text" data-answer="off"></span> your friend's concerns just because they seem unimportant to you.</div>
+      <div class="sentence">5. Constantly breaking your promises can <span class="hint-input"><span class="first-letter">u</span><input type="text" data-answer="undermine"></span> trust in a relationship.</div>
+      <div class="sentence">6. Sharing harmful stereotypes can <span class="hint-input"><span class="first-letter">p</span><input type="text" data-answer="perpetuate"></span> prejudice and discrimination.</div>
+      <div class="sentence">7. Instead of admitting his mistake, he tried to <b>divert attention</b> <span class="hint-input"><span class="first-letter">a</span><input type="text" data-answer="away"></span> <b>from</b> the real problem.</div>
+      <div class="sentence">8. It took me a long time to <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="break"></span> <b>free from</b> the habit of comparing myself to others.</div>
+      <div class="sentence">9. I try to <b>steer</b> <span class="hint-input"><span class="first-letter">c</span><input type="text" data-answer="clear"></span> <b>of</b> people who constantly gossip about their friends.</div>
+      <div class="sentence">10. Before judging someone, try to <span class="hint-input"><span class="first-letter">p</span><input type="text" data-answer="put"></span> <b>yourself in their shoes</b> and understand their situation.</div>
+      <div class="sentence">11. When I start comparing my life to other people's lives online, I try to <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="shift"></span> <b>my focus to</b> my own goals and achievements.</div>
+      <div class="sentence">12. Instead of complaining about each other, the team decided to <span class="hint-input"><span class="first-letter">a</span><input type="text" data-answer="air"></span> <b>their grievances</b> during a meeting.</div>
+      <div class="sentence">13. I believe it's important to <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="speak"></span> <b>with integrity</b>, even when telling the truth is uncomfortable.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-1">↻ Reset</button>
+        <span class="card-score" data-score="r4-1"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>4.2 Complete the sentences with your own ideas. You can also do the task with your Study Buddy. <i>(Optional)</i></h3>
+      <p class="sentence">I sometimes <b>seek validation</b> when...</p>
+      <p class="sentence">One thing that can <b>cross a line</b> in a friendship is...</p>
+      <p class="sentence">I try to <b>steer clear of</b> people who...</p>
+      <p class="sentence">I <b>feel alienated from</b> a group when...</p>
+      <p class="sentence">Gossip can have <b>far-reaching consequences</b> because...</p>
+      <p class="sentence">To <b>break free from</b> a bad habit, I need to...</p>
+      <p class="sentence">When my friends need to <b>vent</b>, I usually...</p>
+      <p class="sentence">I can <b>uplift</b> someone who feels discouraged by...</p>
+      <p class="sentence">To <b>put yourself in someone's shoes</b>, you should...</p>
+      <textarea class="idea-box" style="margin-top:12px;" placeholder="Write your answers here..."></textarea>
+      <div class="submit-steps">
+        <div class="submit-step"><span class="step-num">1</span><span class="step-text"><b>Write</b> your answers in the box above</span></div>
+        <div class="submit-step"><span class="step-num">2</span><span class="step-text">Click <b>Submit for feedback</b> — your text will be copied automatically</span></div>
+        <div class="submit-step"><span class="step-num">3</span><span class="step-text">In the form that opens, <b>paste</b> (Ctrl+V / ⌘+V) into the "Your answer" field</span></div>
+      </div>
+      <div class="submit-wrap">
+        <button type="button" class="submit-btn" data-form-url="https://forms.gle/oyQgzmBLxSeKP96SA" data-task-label="4.2">
+          📤 Submit for feedback
+        </button>
+        <div class="stream-info">
+          <div class="stream-info-inner">
+            📅 <b>Submissions accepted during this round:</b><br>
+            <span class="dates">October 19 – November 15, 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="questions">
+    <div class="section-title"><span class="num">5</span> Questions</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"/>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(140,90)"><path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/><circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/></g>
+        <g transform="translate(380,120)"><path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/><circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/></g>
+        <g transform="translate(620,80)" fill="#e8705f"><rect x="40" y="0" width="36" height="80" rx="18"/><path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/><line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/></g>
+        <g transform="translate(840,110)"><circle cx="50" cy="40" r="34" fill="#b9a6e0"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/></g>
+        <g transform="translate(980,110)"><circle cx="50" cy="40" r="34" fill="#8fd0c8"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/></g>
+        <g transform="translate(1160,90)" fill="#d9cdef"><path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/></g>
+        <g transform="translate(1360,130)" fill="#bfe3e0"><path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/></g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+      </svg>
+    </div>
+
+    <div class="card warm">
+      <h3>Thursday</h3>
+      <p class="sentence">What did you learn about why people gossip, its effects, and how to break the habit?</p>
+      <h3>Friday</h3>
+      <p class="sentence">How common is gossip in your social circle or workplace? Is it generally <b class="v">lighthearted</b> or more harmful?</p>
+      <p class="sentence"><b>or</b></p>
+      <p class="sentence">Do you think it's ever acceptable to discuss someone's behaviour with a third person? What circumstances might justify it?</p>
+    </div>
+
+    <div class="card">
+      <h3>Study Buddy</h3>
+      <p class="sentence">1. How can gossip <b class="v">undermine trust</b> and <b class="v">erode the foundation</b> of a close friendship?</p>
+      <p class="sentence">2. Why might someone <b class="v">feel alienated from</b> a group after becoming the target of gossip?</p>
+      <p class="sentence">3. What can people do to <b class="v">break free from</b> the habit of gossiping?</p>
+      <p class="sentence">4. Have you ever <b class="v">felt alienated from</b> a group because you didn't want to participate in gossip?</p>
+      <p class="sentence">5. Where do you draw the line between sharing information and gossiping?</p>
+      <p class="sentence">6. How can we <b class="v">foster</b> a supportive atmosphere where people feel comfortable expressing their concerns openly?</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.6" fill="currentColor"/></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Reset all
+  </button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="alert">
+  <div class="toast-icon" id="toastIcon">✓</div>
+  <div class="toast-body">
+    <div class="toast-title" id="toastTitle">Copied!</div>
+    <div class="toast-msg" id="toastMsg">Task title and your answer are in the clipboard. Paste them into the form with Ctrl+V / ⌘+V.</div>
+  </div>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null,isDragging:false,startX:0,startY:0};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    state.startX=e.clientX;state.startY=e.clientY;state.isDragging=false;
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  if(!state.isDragging&&(Math.abs(e.clientX-state.startX)>5||Math.abs(e.clientY-state.startY)>5)){state.isDragging=true;}
+  if(state.isDragging){
+    e.preventDefault();
+    const pos=pointerPos(e);
+    if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+    const target=document.elementFromPoint(pos.x,pos.y);
+    if(state.ghost)state.ghost.style.display='';
+    if(state.currentOver)state.currentOver.classList.remove('drag-over');
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+    if(drop&&!drop.classList.contains('dz-radio')){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+  }
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  if(!state.isDragging){
+    if(state.ghost){state.ghost.remove();state.ghost=null;}
+    state.dragging.el.classList.remove('dragging');
+    state.dragging=null;
+    return;
+  }
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz')&&!drop.classList.contains('dz-radio'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  if(e.target.classList.contains('option')){
+    const opt=e.target,sent=opt.closest('.sentence');
+    sent.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    sent.querySelector('.dz-radio').dataset.selected=opt.dataset.value;
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')||parent.classList.contains('wo-bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&!dz.classList.contains('dz-radio')&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const wot=e.target.closest('.wo-target');
+    if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.hint-input,.option,.match-target,.chip,.blank,.wordorder,.wo-target,.select-wrap select').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      total++;
+      const sent=dz.closest('.sentence');
+      if(dz.dataset.selected===dz.dataset.answer){
+        correct++;
+        sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('correct');
+      }else{
+        if(dz.dataset.selected)sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('incorrect');
+      }
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&mt.dataset.answer.split('|').includes(label.dataset.word)){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      total++;
+      const wrap=inp.closest('.hint-input');
+      if(norm(inp.value)===norm(inp.dataset.answer)){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(norm(inp.value)===norm(inp.dataset.answer)){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      total++;
+      const seq=[...wo.querySelectorAll('.wo-target .chip')].map(c=>c.dataset.word).join('|');
+      if(seq===wo.dataset.answer){wo.classList.add('correct');correct++;}
+      else wo.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      const sent=dz.closest('.sentence');
+      const correctOpt=sent.querySelector('.option[data-value="'+dz.dataset.answer+'"]');
+      if(correctOpt)correctOpt.classList.add('answer-revealed');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+(mt.dataset.answertext||mt.dataset.answer.split('|')[0]);
+      mt.appendChild(exp);
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.closest('.hint-input').appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';
+      exp.textContent='✓ '+wo.dataset.answer.replace(/\|/g,' ');
+      wo.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.answer-revealed').forEach(el=>el.classList.remove('answer-revealed'));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>sel.classList.remove('correct','incorrect'));
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
+  card.querySelectorAll('.dz-radio').forEach(dz=>{delete dz.dataset.selected;});
+  card.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you speak with integrity!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+
+// ===== TOAST =====
+const toastEl = document.getElementById('toast');
+const toastIcon = document.getElementById('toastIcon');
+const toastTitle = document.getElementById('toastTitle');
+const toastMsg = document.getElementById('toastMsg');
+let toastTimer = null;
+
+function hideToast() {
+  toastEl.classList.remove('show');
+  if (toastTimer) { clearTimeout(toastTimer); toastTimer = null; }
+}
+
+function showToast(type, title, msg, duration = 6000) {
+  if (toastTimer) clearTimeout(toastTimer);
+  toastEl.classList.remove('show', 'error');
+  if (type === 'error') {
+    toastEl.classList.add('error');
+    toastIcon.textContent = '!';
+  } else {
+    toastIcon.textContent = '✓';
+  }
+  toastTitle.textContent = title;
+  toastMsg.textContent = msg;
+  requestAnimationFrame(() => toastEl.classList.add('show'));
+  toastTimer = setTimeout(hideToast, duration);
+  setTimeout(() => {
+    document.addEventListener('click', hideToast, { once: true });
+  }, 0);
+}
+
+async function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) { /* fallback below */ }
+  }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+async function handleSubmit(btn) {
+  const url = btn.dataset.formUrl;
+  if (!url || url.includes('ТВОЯ_ССЫЛКА')) {
+    showToast('error', 'Form not configured', 'Please ask Daria to add the Google Form link.');
+    return;
+  }
+  const card = btn.closest('.card');
+  const textarea = card ? card.querySelector('textarea.idea-box') : null;
+  const answerText = textarea ? textarea.value.trim() : '';
+  if (!answerText) {
+    showToast('error', 'Nothing to submit', 'Please write your answer in the box first.');
+    if (textarea) textarea.focus();
+    return;
+  }
+  const h3 = card ? card.querySelector('h3') : null;
+  let taskTitle = h3 ? h3.textContent.trim() : '';
+  taskTitle = taskTitle.replace(/\s*\(Optional\)\s*$/i, '').trim();
+  const textToCopy = `Task title: ${taskTitle}\n\nMy answer:\n${answerText}`;
+  const copied = await copyToClipboard(textToCopy);
+  if (copied) {
+    showToast('success', 'Copied!', 'Task title and your answer are in the clipboard. Paste them into the form with Ctrl+V / ⌘+V.');
+    window.open(url, '_blank');
+  } else {
+    showToast('error', 'Could not copy automatically', 'Please copy your answer manually, then open the form.');
+    window.open(url, '_blank');
+  }
+}
+
+const STREAM_END_DATE = new Date('2026-11-15T23:59:59');
+function checkStreamStatus() {
+  const now = new Date();
+  const isEnded = now > STREAM_END_DATE;
+  document.querySelectorAll('.submit-btn').forEach(btn => {
+    if (isEnded) {
+      btn.disabled = true;
+      btn.textContent = '⏰ Submissions for this round are now closed';
+      btn.onclick = null;
+    } else {
+      btn.disabled = false;
+      btn.onclick = () => handleSubmit(btn);
+    }
+  });
+  document.querySelectorAll('.stream-info').forEach(block => {
+    if (isEnded) block.classList.add('ended');
+    else block.classList.remove('ended');
+  });
+}
+checkStreamStatus();
+setInterval(checkStreamStatus, 60 * 60 * 1000);
+</script>
+</body>
+</html>
