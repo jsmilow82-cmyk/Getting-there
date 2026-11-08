@@ -1,1 +1,63 @@
 
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Innovation vocabulary</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eef4f2;color:#183338;font:17px/1.65 system-ui,sans-serif}main{max-width:880px;margin:auto;padding:24px 16px 50px}header,section{border-radius:20px;padding:clamp(18px,4vw,36px);margin-bottom:20px}header{background:#123d42;color:white}h1,h2,p{margin:0 0 12px}h1{font-size:clamp(32px,6vw,55px);line-height:1.1}section{background:white;border:1px solid #d5e4e0}small{letter-spacing:.12em;font-weight:bold}li{margin:9px 0}ol{padding-left:26px}select,button{font:inherit;border-radius:8px;padding:6px 9px}select{background:#f8fbfa;border:1px solid #66817e;color:inherit;max-width:100%;margin:3px 2px}button{cursor:pointer;border:1px solid #13595b;background:#13595b;color:white;margin:5px 5px 0 0}button.secondary{background:white;color:#13595b}aside,article{background:#f1f7f5;padding:16px;border-radius:12px;margin:12px 0}.right{background:#ddf7e4;border-color:#167346}.wrong{background:#fff0e9;border-color:#a63724}.feedback{font-size:.89em;font-weight:600}output{display:block;margin-top:8px;font-weight:bold}
+</style>
+<main><header><small>ENGLISH VOCABULARY PRACTICE</small><h1>Collocations: innovation</h1><p>Three exercises · 26 questions</p></header><div id="tasks"></div></main>
+<script>
+const t1=[
+['The discovery could @ a new era in medical treatment.','herald','flourish|utilise|herald'],
+['The company is trying to @ the power of AI.','harness','harness|frontier|thrive'],
+['This technology is still at the @ of what is possible.','frontier','boundary|frontier|dawn'],
+['The new research centre uses @ equipment.','state-of-the-art','pioneering|flourishing|state-of-the-art'],
+['Her work was truly @ and changed the field completely.','groundbreaking','thriving|groundbreaking|harnessed'],
+['The government hopes the investment will @ economic growth.','spur','spur|dawn|utilise'],
+['The idea didn’t @ at first, but it eventually became very popular.','catch on','pave the way|catch on|spearhead'],
+['The agreement could @ further cooperation.','pave the way for','catch on|exploit|pave the way for'],
+['Small companies often @ when they receive the right support.','thrive','thrive|herald|lead'],
+['The scientist @ the international research project.','spearheaded','utilised|spearheaded|dawned']];
+const bank='catch on|cutting-edge|dawn|groundbreaking|harness|limits|paving|spearheading';
+const t2=[
+['The introduction of data protection laws signals a new @ in online privacy.','dawn'],
+['We have carried out @ research on the disease.','groundbreaking'],
+['The government are @ a campaign to reduce waste.','spearheading'],
+['The turbines @ the wind to produce electricity.','harness'],
+['Artificial intelligence is @ the way for faster medical diagnoses.','paving'],
+['Radio was once @ technology.','cutting-edge'],
+['There was no interest in the product. It didn’t @.','catch on'],
+['The new city bridge has pushed back the @ of what is possible in engineering.','limits']];
+const radio=[
+['state-of-the-art','up-to-date|stylish|state-of-the-art'],['trailblazing','trailblazing|prevailing|leading'],
+['utilised','handled|utilised|promoted'],['pushing back','pulling back|pushing back|putting back'],
+['paved','made|developed|paved'],['heralded','heralded|foreran|declared'],
+['thrive','bloom|thrive|shine'],['spearhead','arrow|spearhead|shoot']];
+function gap(key,options,n,letters=false,alt=''){
+return '<select aria-label="Answer '+n+'" data-key="'+key+'" data-alt="'+alt+'"><option value="">'+n+' · Choose…</option>'+options.split('|').map((x,i)=>'<option value="'+x+'">'+(letters?'abc'[i]+'. ':'')+x+'</option>').join('')+'</select>';
+}
+const list=(rows,words)=>'<ol>'+rows.map(([s,k,o],i)=>'<li>'+s.replace('@',gap(k,o||words,i+1,false,words?(i===1?'cutting-edge':i===5?'groundbreaking':''):''))+'</li>').join('')+'</ol>';
+let i=0;
+const story='<article><h3>The power of radio</h3><p>It’s hard to believe that radio was once @ technology, but its introduction in the early 1900s was @. Before it began to appear in people’s living rooms, communities were largely isolated. Broadcasters @ its power to take news, drama and entertainment to those communities and open up the world to them. People unable to afford to go to concert halls heard music they’d never had the chance to hear before and people who were unlikely to travel learnt about new cultures. Radio was quietly @ the boundaries of what was possible.</p><p>Radio @ the way for television in the 1950s and while television @ a new dawn, the popularity of radio remained. Some experts suggested that the television industry would not @. They were wrong of course, but radio was the first to truly @ the charge towards the age of mass communication.</p></article>'.replaceAll('@',()=>{const [k,o]=radio[i];return gap(k,o,++i,true)});
+const tasks=[
+['Choose the best word','Choose the most suitable option.',list(t1)],
+['Complete the collocations','Complete the sentences with the words in the box. Use each expression once.','<aside>'+bank.split('|').join(' · ')+'</aside>'+list(t2,bank)],
+['The power of radio','Read the text and choose option a, b or c for each gap.',story]];
+document.querySelector('#tasks').innerHTML=tasks.map(([title,inst,content],j)=>'<section><h2>'+(j+1)+'. '+title+'</h2><p>'+inst+'</p>'+content+'<button data-action="check">Check answers</button><button class="secondary" data-action="show">Show answers</button><button class="secondary" data-action="reset">Reset</button><output aria-live="polite"></output></section>').join('');
+for(const s of document.querySelectorAll('section')){
+ const fields=[...s.querySelectorAll('select')], out=s.querySelector('output'), wordBank=fields.length===8 && !s.querySelector('article');
+ function mark(el,state){el.className=state;el.setAttribute('aria-invalid',state==='wrong'?'true':'false');}
+ s.addEventListener('change',e=>{if(e.target.matches('select')){for(const el of fields)mark(el,'');out.textContent='';}});
+ s.addEventListener('click',e=>{
+ const action=e.target.dataset.action;if(!action)return;
+ let correct=0,blank=0;
+ const used=fields.map(el=>el.value);
+ for(const el of fields){
+ if(action==='reset'){el.value='';mark(el,'');continue;}
+ if(action==='show'){el.value=el.dataset.key;mark(el,'right');continue;}
+ if(!el.value){blank++;mark(el,'');continue;}
+ const ok=(el.value===el.dataset.key||el.value===el.dataset.alt)&&(!wordBank||used.filter(x=>x===el.value).length===1);
+ mark(el,ok?'right':'wrong');if(ok)correct++;
+ }
+ out.textContent=action==='reset'?'':action==='show'?'Suggested answers shown.':correct+' / '+fields.length+' correct'+(blank?' · '+blank+' unanswered':'')+(wordBank&&new Set(used.filter(Boolean)).size<used.filter(Boolean).length?' · Use each expression only once.':'');
+ });
+}
+</script>
