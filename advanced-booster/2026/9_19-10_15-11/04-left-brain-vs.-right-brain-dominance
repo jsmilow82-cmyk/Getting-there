@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Left Brain vs. Right Brain — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,107,184,0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
+  .cover-img { height: 62%; background: #cfc9ec; flex: 0 0 62%; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 34px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em; }
+  .section-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500; }
+
+  .card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); margin-bottom: 24px; border: 1px solid rgba(124,107,184,0.08); }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92,184,92,0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217,83,79,0.1); }
+  .card-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(124,107,184,0.2); flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124,107,184,0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63,157,154,0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+
+  .submit-steps { background: var(--soft); border-radius: 12px; padding: 14px 18px; margin: 16px 0 14px; display: flex; gap: 18px; flex-wrap: wrap; font-size: 13.5px; color: var(--ink); }
+  .submit-step { display: flex; align-items: flex-start; gap: 8px; flex: 1 1 180px; min-width: 180px; }
+  .submit-step .step-num { background: var(--purple); color: #fff; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
+  .submit-step .step-text { font-weight: 500; line-height: 1.4; }
+  .submit-step .step-text b { color: var(--purple-dark); font-weight: 700; }
+
+  .submit-wrap { margin-top: 14px; display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+  .submit-btn { padding: 12px 22px !important; font-size: 15px !important; border-radius: 12px; background: var(--purple); color: #fff; font-weight: 600; border: none; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(124,107,184,0.3); transition: all 0.2s ease; white-space: nowrap; }
+  .submit-btn:hover:not(:disabled) { background: var(--purple-dark); transform: translateY(-2px); }
+  .submit-btn:disabled { background: #cbd5e0 !important; color: #8a8a8a !important; cursor: not-allowed; box-shadow: none !important; transform: none !important; white-space: normal; }
+  .stream-info { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 10px 16px; border-radius: 10px; flex: 1; min-width: 240px; transition: all 0.3s ease; }
+  .stream-info-inner { color: var(--teal-dark); font-size: 13.5px; font-weight: 600; line-height: 1.5; }
+  .stream-info-inner .dates { font-weight: 500; color: var(--ink); }
+  .stream-info.ended { background: var(--coral-light); border-left-color: var(--coral); }
+  .stream-info.ended .stream-info-inner { color: var(--coral-dark); }
+
+  .toast { position: fixed; bottom: 110px; right: 24px; background: #fff; border-left: 5px solid var(--success); border-radius: 12px; padding: 14px 18px 14px 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.18); display: flex; align-items: flex-start; gap: 12px; max-width: 360px; z-index: 200; transform: translateX(calc(100% + 40px)); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .toast.show { transform: translateX(0); }
+  .toast.error { border-left-color: var(--error); }
+  .toast .toast-icon { width: 28px; height: 28px; flex-shrink: 0; background: var(--success); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+  .toast.error .toast-icon { background: var(--error); }
+  .toast .toast-body { flex: 1; }
+  .toast .toast-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+  .toast .toast-msg { font-size: 13px; color: #555; line-height: 1.45; }
+
+  .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected { outline: 3px solid var(--coral); outline-offset: 2px; transform: scale(1.05); box-shadow: 0 4px 12px rgba(232,112,95,0.3); }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; overflow-wrap: break-word; }
+  .dz { display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+  .dz.dz-radio { display: none; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .option { background: #fff; border: 1.5px solid rgba(124,107,184,0.15); padding: 12px 18px; border-radius: 12px; cursor: pointer; font-weight: 500; font-size: 15px; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; position: relative; }
+  .option::before { content: ''; display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(124,107,184,0.3); border-radius: 50%; flex-shrink: 0; transition: all 0.2s; }
+  .option:hover { border-color: var(--purple); background: var(--purple-light); }
+  .option.selected { background: var(--purple-light); border-color: var(--purple); }
+  .option.selected::before { border-color: var(--purple); background: var(--purple); box-shadow: inset 0 0 0 4px #fff; }
+  .option.correct { background: #e8f5e8; border-color: var(--success); }
+  .option.correct::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+  .option.incorrect { background: #fbe9e7; border-color: var(--error); }
+  .option.incorrect::before { border-color: var(--error); background: var(--error); box-shadow: inset 0 0 0 4px #fff; }
+  .option.answer-revealed { background: #e8f5e8; border-color: var(--success); }
+  .option.answer-revealed::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+
+  .answer-key { display: inline-block; margin-left: 6px; background: var(--success); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; vertical-align: middle; box-shadow: 0 2px 6px rgba(92,184,92,0.3); animation: popIn 0.25s ease; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; white-space: normal; text-align: right; }
+
+  /* BLANK: авторасширение по длине текста */
+  .blank { 
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box; max-width: 100%;
+  }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+
+  .post-img { width: 100%; max-width: 100%; display: block; margin: 4px 0 0; border-radius: 14px 14px 0 0; border: 1px solid rgba(124,107,184,0.15); border-bottom: none; background: #fff; }
+  .post-caption { text-align: center; font-size: 15.5px; line-height: 1.9; padding: 10px 16px 18px; background: var(--soft); border-radius: 0 0 14px 14px; margin: 0 0 18px; border: 1px solid rgba(124,107,184,0.08); border-top: none; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { background: #fff; border: 2px dashed rgba(124,107,184,0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  /* HINT-INPUT: буква склеена с полем + авторасширение */
+  .hint-input { 
+    display: inline-flex; 
+    align-items: stretch;
+    margin: 0 4px; 
+    vertical-align: middle;
+    max-width: calc(100% - 8px);
+  }
+  .hint-input .first-letter { 
+    background: var(--purple); 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 6px 10px; 
+    border-radius: 8px 0 0 8px; 
+    font-size: 15px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  .hint-input input { 
+    border: 2px solid rgba(124,107,184,0.2); 
+    border-left: none;
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px; 
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 40px;
+    width: 130px;
+    flex: 0 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s, width 0.15s ease; 
+  }
+  .hint-input input:focus { border-color: var(--purple); }
+  .hint-input .answer-key { white-space: normal; }
+  .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
+  .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124,107,184,0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124,107,184,0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  details.text-details .sub { font-weight: 800; color: var(--ink); margin: 22px 0 10px; font-size: 16.5px; }
+  details.text-details .num-h { font-weight: 800; color: var(--ink); margin: 14px 0 6px; font-size: 15.5px; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124,107,184,0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124,107,184,0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .option { padding: 14px 18px; font-size: 15px; }
+    .blank { min-width: 50px; font-size: 16px; }
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    /* Обложка адаптируется под текст */
+    .cover-card { height: auto; min-height: 320px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 22px; }
+    .cover-text p { font-size: 14px; }
+    .submit-btn { padding: 14px 22px !important; font-size: 15px !important; }
+    .submit-steps { font-size: 14px; }
+    .toast { bottom: 120px; right: 16px; left: 16px; max-width: none; }
+  }
+
+  @media (max-width: 760px){
+    .header { padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .submit-wrap { flex-direction: column; align-items: stretch; }
+    .submit-btn { width: 100%; justify-content: center; }
+    .stream-info { min-width: 0; }
+    .submit-steps { flex-direction: column; gap: 10px; padding: 14px 16px; margin: 14px 0 12px; }
+    .submit-step { flex: 0 0 auto; min-width: 0; gap: 10px; }
+    .submit-step .step-num { width: 22px; height: 22px; font-size: 12px; flex-shrink: 0; }
+    .submit-step .step-text { font-size: 15.5px; line-height: 1.5; }
+    .toast { bottom: 110px; }
+    /* Обложка адаптируется */
+    .cover-card { height: auto; min-height: 340px; }
+    .cover-img { height: 210px; flex: 0 0 210px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .cover-text h1 { font-size: 24px; }
+    .cover-text p { font-size: 14px; }
+    .hint-input { max-width: calc(100% - 4px); }
+    .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
+    .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+  }
+
+  .wordorder { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; }
+  .wordorder .wo-bank { margin-bottom: 10px; min-height: 52px; padding: 10px; }
+  .wo-target { min-height: 48px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border: 2px dashed var(--purple); border-radius: 12px; background: rgba(255,255,255,0.8); padding: 8px; transition: all 0.2s ease; }
+  .wo-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .wo-target .chip { font-size: 14px; padding: 6px 12px; }
+  .wordorder.correct .wo-target { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .wordorder.incorrect .wo-target { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+  .vb-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; border-radius: 14px; background: var(--purple-light); margin-bottom: 18px; }
+  .vb { background: #fff; color: var(--purple-dark); border: 1.5px solid var(--purple); padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: 14px; }
+  .pic-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 640px){ .pic-grid { grid-template-columns: repeat(2, 1fr); } }
+  .pic-card { background: #fff; border: 1px solid rgba(124,107,184,0.18); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+  .pic-card svg { display: block; width: 100%; height: auto; background: #f4f6f9; }
+  .pic-card .dz { display: flex; align-items: center; justify-content: center; width: 100%; min-width: 0; min-height: 52px; margin: 0; border: none; border-top: 1px solid rgba(124,107,184,0.18); border-radius: 0; background: #fff; padding: 6px; }
+  .pic-card .dz.drag-over { transform: none; }
+  .pic-card .dz.correct { background: #e8f5e8; } .pic-card .dz.incorrect { background: #fbe9e7; }
+  .pic-card .dz .answer-key { margin: 0; white-space: normal; text-align: center; }
+  details.text-details ul { margin: 6px 0 12px 22px; }
+  .set-title { font-weight: 800; color: var(--purple); margin: 18px 0 8px; }
+  .rw-box { width: 100%; min-height: 56px; margin-top: 8px; border: 2px solid var(--purple-light); border-radius: 12px; padding: 10px 14px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; }
+  .rw-box:focus { border-color: var(--purple); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"></path>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"></circle>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"></path>
+      <circle cx="170" cy="112" r="9"></circle>
+      <path d="M152 132 L138 150 L152 150"></path><path d="M188 132 L202 150 L188 150"></path><path d="M148 158 q11 10 22 0 q11 10 22 0"></path>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"></path>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textpath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textpath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"></circle><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"></ellipse>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"></circle><circle cx="282" cy="170" r="3.5"></circle><circle cx="520" cy="122" r="3.5"></circle><circle cx="430" cy="202" r="3.5"></circle></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"></circle>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"></path>
+        <circle cx="50" cy="45" r="6"></circle>
+        <path d="M37 53 L27 65 L37 65"></path><path d="M63 53 L73 65 L63 65"></path>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"></path>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav"><a class="links-btn" href="#links">🔗 Links</a><a href="#text">Text</a><a href="#vocabulary">Vocabulary</a><a href="#grammar">Grammar</a><a href="#questions">Questions</a></nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><svg viewBox="0 0 880 248" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" role="img" aria-label="Left Brain vs. Right Brain — cover">
+      <rect width="880" height="248" fill="#f4f1fb"></rect>
+      <path d="M440 56 C400 36 330 46 310 91 C280 106 275 156 305 176 C310 211 360 226 395 211 C415 221 435 211 440 201 Z" fill="#3f9d9a"></path><path d="M440 56 C480 36 550 46 570 91 C600 106 605 156 575 176 C570 211 520 226 485 211 C465 221 445 211 440 201 Z" fill="#e8705f"></path>
+      <g fill="none" stroke="#5f4fa1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M335 110 q30 -18 55 6 M320 155 q35 -20 60 8 M365 183 q15 -12 38 -2 M385 82 q10 14 4 30"></path><path d="M545 110 q-30 -18 -55 6 M560 155 q-35 -20 -60 8 M515 183 q-15 -12 -38 -2 M495 82 q-10 14 -4 30"></path></g>
+      <line x1="440" y1="54" x2="440" y2="204" stroke="#f4f1fb" stroke-width="6"></line>
+      <circle cx="440" cy="20" r="14" fill="#7c6bb8"></circle><text x="440" y="25" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" font-family="Inter, Segoe UI, Arial, sans-serif">vs</text>
+      <line x1="40" y1="26" x2="190" y2="26" stroke="#3f9d9a" stroke-width="3"></line><line x1="690" y1="26" x2="840" y2="26" stroke="#e8705f" stroke-width="3"></line>
+      <g font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="600" fill="#2b2b3a"><text x="40" y="58" text-anchor="start">Logical</text><text x="40" y="88" text-anchor="start">Analytical</text><text x="40" y="118" text-anchor="start">Linear</text><text x="40" y="148" text-anchor="start">Verbal</text><text x="40" y="178" text-anchor="start">Factual</text><text x="40" y="208" text-anchor="start">Sequential</text><text x="840" y="58" text-anchor="end">Creative</text><text x="840" y="88" text-anchor="end">Intuitive</text><text x="840" y="118" text-anchor="end">Artistic</text><text x="840" y="148" text-anchor="end">Non-verbal</text><text x="840" y="178" text-anchor="end">Emotional</text><text x="840" y="208" text-anchor="end">Imaginative</text></g>
+    </svg></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>Left Brain vs. Right Brain</h1>
+      <p>The myth of brain dominance</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a class="pur" href="https://drive.google.com/file/d/1AwiVi_PQhDl_WrgVz1V_ZmvNboLT0kmQ/view?usp=drive_link" target="_blank">📄 Vocabulary PDF</a>
+        <a class="alt" href="https://quizlet.com/ae/1232154859/left-brain-vs-right-brain-dominance-flash-cards/?i=zxpms&amp;x=1qqt" target="_blank">🃏 Quizlet</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="text">
+    <div class="section-title"><span class="num">1</span> Text</div>
+
+    <div class="card">
+      <h3>1.1 Read the text</h3>
+      <details class="text-details">
+        <summary>📖 Left Brain vs. Right Brain: The Myth of Brain Dominance (click to expand)</summary>
+        <p>The concept of left brain vs. right brain dominance suggests that each <b class="v">hemisphere</b> specializes in different tasks—language and logic for the left, creativity and emotion for the right. However, this theory is largely a myth. While some brain functions are more lateralized, most cognitive tasks require both hemispheres working together. This means there isn't a dominant side but rather a collaborative effort between both sides for most activities.</p>
+        <div class="sub">What Is the Left Brain vs. Right Brain Myth?</div>
+        <p>Have you ever heard people say that they are more of a left-brained vs. a right-brained thinker? From books to TV shows, you've probably heard the phrase mentioned numerous times. Or perhaps you've even taken an online test to determine whether you are right-brained or left-brained.</p>
+        <p>The left brain vs. right brain dominance theory suggests that each side of the brain controls different types of thinking and that people may prefer one style over the other.</p>
+        <p>For example:</p>
+        <ul>
+        <li>A person who is "left-brained" is often said to be more logical, analytical, and objective.</li>
+        <li>A person who is "right-brained" is said to be more intuitive, thoughtful, and subjective.</li>
+        </ul>
+        <p>Given the popularity of the idea of "left-brained" and "right-brained" thinkers, it might surprise you to learn that this idea is just one of many myths about the brain.</p>
+        <p>The belief that people have a "dominant" side of the brain is a <b class="v">persistent</b> myth. This myth is why artists are often <b class="v">labeled as</b> right-brained, while mathematicians are described as left-brained.</p>
+        <p>In reality, both hemispheres of the brain are active during nearly all tasks, whether they involve creative or analytical thinking. While some functions are more commonly associated with one hemisphere, such as language being primarily processed in the left, this doesn't result in a single brain side dictating thinking style or personality type.</p>
+        <div class="sub">Claimed Left and Right Brain Traits</div>
+        <p>People described as left-brain thinkers are said to have strong math and logic skills, while those labeled as right-brain thinkers are considered more creative. Here are some traits associated with each:</p>
+        <div class="sub">Left Brain Traits</div>
+        <p>The left side of the brain is <b class="v">adept at</b> certain tasks. Characteristics of the left brain include those related to:</p>
+        <ul>
+        <li>Language</li>
+        <li>Logic</li>
+        <li>Critical thinking</li>
+        <li>Numbers</li>
+        <li>Reasoning</li>
+        </ul>
+        <p>What are "left-brained" people like? They are described as logical, analytical, and orderly. The theory suggests that people who are left-brain dominant do well in careers that involve <b class="v">linear thinking</b>, math, and verbal information. This includes careers such as accountant, scientist, or computer programmer.</p>
+        <div class="sub">Right Brain Traits</div>
+        <p>According to the left-brain, right-brain dominance theory, the right side of the brain is best at expressive and creative tasks. There are several abilities popularly associated with the right side of the brain. Based on these, a right-brained thinker is good at:</p>
+        <ul>
+        <li>Recognizing faces</li>
+        <li>Expressing emotions</li>
+        <li>Creating music</li>
+        <li><b class="v">Reading emotions</b></li>
+        <li>Appreciating color</li>
+        <li>Using imagination</li>
+        <li>Being intuitive</li>
+        <li>Being creative</li>
+        </ul>
+        <p>So what are so-called "right-brained people" like? They are often described as being more emotional, intuitive, and creative, making them <b class="v">suited for</b> careers that involve creative expression and free-thinking, such as becoming an artist, psychologist, or writer.</p>
+        <div class="sub">History Behind the Theory</div>
+        <p>Like many popular psychology myths, this one grew out of observations of the human brain that were then dramatically <b class="v">distorted</b> and <b class="v">exaggerated</b>.</p>
+        <p>The idea that people are either "left-brained" or "right-brained" is <b class="v">rooted in</b> a real neuroscientific concept known as brain lateralization. This refers to the tendency for certain functions to rely more heavily on one hemisphere of the brain than the other.</p>
+        <p>However, these patients also experienced other symptoms after the communication pathway between the two sides of the brain was cut.</p>
+        <p>For example, many split-brain patients were unable to name objects processed by the right side of the brain but could name those processed by the left side of the brain. Based on this information, Sperry suggested that language was controlled by the left side of the brain.</p>
+        <p>Generally speaking, the left side of the brain tends to control many aspects of language and logic, while the right side tends to handle spatial information and visual comprehension.</p>
+        <div class="sub">What Research Says About Brain Lateralization</div>
+        <p>Later research has shown that the brain is not nearly as <b class="v">dichotomous</b> as once thought. For example, research has shown that abilities in subjects such as math are strongest when both halves of the brain work together.</p>
+        <p>Researchers have discovered important insights about how the two hemispheres function:</p>
+        <ul>
+        <li><b>Most tasks involve both hemispheres:</b> Even activities that are associated with one side of the brain, like language or spatial reasoning, rely on networks that span both sides of the brain.</li>
+        <li><b>The hemispheres communicate constantly:</b> The left and right sides of the brain exchange information through the corpus callosum, which allows them to coordinate complex tasks.</li>
+        <li><b>People don't show a <b class="v">prominent</b> brain type:</b> In one study by researchers at the University of Utah, more than 1,000 participants had their brains analyzed to determine whether they preferred one side over the other.</li>
+        </ul>
+        <p>The study revealed that while activity was sometimes higher in certain critical regions, both sides of the brain were essentially equal in their activity on average.</p>
+        <p>"It's absolutely true that some brain functions occur in one or the other side of the brain. Language tends to be on the left, attention more on the right. But people don't tend to have a stronger left- or right-sided brain network. It seems to be determined more connection by connection," explained the study's lead author, Dr. Jeff Anderson.</p>
+        <p>So while people are often described as being either right-brained or left-brained, the truth is that they are actually both.</p>
+        <div class="sub">Why the Myth Persists</div>
+        <p>While researchers have demonstrated that the left-brain/right-brain theory is a myth, its popularity <b class="v">persists</b>. Why? Unfortunately, many people are likely unaware that the theory is <b class="v">outdated</b>. In fact, the idea seems to have <b class="v">taken on a mind of its own</b> within popular culture.</p>
+        <p>From magazine articles to books to online quizzes, you are <b class="v">bound to</b> see information suggesting that you can <b class="v">unleash</b> the power of your mind if you just discover which side of your brain is stronger or more dominant.</p>
+        <p>Today, students might continue to learn about the theory as a point of historical interest—to understand how our ideas about how the brain works have evolved and changed over time as researchers have learned more about how the brain operates.</p>
+        <p>While <b class="v">over-generalized</b> and <b class="v">overstated</b> by popular psychology and self-help texts, understanding your strengths and weaknesses in certain areas can help you develop better ways to learn and study.</p>
+        <p>For example, students who have difficulty following verbal instructions (often cited as a right-brain characteristic) might benefit from writing down directions and developing better organizational skills.</p>
+        <p>Clinical psychologist Rachel Goldman, PhD, FTOS, recommends that we take time to think about our unique strengths and traits and think about what areas we may want to work on or improve.</p>
+        <p>"The great news is that we can improve our brain health, build on our strengths, and create new ways of thinking and doing—it just takes identifying it and then practicing it," she says.</p>
+        <p>The important thing to remember if you take one of the many left-brain/right-brain quizzes you will likely encounter online is that they are entirely for fun, and you shouldn't <b class="v">place much stock</b> in your results.</p>
+        <div class="sub">How to Support Your Brain Health</div>
+        <p>Whether you feel like you tend to be more of a creative type or an analytical type, there are things that you can do to <b class="v">keep your mind sharp</b> and your brain healthy.</p>
+        <ul>
+        <li><b>Get regular exercise:</b> Research has found that exercise has a protective effect on <b class="v">cognition</b> and brain health as people age.</li>
+        <li><b>Keep your mind active:</b> Studies have found that people who are mentally active and work in mentally demanding fields, such as academia, tend to have better brain health.</li>
+        <li><b>Socialize:</b> Social support is important for psychological well-being, but it is also essential for the health of your brain, particularly as you age.</li>
+        <li><b>Eat a healthy diet:</b> The foods you eat can also impact your brain's health and function. Focus on a balanced diet rich in fruits, vegetables, lean proteins, healthy fats, and complex carbs.</li>
+        <li><b>Get enough rest:</b> Sleep is essential to brain health and mental function, so focus on getting enough rest each night. Practice healthy sleep habits and <b class="v">stick to a regular sleep-wake schedule</b>.</li>
+        </ul>
+        <p>No matter what type of thinking you are doing, both sides of your brain are involved. The right-brain, left-brain theory might be inaccurate, but that doesn't mean that understanding your strengths is not helpful. You can also take steps to protect your brain's health by getting regular exercise, sleeping well, staying social, and <b class="v">putting your mind to use</b>.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">2</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"></rect>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"></ellipse>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"></ellipse>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"></ellipse>
+        <g transform="translate(120,110)"><rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"></rect><rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"></rect><rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"></rect></g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round"><path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"></path><path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"></path><line x1="110" y1="40" x2="110" y2="128"></line></g>
+        <g transform="translate(640,80)"><rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"></rect><path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"></path></g>
+        <g transform="translate(820,90)" fill="#7c6bb8"><path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"></path><path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"></path></g>
+        <g transform="translate(1060,90)" fill="#3f9d9a"><circle cx="60" cy="52" r="44"></circle><rect x="52" y="92" width="16" height="34" rx="8"></rect><path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"></path></g>
+        <g transform="translate(1280,100)" fill="#e8705f"><path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"></path><path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"></path></g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"></path><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"></path></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"></path><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"></path></g>
+      </svg>
+    </div>
+    <div class="card">
+      <h3>2.1 Study the vocabulary (link to PDF file)</h3>
+      
+<div class="links"><a class="pur" href="https://drive.google.com/file/d/1AwiVi_PQhDl_WrgVz1V_ZmvNboLT0kmQ/view?usp=drive_link" target="_blank">Follow the link</a></div>
+      
+    </div>
+
+    <div class="card">
+      <h3>2.2 Quizlet</h3>
+      
+<div class="links"><a class="alt" href="https://quizlet.com/ae/1232154859/left-brain-vs-right-brain-dominance-flash-cards/?i=zxpms&amp;x=1qqt" target="_blank">Follow the link</a></div>
+      
+    </div>
+
+    <div class="card" data-task="match" data-id="v1-3">
+      <h3>2.3 Match the parts of collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching beginning (or tap the ending, then tap the beginning). Click the coral label to unmatch. For "to distort" and "to exaggerate" both matching endings are accepted.</div>
+<div class="match-grid"><div class="match-col"><h4>Beginnings</h4><div class="match-target" data-answer="as right-brained" data-answertext="as right-brained"><span class="term">to be labeled</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="at recognizing patterns" data-answertext="at recognizing patterns"><span class="term">to be adept</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="thinking" data-answertext="thinking"><span class="term">linear</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="emotions" data-answertext="emotions"><span class="term">to read</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="for a creative career" data-answertext="for a creative career"><span class="term">to be suited</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="the differences|the research findings" data-answertext="the differences / the research findings"><span class="term">to distort</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="the differences|the research findings" data-answertext="the differences / the research findings"><span class="term">to exaggerate</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="in a popular misconception" data-answertext="in a popular misconception"><span class="term">to be rooted</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="a mind of its own" data-answertext="a mind of its own"><span class="term">to take on</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="in online quizzes" data-answertext="in online quizzes"><span class="term">to place much stock</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="sharp" data-answertext="sharp"><span class="term">to keep your mind</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="to use" data-answertext="to use"><span class="term">to put your mind</span><span class="matched-label" style="display:none"></span></div></div><div class="match-col"><h4>Endings</h4><div class="bank" style="display:block"><div class="match-item" data-word="at recognizing patterns">at recognizing patterns</div><div class="match-item" data-word="in a popular misconception">in a popular misconception</div><div class="match-item" data-word="a mind of its own">a mind of its own</div><div class="match-item" data-word="in online quizzes">in online quizzes</div><div class="match-item" data-word="thinking">thinking</div><div class="match-item" data-word="for a creative career">for a creative career</div><div class="match-item" data-word="as right-brained">as right-brained</div><div class="match-item" data-word="emotions">emotions</div><div class="match-item" data-word="the research findings">the research findings</div><div class="match-item" data-word="to use">to use</div><div class="match-item" data-word="the differences">the differences</div><div class="match-item" data-word="sharp">sharp</div></div></div></div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v1-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v1-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v1-3">↻ Reset</button>
+        <span class="card-score" data-score="v1-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v1-4">
+      <h3>2.4 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each word or phrase from the bank into the correct gap (or tap it, then tap the gap). Use each item once. Click × on a chip to return it.</div>
+<div class="bank"><div class="chip" data-word="outdated">outdated</div><div class="chip" data-word="prominent">prominent</div><div class="chip" data-word="dichotomous">dichotomous</div><div class="chip" data-word="overstated">overstated</div><div class="chip" data-word="hemisphere">hemisphere</div><div class="chip" data-word="sleep-wake schedule">sleep-wake schedule</div><div class="chip" data-word="persist">persist</div><div class="chip" data-word="bound to">bound to</div><div class="chip" data-word="cognition">cognition</div><div class="chip" data-word="stick to">stick to</div><div class="chip" data-word="overgeneralized">overgeneralized</div><div class="chip" data-word="unleash">unleash</div></div><ul style="list-style:none; padding-left:0;"><li class="sentence">1. The popular belief that people are either logical or creative is too <span class="dz" data-answer="dichotomous"></span>; human abilities are far more complex.</li><li class="sentence">2. Some brain functions are more strongly associated with one <span class="dz" data-answer="hemisphere"></span> than the other.</li><li class="sentence">3. Although the theory has been challenged, it continues to <span class="dz" data-answer="persist"></span> in books, films and online quizzes.</li><li class="sentence">4. One <span class="dz" data-answer="prominent"></span> feature of the research is that both sides of the brain are active during most tasks.</li><li class="sentence">5. Some of the claims made by self-help writers are now <span class="dz" data-answer="outdated"></span> and need to be reconsidered.</li><li class="sentence">6. If you keep practicing a skill, you are <span class="dz" data-answer="bound to"></span> notice some improvement over time.</li><li class="sentence">7. Personality quizzes often offer <span class="dz" data-answer="overgeneralized"></span> conclusions based on very limited information.</li><li class="sentence">8. The media coverage <span class="dz" data-answer="overstated"></span> the original findings, making the results sound more dramatic than they were.</li><li class="sentence">9. Creative activities can help people <span class="dz" data-answer="unleash"></span> their imagination and explore new ideas.</li><li class="sentence">10. Regular physical activity can support <span class="dz" data-answer="cognition"></span> and help the brain function well as we age.</li><li class="sentence">11. Try to <span class="dz" data-answer="stick to"></span> a consistent routine, even when your schedule gets busy.</li><li class="sentence">12. A stable <span class="dz" data-answer="sleep-wake schedule"></span> can improve the quality of your sleep.</li></ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v1-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v1-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v1-4">↻ Reset</button>
+        <span class="card-score" data-score="v1-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="radio" data-id="v1-5">
+      <h3>2.5 Choose the correct option</h3>
+      <div class="instruction">💡 Click the word or expression that best completes each sentence, then press Check.</div>
+<div class="sentence">1. Artists are sometimes __________ as right-brained, while mathematicians are described as left-brained. <span class="dz dz-radio" data-answer="labeled"></span>
+<div class="options"><div class="option" data-value="labeled">labeled</div><div class="option" data-value="rooted">rooted</div><div class="option" data-value="suited">suited</div></div></div>
+<div class="sentence">2. The idea that one side of the brain determines your personality is __________ in a misunderstanding of brain lateralization. <span class="dz dz-radio" data-answer="rooted"></span>
+<div class="options"><div class="option" data-value="adept">adept</div><div class="option" data-value="rooted">rooted</div><div class="option" data-value="bound">bound</div></div></div>
+<div class="sentence">3. She is particularly __________ interpreting facial expressions and noticing subtle changes in tone. <span class="dz dz-radio" data-answer="adept at"></span>
+<div class="options"><div class="option" data-value="adept at">adept at</div><div class="option" data-value="suited for">suited for</div><div class="option" data-value="bound to">bound to</div></div></div>
+<div class="sentence">4. The article argues that the popular theory is too __________ and ignores the complexity of the brain. <span class="dz dz-radio" data-answer="dichotomous"></span>
+<div class="options"><div class="option" data-value="prominent">prominent</div><div class="option" data-value="dichotomous">dichotomous</div><div class="option" data-value="persistent">persistent</div></div></div>
+<div class="sentence">5. Don't __________ in the results of a five-minute online personality test. <span class="dz dz-radio" data-answer="place much stock"></span>
+<div class="options"><div class="option" data-value="place much stock">place much stock</div><div class="option" data-value="unleash">unleash</div><div class="option" data-value="stick">stick</div></div></div>
+<div class="sentence">6. With regular practice, you are __________ become more confident at solving unfamiliar problems. <span class="dz dz-radio" data-answer="bound to"></span>
+<div class="options"><div class="option" data-value="rooted to">rooted to</div><div class="option" data-value="bound to">bound to</div><div class="option" data-value="adept at">adept at</div></div></div>
+<div class="sentence">7. The documentary does not simply report the study; it seems to __________ the findings. <span class="dz dz-radio" data-answer="distort"></span>
+<div class="options"><div class="option" data-value="distort">distort</div><div class="option" data-value="persist">persist</div><div class="option" data-value="suit">suit</div></div></div>
+<div class="sentence">8. Learning a new language is one way to __________ and stay mentally active. <span class="dz dz-radio" data-answer="keep your mind sharp"></span>
+<div class="options"><div class="option" data-value="keep your mind sharp">keep your mind sharp</div><div class="option" data-value="take on a mind of its own">take on a mind of its own</div><div class="option" data-value="read emotions">read emotions</div></div></div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v1-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v1-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v1-5">↻ Reset</button>
+        <span class="card-score" data-score="v1-5"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v1-13">
+      <h3>2.6 Match the expressions with the pictures</h3>
+      <div class="instruction">💡 Drag each expression from the bank to the matching picture (or tap the expression, then tap the picture). Click on the expression under the picture to return it to the bank.</div>
+<div class="bank"><div class="chip" data-word="to keep your mind sharp">to keep your mind sharp</div><div class="chip" data-word="to unleash">to unleash</div><div class="chip" data-word="to be labeled">to be labeled</div><div class="chip" data-word="to persist">to persist</div><div class="chip" data-word="to exaggerate">to exaggerate</div><div class="chip" data-word="to be adept at">to be adept at</div><div class="chip" data-word="to stick to a schedule">to stick to a schedule</div><div class="chip" data-word="to distort">to distort</div></div><div class="pic-grid"><div class="pic-card"><svg viewBox="0 0 160 100" role="img"><circle cx="80" cy="26" r="14" fill="#7c6bb8"/><path d="M50 96 q0 -36 30 -36 q30 0 30 36z" fill="#b9a6e0"/><path d="M68 62 L80 74 L92 62" stroke="#e8705f" stroke-width="2.5" fill="none"/><rect x="64" y="72" width="32" height="20" rx="4" fill="#fae0dc" stroke="#e8705f" stroke-width="2.5"/><path d="M70 79 h20 M70 85 h13" stroke="#e8705f" stroke-width="2.5" stroke-linecap="round"/></svg><span class="dz" data-answer="to be labeled"></span></div><div class="pic-card"><svg viewBox="0 0 160 100" role="img"><path d="M26 88 V40 q0 -26 28 -26 q28 0 28 26 V88" fill="none" stroke="#7c6bb8" stroke-width="3.5"/><path d="M40 88 V30 M54 88 V16 M68 88 V30" stroke="#7c6bb8" stroke-width="3" opacity=".6"/><rect x="20" y="88" width="68" height="6" rx="3" fill="#7c6bb8"/><ellipse cx="120" cy="40" rx="16" ry="10" fill="#3f9d9a"/><circle cx="134" cy="35" r="7" fill="#3f9d9a"/><path d="M141 35 l8 3 l-8 3z" fill="#e8705f"/><path d="M112 38 q-10 -22 -26 -18 q10 8 12 24z" fill="#2d7c79"/><circle cx="136" cy="33" r="1.8" fill="#fff"/><path d="M96 56 h-14 M100 64 h-10" stroke="#cfc9ec" stroke-width="3" stroke-linecap="round"/></svg><span class="dz" data-answer="to unleash"></span></div><div class="pic-card"><svg viewBox="0 0 160 100" role="img"><ellipse cx="38" cy="78" rx="18" ry="8" fill="#3f9d9a"/><path d="M54 78 l12 -8 v16z" fill="#3f9d9a"/><circle cx="28" cy="76" r="1.8" fill="#fff"/><ellipse cx="102" cy="34" rx="50" ry="26" fill="#fae0dc"/><path d="M60 52 l-12 20 l26 -14z" fill="#fae0dc"/><ellipse cx="96" cy="34" rx="30" ry="14" fill="#e8705f"/><path d="M126 34 l18 -14 v28z" fill="#e8705f"/><circle cx="80" cy="31" r="2.6" fill="#fff"/></svg><span class="dz" data-answer="to exaggerate"></span></div><div class="pic-card"><svg viewBox="0 0 160 100" role="img"><rect x="18" y="8" width="124" height="84" rx="14" fill="#e3def5" stroke="#7c6bb8" stroke-width="3.5"/><ellipse cx="80" cy="50" rx="40" ry="17" fill="#fae0dc" stroke="#e8705f" stroke-width="2.5"/><circle cx="64" cy="46" r="3.5" fill="#2b2b3a"/><circle cx="96" cy="46" r="3.5" fill="#2b2b3a"/><path d="M62 56 q9 8 18 0 t18 0" stroke="#2b2b3a" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M28 22 q8 -8 16 0 t16 0" stroke="#7c6bb8" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/></svg><span class="dz" data-answer="to distort"></span></div><div class="pic-card"><svg viewBox="0 0 160 100" role="img"><rect x="8" y="68" width="144" height="26" rx="6" fill="#cfc9ec"/><path d="M70 68 l6 10 l-4 8 l8 8" stroke="#7c6bb8" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M80 70 V38" stroke="#3f9d9a" stroke-width="4.5" stroke-linecap="round"/><path d="M80 48 q-24 -2 -26 -20 q22 0 26 20z" fill="#3f9d9a"/><path d="M80 40 q22 -2 26 -20 q-22 0 -26 20z" fill="#5cb85c"/></svg><span class="dz" data-answer="to persist"></span></div><div class="pic-card"><svg viewBox="0 0 160 100" role="img"><circle cx="80" cy="46" r="11" fill="#7c6bb8"/><path d="M58 98 q0 -34 22 -34 q22 0 22 34z" fill="#b9a6e0"/><path d="M64 72 L46 46 M96 72 L114 46" stroke="#b9a6e0" stroke-width="7" stroke-linecap="round"/><circle cx="44" cy="30" r="8" fill="#e8705f"/><circle cx="80" cy="14" r="8" fill="#3f9d9a"/><circle cx="116" cy="30" r="8" fill="#7c6bb8"/><path d="M52 22 q14 -16 20 -8 M88 12 q14 -2 20 10" stroke="#cfc9ec" stroke-width="2" fill="none" stroke-dasharray="3 3"/></svg><span class="dz" data-answer="to be adept at"></span></div><div class="pic-card"><svg viewBox="0 0 160 100" role="img"><rect x="26" y="14" width="108" height="76" rx="10" fill="#fff" stroke="#7c6bb8" stroke-width="3.5"/><rect x="26" y="14" width="108" height="20" rx="10" fill="#7c6bb8"/><path d="M52 8 v14 M108 8 v14" stroke="#5f4fa1" stroke-width="5" stroke-linecap="round"/><g stroke="#3f9d9a" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M40 52 l5 5 l9 -10"/><path d="M72 52 l5 5 l9 -10"/><path d="M104 52 l5 5 l9 -10"/><path d="M40 74 l5 5 l9 -10"/><path d="M72 74 l5 5 l9 -10"/></g><circle cx="112" cy="74" r="6" fill="none" stroke="#e8705f" stroke-width="3"/></svg><span class="dz" data-answer="to stick to a schedule"></span></div><div class="pic-card"><svg viewBox="0 0 160 100" role="img"><path d="M52 92 V74 q-22 -10 -20 -32 q4 -30 44 -30 q36 2 40 32 q2 14 -8 24 V92z" fill="#e3def5" stroke="#7c6bb8" stroke-width="3.5" stroke-linejoin="round"/><circle cx="82" cy="42" r="12" fill="#fae0dc" stroke="#e8705f" stroke-width="3"/><path d="M77 56 h10 M78 61 h8" stroke="#e8705f" stroke-width="3" stroke-linecap="round"/><path d="M82 20 v-8 M104 26 l6 -6 M60 26 l-6 -6 M110 44 h8" stroke="#e8705f" stroke-width="3" stroke-linecap="round"/></svg><span class="dz" data-answer="to keep your mind sharp"></span></div></div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v1-13">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v1-13">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v1-13">↻ Reset</button>
+        <span class="card-score" data-score="v1-13"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="radio" data-id="v1-6">
+      <h3>2.7 Choose the correct preposition</h3>
+      <div class="instruction">💡 Click the correct option in each sentence, then press Check.</div>
+<div class="sentence">1. She is adept __________ reading people's emotions. <span class="dz dz-radio" data-answer="at"></span>
+<div class="options"><div class="option" data-value="at">at</div><div class="option" data-value="in">in</div><div class="option" data-value="for">for</div></div></div>
+<div class="sentence">2. The theory is rooted __________ early observations of brain function. <span class="dz dz-radio" data-answer="in"></span>
+<div class="options"><div class="option" data-value="in">in</div><div class="option" data-value="on">on</div><div class="option" data-value="at">at</div></div></div>
+<div class="sentence">3. This approach may be suited __________ learners who prefer visual materials. <span class="dz dz-radio" data-answer="for"></span>
+<div class="options"><div class="option" data-value="for">for</div><div class="option" data-value="with">with</div><div class="option" data-value="at">at</div></div></div>
+<div class="sentence">4. You shouldn't place too much stock __________ online personality tests. <span class="dz dz-radio" data-answer="in"></span>
+<div class="options"><div class="option" data-value="in">in</div><div class="option" data-value="on">on</div><div class="option" data-value="at">at</div></div></div>
+<div class="sentence">5. It is important to stick __________ a regular sleep-wake schedule. <span class="dz dz-radio" data-answer="to"></span>
+<div class="options"><div class="option" data-value="to">to</div><div class="option" data-value="at">at</div><div class="option" data-value="in">in</div></div></div>
+<div class="sentence">6. He is often labeled __________ a right-brained thinker. <span class="dz dz-radio" data-answer="as"></span>
+<div class="options"><div class="option" data-value="as">as</div><div class="option" data-value="for">for</div><div class="option" data-value="with">with</div></div></div>
+<div class="sentence">7. The findings were distorted __________ the media. <span class="dz dz-radio" data-answer="by"></span>
+<div class="options"><div class="option" data-value="by">by</div><div class="option" data-value="with">with</div><div class="option" data-value="from">from</div></div></div>
+<div class="sentence">8. Regular exercise can help keep your mind sharp __________. <span class="dz dz-radio" data-answer="—"></span>
+<div class="options"><div class="option" data-value="at">at</div><div class="option" data-value="in">in</div><div class="option" data-value="—">—</div></div></div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v1-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v1-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v1-6">↻ Reset</button>
+        <span class="card-score" data-score="v1-6"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typeblank" data-id="v1-7">
+      <h3>2.8 Complete each set with one word</h3>
+      <div class="instruction">💡 Choose one word from the vocabulary bank that fits all three gaps in each set. You may need to change its form. Not every word in the bank is needed.</div>
+<div class="vb-bank"><span class="vb">hemisphere</span><span class="vb">root</span><span class="vb">persist</span><span class="vb">exaggerate</span><span class="vb">label</span><span class="vb">unleash</span><span class="vb">sharp</span><span class="vb">stick</span><span class="vb">distort</span></div><div class="set-title">Set 1</div><div class="sentence">The left <input class="blank" data-answer="hemisphere" style="width: 12ch;"> of the brain is often linked to language.</div><div class="sentence">The northern <input class="blank" data-answer="hemisphere" style="width: 12ch;"> of the planet experiences winter when the south has summer.</div><div class="sentence">Damage to one <input class="blank" data-answer="hemisphere" style="width: 12ch;"> does not mean the other stops functioning.</div><div class="set-title">Set 2</div><div class="sentence">The theory continues to <input class="blank" data-answer="persist" style="width: 9ch;"> despite being challenged by researchers.</div><div class="sentence">Some old myths <input class="blank" data-answer="persist" style="width: 9ch;"> because they are easy to remember.</div><div class="sentence">The belief may <input class="blank" data-answer="persist" style="width: 9ch;"> for years unless people learn what research actually says.</div><div class="set-title">Set 3</div><div class="sentence">Try to <input class="blank" data-answer="stick" style="width: 7ch;"> to your new routine for at least a few weeks.</div><div class="sentence">Some people find it difficult to <input class="blank" data-answer="stick" style="width: 7ch;"> to a healthy diet.</div><div class="sentence">If you <input class="blank" data-answer="stick" style="width: 7ch;"> to a regular sleep schedule, you may feel more rested.</div><div class="set-title">Set 4</div><div class="sentence">The findings were <input class="blank" data-answer="distorted" style="width: 11ch;"> by the way the journalist reported them.</div><div class="sentence">Don't let one bad experience <input class="blank" data-answer="distort" style="width: 9ch;"> your view of the whole profession.</div><div class="sentence">The original message can be <input class="blank" data-answer="distorted" style="width: 11ch;"> when it is taken out of context.</div><div class="set-title">Set 5</div><div class="sentence">Check the <input class="blank" data-answer="label" style="width: 7ch;"> on the bottle to see the ingredients.</div><div class="sentence">It's unfair to <input class="blank" data-answer="label" style="width: 7ch;"> people before you really know them.</div><div class="sentence">The singer has just signed a contract with a major record <input class="blank" data-answer="label" style="width: 7ch;">.</div><div class="set-title">Set 6</div><div class="sentence">Doing puzzles every day can help keep your mind <input class="blank" data-answer="sharp" style="width: 7ch;">.</div><div class="sentence">Be careful with that knife; it is very <input class="blank" data-answer="sharp" style="width: 7ch;">.</div><div class="sentence">There was a <input class="blank" data-answer="sharp" style="width: 7ch;"> rise in prices last month.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v1-7">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v1-7">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v1-7">↻ Reset</button>
+        <span class="card-score" data-score="v1-7"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typeblank" data-id="v1-8">
+      <h3>2.9 Complete the sentences with the correct form</h3>
+      <div class="instruction">💡 Use the words in brackets. You may need to add a preposition or another word.</div>
+<ul style="list-style:none; padding-left:0;"><li class="sentence">1. Some children are mistakenly <input class="blank" data-answer="labeled" style="width: 9ch;"> (label) as either logical or creative at an early age.</li><li class="sentence">2. She is particularly <input class="blank" data-answer="adept at" style="width: 10ch;"> (adept) recognizing patterns and interpreting visual information.</li><li class="sentence">3. The popular account of the study <input class="blank" data-answer="was distorted" style="width: 15ch;"> (distort) by several headlines.</li><li class="sentence">4. These claims are <input class="blank" data-answer="exaggerated" style="width: 13ch;"> (exaggerate) and should be treated with caution.</li><li class="sentence">5. The belief that everyone has a dominant brain side <input class="blank" data-answer="is rooted" style="width: 11ch;"> (root) in a real scientific concept, but the conclusion is misleading.</li><li class="sentence">6. Online quizzes are <input class="blank" data-answer="bound to" style="width: 10ch;"> (bound) produce simplified results because they cannot capture the full complexity of personality.</li><li class="sentence">7. Some stereotypes <input class="blank" data-answer="persist" style="width: 9ch;"> (persist) even after they have been disproved.</li><li class="sentence">8. To support your <input class="blank" data-answer="cognition" style="width: 11ch;"> (cognize), try to stay physically active and mentally engaged.</li></ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v1-8">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v1-8">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v1-8">↻ Reset</button>
+        <span class="card-score" data-score="v1-8"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="wordorder" data-id="v1-9">
+      <h3>2.10 Put the words in the correct order</h3>
+      <div class="instruction">💡 Drag the words into the box to build a correct sentence (or tap a word, then tap the box). Click a placed word to return it.</div>
+<div class="sentence wordorder" data-answer="you|shouldn&#x27;t|place|much stock|in|these results"><div class="bank wo-bank"><div class="chip" data-word="you">you</div><div class="chip" data-word="much stock">much stock</div><div class="chip" data-word="place">place</div><div class="chip" data-word="these results">these results</div><div class="chip" data-word="shouldn&#x27;t">shouldn&#x27;t</div><div class="chip" data-word="in">in</div></div><div class="wo-target"></div></div>
+<div class="sentence wordorder" data-answer="the|theory|is|rooted|in|real research"><div class="bank wo-bank"><div class="chip" data-word="real research">real research</div><div class="chip" data-word="is">is</div><div class="chip" data-word="theory">theory</div><div class="chip" data-word="in">in</div><div class="chip" data-word="the">the</div><div class="chip" data-word="rooted">rooted</div></div><div class="wo-target"></div></div>
+<div class="sentence wordorder" data-answer="artists|are|often|labeled|as|right-brained"><div class="bank wo-bank"><div class="chip" data-word="right-brained">right-brained</div><div class="chip" data-word="are">are</div><div class="chip" data-word="often">often</div><div class="chip" data-word="artists">artists</div><div class="chip" data-word="as">as</div><div class="chip" data-word="labeled">labeled</div></div><div class="wo-target"></div></div>
+<div class="sentence wordorder" data-answer="she|is|adept|at|reading|emotions"><div class="bank wo-bank"><div class="chip" data-word="reading">reading</div><div class="chip" data-word="at">at</div><div class="chip" data-word="she">she</div><div class="chip" data-word="emotions">emotions</div><div class="chip" data-word="is">is</div><div class="chip" data-word="adept">adept</div></div><div class="wo-target"></div></div>
+<div class="sentence wordorder" data-answer="solving|puzzles|can|help|keep|your mind|sharp"><div class="bank wo-bank"><div class="chip" data-word="sharp">sharp</div><div class="chip" data-word="can">can</div><div class="chip" data-word="puzzles">puzzles</div><div class="chip" data-word="your mind">your mind</div><div class="chip" data-word="help">help</div><div class="chip" data-word="solving">solving</div><div class="chip" data-word="keep">keep</div></div><div class="wo-target"></div></div>
+<div class="sentence wordorder" data-answer="try|to|stick|to|a regular|sleep-wake|schedule"><div class="bank wo-bank"><div class="chip" data-word="to">to</div><div class="chip" data-word="stick">stick</div><div class="chip" data-word="a regular">a regular</div><div class="chip" data-word="to">to</div><div class="chip" data-word="sleep-wake">sleep-wake</div><div class="chip" data-word="schedule">schedule</div><div class="chip" data-word="try">try</div></div><div class="wo-target"></div></div>
+<div class="sentence wordorder" data-answer="the myth|has|taken on|a mind of its own"><div class="bank wo-bank"><div class="chip" data-word="the myth">the myth</div><div class="chip" data-word="taken on">taken on</div><div class="chip" data-word="has">has</div><div class="chip" data-word="a mind of its own">a mind of its own</div></div><div class="wo-target"></div></div>
+<div class="sentence wordorder" data-answer="most cognitive tasks|involve|both hemispheres"><div class="bank wo-bank"><div class="chip" data-word="both hemispheres">both hemispheres</div><div class="chip" data-word="most cognitive tasks">most cognitive tasks</div><div class="chip" data-word="involve">involve</div></div><div class="wo-target"></div></div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v1-9">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v1-9">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v1-9">↻ Reset</button>
+        <span class="card-score" data-score="v1-9"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typehint" data-id="v1-10">
+      <h3>2.11 Guess the expression</h3>
+      <div class="instruction">💡 Read each definition and type the matching expression. The purple letter before each gap is the first letter of the word, and you type the complete word.</div>
+<div class="sentence">1. To be very likely to do or experience something: to <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="be" style="width: 4ch;"></span> <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="bound" style="width: 7ch;"></span> <span class="hint-input"><span class="first-letter">t</span><input type="text" data-answer="to" style="width: 4ch;"></span></div>
+<div class="sentence">2. To release or make full use of a quality, ability or feeling: to <span class="hint-input"><span class="first-letter">u</span><input type="text" data-answer="unleash" style="width: 9ch;"></span></div>
+<div class="sentence">3. To continue to exist or happen over time: to <span class="hint-input"><span class="first-letter">p</span><input type="text" data-answer="persist" style="width: 9ch;"></span></div>
+<div class="sentence">4. To be naturally good at doing something: to <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="be" style="width: 4ch;"></span> <span class="hint-input"><span class="first-letter">a</span><input type="text" data-answer="adept" style="width: 7ch;"></span> <span class="hint-input"><span class="first-letter">a</span><input type="text" data-answer="at" style="width: 4ch;"></span></div>
+<div class="sentence">5. To make something seem more important, serious or extreme than it really is: to <span class="hint-input"><span class="first-letter">e</span><input type="text" data-answer="exaggerate" style="width: 12ch;"></span></div>
+<div class="sentence">6. To make information or an account inaccurate or misleading: to <span class="hint-input"><span class="first-letter">d</span><input type="text" data-answer="distort" style="width: 9ch;"></span></div>
+<div class="sentence">7. To meet or be described by a particular label: to <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="be" style="width: 4ch;"></span> <span class="hint-input"><span class="first-letter">l</span><input type="text" data-answer="labeled" style="width: 9ch;"></span> <span class="hint-input"><span class="first-letter">a</span><input type="text" data-answer="as" style="width: 4ch;"></span></div>
+<div class="sentence">8. To give something a lot of importance or believe it is reliable: to <span class="hint-input"><span class="first-letter">p</span><input type="text" data-answer="place" style="width: 7ch;"></span> <span class="hint-input"><span class="first-letter">m</span><input type="text" data-answer="much" style="width: 6ch;"></span> <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="stock" style="width: 7ch;"></span> <span class="hint-input"><span class="first-letter">i</span><input type="text" data-answer="in" style="width: 4ch;"></span></div>
+<div class="sentence">9. To remain mentally alert and able to think clearly: to <span class="hint-input"><span class="first-letter">k</span><input type="text" data-answer="keep" style="width: 6ch;"></span> <span class="hint-input"><span class="first-letter">y</span><input type="text" data-answer="your" style="width: 6ch;"></span> <span class="hint-input"><span class="first-letter">m</span><input type="text" data-answer="mind" style="width: 6ch;"></span> <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="sharp" style="width: 7ch;"></span></div>
+<div class="sentence">10. To use your brain actively rather than letting it remain passive: to <span class="hint-input"><span class="first-letter">p</span><input type="text" data-answer="put" style="width: 5ch;"></span> <span class="hint-input"><span class="first-letter">y</span><input type="text" data-answer="your" style="width: 6ch;"></span> <span class="hint-input"><span class="first-letter">m</span><input type="text" data-answer="mind" style="width: 6ch;"></span> <span class="hint-input"><span class="first-letter">t</span><input type="text" data-answer="to" style="width: 4ch;"></span> <span class="hint-input"><span class="first-letter">u</span><input type="text" data-answer="use" style="width: 5ch;"></span></div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v1-10">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v1-10">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v1-10">↻ Reset</button>
+        <span class="card-score" data-score="v1-10"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typeblank" data-id="v1-11">
+      <h3>2.12 Complete the sentences with appropriate vocabulary</h3>
+      <div class="instruction">💡 Type a suitable item from the vocabulary list. More than one answer may be possible.</div>
+<ul style="list-style:none; padding-left:0;"><li class="sentence">1. People are often <input class="blank" data-answer="labeled" style="width: 9ch;"> as either 'left-brained' or 'right-brained', but this distinction is misleading.</li><li class="sentence">2. Do you think social media has <input class="blank" data-answer="distorted" style="width: 11ch;"> the way people understand psychology?</li><li class="sentence">3. Some myths are so deeply established that they are <input class="blank" data-answer="bound" style="width: 7ch;"> to survive even when new evidence appears.</li><li class="sentence">4. Which activities help you <input class="blank" data-answer="keep your mind sharp" style="width: 22ch;"> after a long day at work?</li><li class="sentence">5. Are you naturally <input class="blank" data-answer="adept at" style="width: 10ch;"> understanding how other people feel?</li><li class="sentence">6. Do you think schools should encourage students to <input class="blank" data-answer="unleash" style="width: 9ch;"> their creativity?</li><li class="sentence">7. Is it fair to <input class="blank" data-answer="label" style="width: 7ch;"> students as 'visual' or 'auditory' learners?</li><li class="sentence">8. Which popular beliefs about intelligence or personality do you consider <input class="blank" data-answer="outdated|overstated|overgeneralized" style="width: 17ch;">?</li></ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v1-11">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v1-11">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v1-11">↻ Reset</button>
+        <span class="card-score" data-score="v1-11"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typeblank" data-id="v1-12">
+      <h3>2.13 Word formation</h3>
+      <div class="instruction">💡 Complete the sentences with the correct form of the word in brackets. You may need to change the part of speech.</div>
+<ul style="list-style:none; padding-left:0;"><li class="sentence">• The belief that one hemisphere controls a person's entire personality continues to be surprisingly <input class="blank" data-answer="persistent" style="width: 12ch;">. (PERSIST)</li><li class="sentence">• The ability to process <input class="blank" data-answer="spatial" style="width: 9ch;"> information is not limited to one side of the brain. (SPACE)</li><li class="sentence">• Modern neuroscience has changed the way researchers understand human <input class="blank" data-answer="cognition" style="width: 11ch;">. (COGNIZE)</li><li class="sentence">• The media's <input class="blank" data-answer="exaggeration" style="width: 14ch;"> of the findings made them sound more dramatic than they really were. (EXAGGERATE)</li><li class="sentence">• A misleading headline can give a <input class="blank" data-answer="distorted" style="width: 11ch;"> impression of what a study actually found. (DISTORT)</li><li class="sentence">• One of the most <input class="blank" data-answer="prominent" style="width: 11ch;"> researchers in this field has challenged the popular theory. (PROMINENCE)</li><li class="sentence">• The idea that creative people cannot think analytically is completely <input class="blank" data-answer="illogical" style="width: 11ch;">. (LOGIC)</li><li class="sentence">• Schools should provide opportunities for students to develop their <input class="blank" data-answer="creativity" style="width: 12ch;">. (CREATE)</li><li class="sentence">• Modern <input class="blank" data-answer="scientists" style="width: 12ch;"> have shown that brain activity is far more complex than the simple division often presented in popular media. (SCIENCE)</li><li class="sentence">• Researchers are interested in how different cognitive processes <input class="blank" data-answer="interact" style="width: 10ch;"> with one another. (INTERACTION)</li></ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v1-12">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v1-12">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v1-12">↻ Reset</button>
+        <span class="card-score" data-score="v1-12"></span>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="section" id="grammar">
+    <div class="section-title"><span class="num">3</span> Grammar: Reporting structures with <i>be said to</i></div>
+
+    <div class="card">
+      <h3>3.1 Explanation</h3>
+      <p class="sentence">We use <b>be said to + infinitive</b> to report what people generally believe, claim or say about someone or something. It is a more formal and concise alternative to <i>People say that...</i></p>
+      <p class="sentence"><b class="v">Present or general facts:</b> <i>be said to + base form</i><br>Example: The two hemispheres are said to have different specializations. (= People say that the two hemispheres have different specializations.)</p>
+      <p class="sentence"><b class="v">Past actions or situations:</b> <i>be said to have + past participle</i> (perfect infinitive)<br>Example: The theory is said to have originated in early research. (= People say that the theory originated in early research.)</p>
+      <p class="sentence">Remember: in <i>are said to have different functions</i>, <b>have</b> means 'possess' and is followed by an object. In <i>is said to have originated</i>, <b>to have + past participle</b> forms the perfect infinitive and refers to an earlier event.</p>
+    </div>
+
+    <div class="card" data-task="typeblank" data-id="g2-2">
+      <h3>3.2 Complete the sentences with the correct form</h3>
+      <div class="instruction">💡 Type the correct form of the verb in brackets, including <i>to</i> (for example: to play).</div>
+<ul style="list-style:none; padding-left:0;"><li class="sentence">1. The left hemisphere is said <input class="blank" data-answer="to play" style="width: 9ch;"> (play) an important role in language processing.</li><li class="sentence">2. The popular theory is said <input class="blank" data-answer="to have originated" style="width: 20ch;"> (originate) from simplified interpretations of early research.</li><li class="sentence">3. Both hemispheres are said <input class="blank" data-answer="to have" style="width: 9ch;"> (have) specialized functions, although they work together.</li><li class="sentence">4. The study is said <input class="blank" data-answer="to have challenged|to challenge" style="width: 20ch;"> (challenge) several long-standing assumptions about brain dominance.</li><li class="sentence">5. Creative thinking is often said <input class="blank" data-answer="to involve" style="width: 12ch;"> (involve) more than one area of the brain.</li><li class="sentence">6. The researchers are said <input class="blank" data-answer="to have published" style="width: 19ch;"> (publish) their findings several years before the theory became popular.</li></ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="g2-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="g2-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="g2-2">↻ Reset</button>
+        <span class="card-score" data-score="g2-2"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3.3 Write down your answers (Optional)</h3>
+      <div class="instruction">💡 Rewrite each sentence using the word(s) in brackets. Keep the original meaning.</div>
+      <p class="sentence">1. People say that the two hemispheres work together during most cognitive tasks. (ARE)</p><p class="sentence">2. People believe that the theory originated in early research. (IS)</p><p class="sentence">3. People say that the left hemisphere has a role in language processing. (SAID)</p><p class="sentence">4. People believe that the media exaggerated the original findings. (ARE)</p><p class="sentence">5. People claim that the researchers discovered a significant pattern in brain activity. (TO)</p>
+      <textarea class="idea-box" style="margin-top:12px;" placeholder="Write your answers here..."></textarea>
+      <div class="submit-steps">
+        <div class="submit-step"><span class="step-num">1</span><span class="step-text"><b>Write</b> your answers in the box above</span></div>
+        <div class="submit-step"><span class="step-num">2</span><span class="step-text">Click <b>Submit for feedback</b> — your answers will be copied automatically</span></div>
+        <div class="submit-step"><span class="step-num">3</span><span class="step-text">In the form that opens, <b>paste</b> (Ctrl+V / ⌘+V) into the "Your answer" field</span></div>
+      </div>
+      <div class="submit-wrap">
+        <button type="button" class="submit-btn" data-form-url="https://forms.gle/oyQgzmBLxSeKP96SA" data-task-label="3.3">
+          📤 Submit for feedback
+        </button>
+        <div class="stream-info">
+          <div class="stream-info-inner">
+            📅 <b>Submissions accepted during this round:</b><br>
+            <span class="dates">October 19 – November 15, 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="section" id="questions">
+    <div class="section-title"><span class="num">4</span> Questions</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"></rect>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"></ellipse>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"></ellipse>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"></ellipse>
+        <g transform="translate(140,90)"><path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"></path><circle cx="50" cy="60" r="8" fill="#fff"></circle><circle cx="80" cy="60" r="8" fill="#fff"></circle><circle cx="110" cy="60" r="8" fill="#fff"></circle></g>
+        <g transform="translate(380,120)"><path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"></path><circle cx="42" cy="50" r="7" fill="#fff"></circle><circle cx="66" cy="50" r="7" fill="#fff"></circle><circle cx="90" cy="50" r="7" fill="#fff"></circle></g>
+        <g transform="translate(620,80)" fill="#e8705f"><rect x="40" y="0" width="36" height="80" rx="18"></rect><path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"></path><line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"></line></g>
+        <g transform="translate(840,110)"><circle cx="50" cy="40" r="34" fill="#b9a6e0"></circle><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"></path></g>
+        <g transform="translate(980,110)"><circle cx="50" cy="40" r="34" fill="#8fd0c8"></circle><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"></path></g>
+        <g transform="translate(1160,90)" fill="#d9cdef"><path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"></path></g>
+        <g transform="translate(1360,130)" fill="#bfe3e0"><path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"></path></g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"></path><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"></path></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"></path><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"></path></g>
+      </svg>
+    </div>
+    <div class="card warm">
+      <h3>Thursday</h3>
+      <p class="sentence">According to the article, what is the main idea behind the left-brain vs. right-brain theory? How does current research challenge it?</p>
+      <h3>Friday</h3>
+      <p class="sentence">Would you describe yourself as more logical and analytical or creative and intuitive? Give examples that support your answer.</p>
+    </div>
+
+    <div class="card">
+      <h3>Study Buddy</h3>
+      <p class="sentence">1. Do you think people are naturally more talented in certain areas, or can most abilities be developed through practice?</p><p class="sentence">2. Have you ever surprised yourself by doing something you didn't think you were capable of?</p><p class="sentence">3. Do you agree that dividing people into two categories (for example, logical vs. emotional or introverted vs. extroverted) is too <b class="v">dichotomous</b>? Why?</p><p class="sentence">4. What would you do if you could completely <b class="v">unleash your creativity</b> without worrying about other people's opinions?</p><p class="sentence">5. Do you think personality tests tend to be <b class="v">overgeneralized</b>? Can a few questions really tell us what kind of person we are?</p><p class="sentence">6. Do you place much <b class="v">stock in</b> other people's opinions when making important life decisions? Why or why not?</p><p class="sentence">7. What habits help you keep your mind sharp? Which of them do you find hardest to stick to?</p><p class="sentence">8. Have you ever encountered an outdated belief that people around you still seem to place much <b class="v">stock in</b>?</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"></use></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"></path><circle cx="8" cy="8" r="2.6" fill="currentColor"></circle></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    Reset all
+  </button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="alert">
+  <div class="toast-icon" id="toastIcon">✓</div>
+  <div class="toast-body">
+    <div class="toast-title" id="toastTitle">Copied!</div>
+    <div class="toast-msg" id="toastMsg">Task title and your answer are in the clipboard. Paste them into the form with Ctrl+V / ⌘+V.</div>
+  </div>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null,isDragging:false,startX:0,startY:0};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    state.startX=e.clientX;state.startY=e.clientY;state.isDragging=false;
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  if(!state.isDragging&&(Math.abs(e.clientX-state.startX)>5||Math.abs(e.clientY-state.startY)>5)){state.isDragging=true;}
+  if(state.isDragging){
+    e.preventDefault();
+    const pos=pointerPos(e);
+    if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+    const target=document.elementFromPoint(pos.x,pos.y);
+    if(state.ghost)state.ghost.style.display='';
+    if(state.currentOver)state.currentOver.classList.remove('drag-over');
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+    if(drop&&!drop.classList.contains('dz-radio')){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+  }
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  if(!state.isDragging){
+    if(state.ghost){state.ghost.remove();state.ghost=null;}
+    state.dragging.el.classList.remove('dragging');
+    state.dragging=null;
+    return;
+  }
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz')&&!drop.classList.contains('dz-radio'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  if(e.target.classList.contains('option')){
+    const opt=e.target,sent=opt.closest('.sentence');
+    sent.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    sent.querySelector('.dz-radio').dataset.selected=opt.dataset.value;
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')||parent.classList.contains('wo-bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&!dz.classList.contains('dz-radio')&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const wot=e.target.closest('.wo-target');
+    if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.hint-input,.option,.match-target,.chip,.blank,.wordorder,.wo-target,.select-wrap select').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      total++;
+      const sent=dz.closest('.sentence');
+      if(dz.dataset.selected===dz.dataset.answer){
+        correct++;
+        sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('correct');
+      }else{
+        if(dz.dataset.selected)sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('incorrect');
+      }
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&mt.dataset.answer.split('|').includes(label.dataset.word)){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      total++;
+      const wrap=inp.closest('.hint-input');
+      if(inp.dataset.answer.split('|').map(norm).includes(norm(inp.value))){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(inp.dataset.answer.split('|').map(norm).includes(norm(inp.value))){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      total++;
+      const seq=[...wo.querySelectorAll('.wo-target .chip')].map(c=>c.dataset.word).join('|');
+      if(seq===wo.dataset.answer){wo.classList.add('correct');correct++;}
+      else wo.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      const sent=dz.closest('.sentence');
+      const correctOpt=sent.querySelector('.option[data-value="'+dz.dataset.answer+'"]');
+      if(correctOpt)correctOpt.classList.add('answer-revealed');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+(mt.dataset.answertext||mt.dataset.answer.split('|')[0]);
+      mt.appendChild(exp);
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer.split('|').join(' / ');
+      inp.closest('.hint-input').appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer.split('|').join(' / ');
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';
+      exp.textContent='✓ '+wo.dataset.answer.replace(/\|/g,' ');
+      wo.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.answer-revealed').forEach(el=>el.classList.remove('answer-revealed'));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>sel.classList.remove('correct','incorrect'));
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
+  card.querySelectorAll('.dz-radio').forEach(dz=>{delete dz.dataset.selected;});
+  card.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+  setTimeout(sizeAllInputs,0);
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — great work!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+    else if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
+
+// ===== TOAST =====
+const toastEl = document.getElementById('toast');
+const toastIcon = document.getElementById('toastIcon');
+const toastTitle = document.getElementById('toastTitle');
+const toastMsg = document.getElementById('toastMsg');
+let toastTimer = null;
+
+function hideToast() {
+  toastEl.classList.remove('show');
+  if (toastTimer) { clearTimeout(toastTimer); toastTimer = null; }
+}
+
+function showToast(type, title, msg, duration = 6000) {
+  if (toastTimer) clearTimeout(toastTimer);
+  toastEl.classList.remove('show', 'error');
+  if (type === 'error') {
+    toastEl.classList.add('error');
+    toastIcon.textContent = '!';
+  } else {
+    toastIcon.textContent = '✓';
+  }
+  toastTitle.textContent = title;
+  toastMsg.textContent = msg;
+  requestAnimationFrame(() => toastEl.classList.add('show'));
+  toastTimer = setTimeout(hideToast, duration);
+  setTimeout(() => {
+    document.addEventListener('click', hideToast, { once: true });
+  }, 0);
+}
+
+async function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) { /* fallback below */ }
+  }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+async function handleSubmit(btn) {
+  const url = btn.dataset.formUrl;
+  if (!url || url.includes('ТВОЯ_ССЫЛКА')) {
+    showToast('error', 'Form not configured', 'Please ask Daria to add the Google Form link.');
+    return;
+  }
+  const card = btn.closest('.card');
+  const textarea = card ? card.querySelector('textarea.idea-box') : null;
+  const answerText = textarea ? textarea.value.trim() : '';
+  if (!answerText) {
+    showToast('error', 'Nothing to submit', 'Please write your answer in the box first.');
+    if (textarea) textarea.focus();
+    return;
+  }
+  const h3 = card ? card.querySelector('h3') : null;
+  let taskTitle = h3 ? h3.textContent.trim() : '';
+  taskTitle = taskTitle.replace(/\s*\(Optional\)\s*$/i, '').trim();
+  const textToCopy = `Task title: ${taskTitle}\n\nMy answer:\n${answerText}`;
+  const copied = await copyToClipboard(textToCopy);
+  if (copied) {
+    showToast('success', 'Copied!', 'Task title and your answer are in the clipboard. Paste them into the form with Ctrl+V / ⌘+V.');
+    window.open(url, '_blank');
+  } else {
+    showToast('error', 'Could not copy automatically', 'Please copy your answer manually, then open the form.');
+    window.open(url, '_blank');
+  }
+}
+
+const STREAM_END_DATE = new Date('2026-11-15T23:59:59');
+function checkStreamStatus() {
+  const now = new Date();
+  const isEnded = now > STREAM_END_DATE;
+  document.querySelectorAll('.submit-btn').forEach(btn => {
+    if (isEnded) {
+      btn.disabled = true;
+      btn.textContent = '⏰ Submissions for this round are now closed';
+      btn.onclick = null;
+    } else {
+      btn.disabled = false;
+      btn.onclick = () => handleSubmit(btn);
+    }
+  });
+  document.querySelectorAll('.stream-info').forEach(block => {
+    if (isEnded) block.classList.add('ended');
+    else block.classList.remove('ended');
+  });
+}
+checkStreamStatus();
+setInterval(checkStreamStatus, 60 * 60 * 1000);
+</script>
+
+</body></html>
