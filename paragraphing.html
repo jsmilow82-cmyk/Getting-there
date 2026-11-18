@@ -1,1 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EAP 2 | Analyzing a Body Paragraph</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f5f7fb; color: #233047; font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  main { max-width: 1000px; margin: 32px auto; padding: 0 18px 36px; }
+  .eyebrow { color: #526780; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  h1 { font-size: clamp(1.65rem, 4vw, 2.35rem); line-height: 1.2; margin: 8px 0 12px; }
+  h2 { font-size: 1.2rem; margin: 0 0 14px; }
+  .panel { background: white; border: 1px solid #dde4ed; border-radius: 16px; padding: clamp(16px, 3vw, 26px); margin: 20px 0; }
+  .paragraph { font-size: 1.04rem; margin: 0; }
+  .number { color: #174e92; font-weight: 750; white-space: nowrap; }
+  .functions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px 20px; }
+  .function { display: flex; align-items: baseline; gap: 10px; }
+  .letter { flex: 0 0 26px; color: #174e92; font-weight: 750; }
+  .answer-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+  .answer { display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid #e1e7ef; border-radius: 10px; }
+  label { font-weight: 650; font-size: .9rem; }
+  select { width: 100%; padding: 9px; border: 1px solid #aebdce; border-radius: 7px; background: white; color: #233047; font: inherit; }
+  select:focus-visible, button:focus-visible { outline: 3px solid #799ee7; outline-offset: 2px; }
+  .feedback { font-size: .82rem; min-height: 1.4em; line-height: 1.35; font-weight: 600; }
+  .correct { border-color: #38835c; background: #eef8f1; }
+  .correct .feedback { color: #22643e; }
+  .incorrect { border-color: #b95757; background: #fff3f2; }
+  .incorrect .feedback { color: #a02b35; }
+  .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  button { cursor: pointer; border: 1px solid #2459a0; border-radius: 9px; padding: 10px 17px; font: inherit; font-weight: 650; background: #2459a0; color: white; }
+  button.secondary { background: white; border-color: #aebdce; color: #233047; }
+  button:hover { filter: brightness(.94); }
+  #result { margin-top: 14px; font-weight: 700; min-height: 1.5em; }
+  .instruction { margin: 0; color: #485971; }
+  @media(max-width: 720px) { .answer-grid { grid-template-columns: repeat(2,minmax(0, 1fr)); } .functions { grid-template-columns: 1fr; } }
+  @media print { body { background: white; } main { margin: 0; } .panel { break-inside: avoid; } .actions { display: none; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">EAP 2 · Academic Writing</div>
+  <h1>Analyzing the Structure of a Body Paragraph</h1>
+  <p class="instruction"><strong>Task 1.</strong> Read the paragraph below. Match each sentence (1–10) with its function (A–J). Use each letter once.</p>
+  <section class="panel" aria-labelledby="paragraph-title">
+    <h2 id="paragraph-title">Paragraph</h2>
+    <p class="paragraph"><span class="number">(1)</span> Another major difference is communication and business negotiation. <span class="number">(2)</span> In Vietnam, building personal relationships and trust is often important before making a business agreement. <span class="number">(3)</span> According to the international trade administration (2026), business relationships in Vietnam usually take time to develop, and face to face meetings are important. <span class="number">(4)</span> Vietnamese business people may also avoid direct disagreement because they do not want to embarrass others. <span class="number">(5)</span> On the other hand, American business communication is often more direct and focused on clear information. <span class="number">(6)</span> For example, an American company may want to discuss prices, contracts, and deadlines during the first meeting. <span class="number">(7)</span> However, a Vietnamese company may prefer to spend more time getting to know its business partner. <span class="number">(8)</span> These different expectations can create misunderstandings. <span class="number">(9)</span> Americans may think negotiations are moving too slowly, while Vietnamese partners may feel that Americans are rushing the process. <span class="number">(10)</span> Therefore, patience and cultural understanding are necessary for successful negotiations.</p>
+  </section>
+  <section class="panel" aria-labelledby="functions-title">
+    <h2 id="functions-title">Sentence functions</h2>
+    <div class="functions" id="functions"></div>
+  </section>
+  <section class="panel" aria-labelledby="answers-title">
+    <h2 id="answers-title">Your answers</h2>
+    <form id="quiz" novalidate>
+      <div id="answers" class="answer-grid"></div>
+      <div class="actions">
+        <button type="submit">Check answers</button>
+        <button type="button" class="secondary" id="show-answers">Show correct answers</button>
+        <button type="reset" class="secondary">Reset</button>
+      </div>
+      <div id="result" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+</main>
+<script>
+  const functions = {
+    A: 'Providing evidence from an external source',
+    B: 'Introducing the implications of the differences',
+    C: 'Presenting a contrasting supporting claim',
+    D: 'Drawing a conclusion and making a recommendation',
+    E: 'Providing a specific example to illustrate a claim',
+    F: 'Introducing the main idea of the paragraph (topic sentence)',
+    G: 'Explaining a possible misunderstanding in greater detail',
+    H: 'Presenting the first supporting claim',
+    I: 'Providing a contrasting example',
+    J: 'Adding a supporting detail and explaining the cultural motivation behind a behavior'
+  };
+  const key = ['F','H','A','J','C','E','I','B','G','D'];
+  const letters = Object.keys(functions);
+  const form = document.getElementById('quiz');
+  const result = document.getElementById('result');
+  document.getElementById('functions').innerHTML = letters.map(letter =>
+    `<div class="function"><span class="letter">${letter}.</span><span>${functions[letter]}</span></div>`
+  ).join('');
+  document.getElementById('answers').innerHTML = key.map((_, i) =>
+    `<div class="answer" id="item-${i}"><label for="q-${i}">Sentence ${i + 1}</label><select id="q-${i}" aria-describedby="feedback-${i}"><option value="">Choose…</option>${letters.map(letter => `<option value="${letter}">${letter}</option>`).join('')}</select><div class="feedback" id="feedback-${i}"></div></div>`
+  ).join('');
+  const selects = key.map((_, i) => document.getElementById(`q-${i}`));
+  function clearFeedback(i) {
+    document.getElementById(`item-${i}`).classList.remove('correct', 'incorrect');
+    document.getElementById(`feedback-${i}`).textContent = '';
+    selects[i].removeAttribute('aria-invalid');
+  }
+  selects.forEach((select, i) => select.addEventListener('change', () => {
+    clearFeedback(i); result.textContent = '';
+  }));
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const missing = selects.findIndex(select => !select.value);
+    if (missing !== -1) { result.textContent = 'Please answer all 10 sentences before checking.'; selects[missing].focus(); return; }
+    let score = 0;
+    selects.forEach((select, i) => {
+      clearFeedback(i);
+      const correct = select.value === key[i];
+      if (correct) score++;
+      document.getElementById(`item-${i}`).classList.add(correct ? 'correct' : 'incorrect');
+      document.getElementById(`feedback-${i}`).textContent = correct ? '✓ Correct' : '✗ Try again';
+      select.setAttribute('aria-invalid', String(!correct));
+    });
+    result.textContent = `Your score: ${score} / ${key.length}. ${score === key.length ? 'Well done!' : 'Revise your answers and try again.'}`;
+  });
+  document.getElementById('show-answers').addEventListener('click', () => {
+    selects.forEach((select, i) => {
+      clearFeedback(i);
+      select.value = key[i];
+      document.getElementById(`item-${i}`).classList.add('correct');
+      document.getElementById(`feedback-${i}`).textContent = 'Answer: ' + key[i];
+    });
+    result.textContent = 'Correct answers shown. Select Reset to try again.';
+  });
+  form.addEventListener('reset', () => {
+    key.forEach((_, i) => clearFeedback(i));
+    result.textContent = '';
+  });
+</script>
+</body>
+</html>
 
